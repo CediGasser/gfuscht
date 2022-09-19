@@ -61,7 +61,7 @@
     }
 
     input:focus {
-        box-shadow: inset 3px 3px 8px 6px rgba(0,0,0,0.3);
+        box-shadow: inset 3px 3px 8px 6px rgba(0,0,0,0.2);
         border: 2px solid rgba(0,0,0,0);
         transition: 150ms;
         filter: brightness(110%);
