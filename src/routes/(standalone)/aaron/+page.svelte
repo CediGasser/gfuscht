@@ -19,7 +19,6 @@
     <button type="button" on:click={copyToClipboard}>Copy</button>
 </div>
 
-
 <style>
     :global(html) {
         background: radial-gradient(circle at bottom right, #42275a 0, #734b6d 100%);
