@@ -5,16 +5,18 @@
     let animate = false;
 
     // copy content to clipboard
-    function copyToClipboard() {
+    function copyToClipboard(): void {
         navigator.clipboard.writeText(content);
+        if (!animate) {
+            setTimeout(() => {
+                animate = false;
+            }, 1500);
+        }
         animate = true;
-        setTimeout(() => {
-            animate = false;
-        }, 1500);
     }
 
-    // mark conent on click
-    function inputEnter() {
+    // mark content on click
+    function inputEnter(): void {
         input.select();
     }
 </script>
@@ -161,11 +163,11 @@
             display: none;
         }
         5% {
-            transform: scale(0) rotate(0deg);
+            transform: scale(0) rotate(90deg);
             display: inline;
         }
         10% {
-            transform: scale(1);
+            transform: scale(1) rotate(0deg);
             display: inline;
         }
         90% {
@@ -174,11 +176,11 @@
         }
         95% {
             transform: scale(0) rotate(90deg);
-            display: inline;
+            display: none;
         }
         100% {
             transform: scale(0);
-            display: inline;
+            display: none;
         }
     }
 </style>
