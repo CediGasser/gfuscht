@@ -11,7 +11,7 @@
 
 		let ctx = canvas.getContext('2d')
 
-		effect = new Effect(canvas, 5, 15, 150)
+		effect = new Effect(canvas, 5, 15, canvas.width)
 		effect.setup()
 
 		effect.draw()
@@ -27,13 +27,9 @@
 </script>
 
 <canvas bind:this={canvas} />
-<div>
-	<h1>Yo</h1>
-</div>
 
 <style>
 	canvas {
-		position: absolute;
 		top: 0;
 		left: 0;
 		opacity: 0.5;
