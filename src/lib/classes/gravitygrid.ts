@@ -24,8 +24,8 @@ export class Effect {
 	public width: number
 	public height: number
 	public res: number = 30
-	public particles: Particle[] = []
-	public movingParticle: MovingParticle
+	public gridParticles: Particle[] = []
+	public movingParticles: MovingParticle[] = []
 	public particleSize: number
 	public sensorDistance: number
 
@@ -44,43 +44,60 @@ export class Effect {
 		for (let i = 0; i < rows; i++) {
 			for (let j = 0; j < cols; j++) {
 				let p = new Particle(j * this.res, i * this.res, this.particleSize, this.res)
-				this.particles.push(p)
+				this.gridParticles.push(p)
 			}
 		}
 
-		this.movingParticle = getRandomMovingParticle(this.width, this.height, this.sensorDistance)
-		this.movingParticle.color = 'red'
+		this.movingParticles.push(new MovingParticle(0, 0, 10, 10, 0, 0))
+		this.movingParticles.push(getRandomMovingParticle(this.width, this.height, this.sensorDistance))
 
-		console.log(this.movingParticle)
+		console.log(this.movingParticles)
+
+		this.movingParticles[0].color = 'pink'
+		this.movingParticles[0].update = () => {}
+		this.canvas.addEventListener('mousemove', e => {
+			this.movingParticles[0].x = e.offsetX
+			this.movingParticles[0].y = e.offsetY
+		})
 	}
 
 	update () {
-		this.movingParticle.update()
-		let x1 = this.movingParticle.x
-		let y1 = this.movingParticle.y
-
-		this.particles.forEach(p => {
-			let x2 = p.x + p.frame/2
-			let y2 = p.y + p.frame/2
-			let vx = x2 - x1
-			let vy = y2 - y1
-		
-			let d = Math.sqrt(vx * vx + vy * vy)
- 			
-			let maxGrowth = this.res - this.particleSize
-			if (d < this.sensorDistance) {
-				p.size = this.res - maxGrowth * d / this.sensorDistance 
-			} else {
-				p.size = this.particleSize
+		for (let i = 0; i < this.movingParticles.length; i++) {
+			let p = this.movingParticles[i]
+			p.update()
+			
+			// create new moving Particle if current out of bounds
+			if (p.x < -this.sensorDistance || p.x > this.width + this.sensorDistance 
+		 	 || p.y < -this.sensorDistance || p.y > this.height + this.sensorDistance) {
+				this.movingParticles[i] = getRandomMovingParticle(this.width, this.height, this.sensorDistance)
 			}
+		}
+
+		this.gridParticles.forEach(p => {
+			let grow = 0
+			for (let i = 0; i < this.movingParticles.length; i++) {
+				let x1 = this.movingParticles[i].x
+				let y1 = this.movingParticles[i].y
+
+				let x2 = p.x + p.frame/2
+				let y2 = p.y + p.frame/2
+				
+				let vx = x2 - x1
+				let vy = y2 - y1
+				let d = Math.sqrt(vx * vx + vy * vy)
+ 			
+				let maxGrowth = (this.res - this.particleSize)
+				if (d < this.sensorDistance) {
+					grow += maxGrowth - maxGrowth * d / this.sensorDistance
+				} else {
+					grow += 0
+				}
+			}
+			grow = Math.min(grow, 30)
+			p.size = this.particleSize + grow
 		})
 
-		// create new moving Particle if current out of bounds
-		if (x1 < -this.sensorDistance || x1 > this.width + this.sensorDistance 
-		 || y1 < -this.sensorDistance || y1 > this.height + this.sensorDistance) {
-			 this.movingParticle = getRandomMovingParticle(this.width, this.height, this.sensorDistance)
-		}
-		
+				
 	}
 
 	draw () {
@@ -88,8 +105,7 @@ export class Effect {
 
 		ctx.clearRect(0, 0, this.width, this.height)
 
-		this.particles.forEach(p => p.draw(ctx))
-		this.movingParticle.draw(ctx)
+		this.gridParticles.forEach(p => p.draw(ctx))
 	}
 }
 
@@ -110,7 +126,7 @@ export class MovingParticle extends Particle {
 
 	draw (ctx) {
 		ctx.fillStyle = this.color
-		ctx.fillRect(this.x, this.y, 1, 1)
+		ctx.fillRect(this.x, this.y, this.size, this.size)
 	}
 }
 
