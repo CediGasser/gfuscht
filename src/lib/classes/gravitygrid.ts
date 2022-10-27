@@ -48,7 +48,7 @@ export class Effect {
 			}
 		}
 
-		this.movingParticles.push(new MovingParticle(0, 0, 10, 10, 0, 0))
+		this.movingParticles.push(new MovingParticle(-(this.sensorDistance), -(this.sensorDistance), 10, 10, 0, 0))
 		this.movingParticles.push(getRandomMovingParticle(this.width, this.height, this.sensorDistance))
 
 		console.log(this.movingParticles)
