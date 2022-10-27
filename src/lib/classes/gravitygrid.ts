@@ -23,18 +23,19 @@ export class Effect {
 	public canvas: HTMLCanvasElement
 	public width: number
 	public height: number
-	public res: number = 30
+	public res: number
 	public gridParticles: Particle[] = []
 	public movingParticles: MovingParticle[] = []
 	public particleSize: number
 	public sensorDistance: number
 
-	constructor (canvas, width, height, particleSize, sensorDistance) {
+	constructor (canvas, particleSize, res, sensorDistance) {
 		this.canvas = canvas
-		this.width = width
-		this.height = height
+		this.width = canvas.width
+		this.height = canvas.height
 		this.particleSize = particleSize
 		this.sensorDistance = sensorDistance
+		this.res = res
 	}
 
 	setup () {

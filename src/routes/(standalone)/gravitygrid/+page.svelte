@@ -3,17 +3,15 @@
 	import { Particle, Effect } from '$lib/classes/gravitygrid'
 
 	let canvas: HTMLCanvasElement
-	let height = 300
-	let width = 600
 	let effect: Effect
 
 	onMount(() => {
-		canvas.width = width
-		canvas.height = height
+		canvas.width = window.innerWidth
+		canvas.height = window.innerHeight
 
 		let ctx = canvas.getContext('2d')
 
-		effect = new Effect(canvas, width, height, 10, 90)
+		effect = new Effect(canvas, 5, 15, 150)
 		effect.setup()
 
 		effect.draw()
@@ -28,6 +26,27 @@
 	})
 </script>
 
-
-<h1>Yo</h1>
 <canvas bind:this={canvas} />
+<div>
+	<h1>Yo</h1>
+</div>
+
+<style>
+	canvas {
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0.5;
+		z-index: -1;
+	}
+	h1 {
+		text-align: center;
+	}
+	div {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+		height: 100vh;
+	}
+</style>
