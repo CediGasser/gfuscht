@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
-	import { Particle, Effect } from '$lib/classes/gravitygrid'
+	import { Effect } from '$lib/classes/gravitygrid'
 
 	let canvas: HTMLCanvasElement
 	let effect: Effect
@@ -9,9 +9,7 @@
 		canvas.width = window.innerWidth
 		canvas.height = window.innerHeight
 
-		let ctx = canvas.getContext('2d')
-
-		effect = new Effect(canvas, 5, 15, canvas.width)
+		effect = new Effect(canvas, 5, 15, 100)
 		effect.setup()
 
 		effect.draw()
@@ -34,15 +32,5 @@
 		left: 0;
 		opacity: 0.5;
 		z-index: -1;
-	}
-	h1 {
-		text-align: center;
-	}
-	div {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		text-align: center;
-		height: 100vh;
 	}
 </style>

@@ -140,8 +140,8 @@ function getRandomMovingParticle(width, height, sensorDistance) {
 	let x = Math.random() * width
 	let y = Math.random() * height
 	
-	let velocityX = Math.random() * 400
-	let velocityY = Math.random() * 400
+	let velocityX = Math.random() * 400 + 400
+	let velocityY = Math.random() * 400 + 400
 
 	if (rand([true, false])) {
 		x = rand([left, right])
