@@ -1,93 +1,39 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+  import { First, BlackWhite } from '$lib/experiments';
+  import { page } from '$app/stores'
   
-    let canvas: HTMLCanvasElement;
-    let ctx: CanvasRenderingContext2D;
-  
-    interface Ball {
-      x: number;
-      y: number;
-      r: number;
-      dx: number;
-      dy: number;
-    }
-  
-    let balls: Ball[] = [
-    { x: 100, y: 100, r: 50, dx: 5, dy: -5 },
-    { x: 200, y: 200, r: 75, dx: -5, dy: 5 },
-    { x: 300, y: 100, r: 25, dx: 5, dy: -5 }
+  const components = [
+    { name: 'First', component: First },
+    { name: 'BlackWhite', component: BlackWhite },
   ];
 
-  
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-      for (let x = 0; x < canvas.width; x++) {
-        for (let y = 0; y < canvas.height; y++) {
-          let value = 0;
-          for (let i = 0; i < balls.length; i++) {
-            const ball = balls[i];
-            const dx = x - ball.x;
-            const dy = y - ball.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            value += ball.r / distance;
-          }
-  
-          let color = valueToColor(value);
-  
-          ctx.fillStyle = color;
-          ctx.fillRect(x, y, 1, 1);
-        }
-      }
-    }
-  
-    function update() {
-    for (let i = 0; i < balls.length; i++) {
-      const ball = balls[i];
+  let current = parseInt($page.url.searchParams.get('id') || '0');
+  $: $page.url.searchParams.set('id', current.toString());
 
-      // Update the ball's position
-      ball.x += ball.dx;
-      ball.y += ball.dy;
+</script>
 
-      // Check if the ball has reached the edge of the canvas
-      if (ball.x - ball.r < 0 || ball.x + ball.r > canvas.width) {
-        ball.dx *= -1;
-      }
-      if (ball.y - ball.r < 0 || ball.y + ball.r > canvas.height) {
-        ball.dy *= -1;
-      }
+<main>
+<svelte:component this={components[current].component} />
 
-      // Randomly alter the ball's trajectory
-      if (Math.random() < 0.1) {
-        ball.dx += Math.random() * 10 - 5;
-        ball.dy += Math.random() * 10 - 5;
-      }
-    }
+<select bind:value={current}>
+  {#each components as component, i}
+    <option value={i} selected={current === i}>{component.name}</option>
+  {/each}
+</select>
+</main>
+
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
   }
 
-    const animate = (t: number) => {
-        update();
-        draw();
-        requestAnimationFrame(animate);
-    }
-  
-    onMount(() => {
-      canvas = document.getElementById('canvas') as HTMLCanvasElement;
-      ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
-      animate(0);
-    });
-
-    function valueToColor(value: number): string {
-      // Normalize the value to a range between 0 and 1
-      const normalizedValue = Math.max(0, Math.min(1, value / 5));
-
-      // Calculate the hue based on the normalized value
-      const hue = (1 - normalizedValue) * 240;
-
-      // Convert the hue to a CSS color string
-      return `hsl(${hue}, 100%, 50%)`;
-    }
-  </script>
-  
-  <canvas id="canvas" width="400" height="400"></canvas>
-  
+  select {
+    margin-top: 1rem;
+    height: 2rem;
+  }
+</style>
