@@ -1,16 +1,13 @@
 <script lang="ts">
-	import Header from '$lib/header/Header.svelte';
 	import '../../app.css';
 </script>
-
-<Header />
 
 <main>
 	<slot />
 </main>
 
 <footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	<p>Code can be found <a alt="Gutes Footer?" href="https://github.com/CediGasser/gfuscht">here</a>.</p>
 </footer>
 
 <style>
@@ -23,6 +20,7 @@
 		max-width: 1024px;
 		margin: 0 auto;
 		box-sizing: border-box;
+		min-height: 100vh;
 	}
 
 	footer {

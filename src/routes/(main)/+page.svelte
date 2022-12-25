@@ -1,29 +1,24 @@
-<script lang="ts">
-	import Counter from '$lib/Counter.svelte';
-</script>
-
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>Gfuscht</title>
+	<meta name="description" content="Gfuscht" />
 </svelte:head>
 
 <section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</span>
+	<div class="definition-card">
+		<h1>Gfuscht</h1>
+		<pre>\Gfu-scht\ <b>Noun</b></pre>
+		<p>All I do. Every day. Something that rectifies spending time which is essentialy lost.</p>
+	</div>
+</section>
 
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
+<section>
+	<h1>Some projects</h1>
+	<ul>
+		<li><a href="/aaron">Aaron</a></li>
+		<li><a href="/gravitygrid">Gravitygrid</a></li>
+		<li><a href="/metaballs">Metaballs</a></li>
+		<li><a href="/cubify">Cubify</a></li>
+	</ul>
 </section>
 
 <style>
@@ -35,23 +30,21 @@
 		flex: 1;
 	}
 
-	h1 {
-		width: 100%;
+	.definition-card {
+		display: block;
+		text-align: start;
+		padding: 1rem;
+		width: 400px;
+		box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+		margin-block: 4rem;
 	}
 
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
+	ul {
+		list-style: none;
+		padding: 0;
 	}
 
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+	li {
+		margin-block: 1rem;
 	}
 </style>
