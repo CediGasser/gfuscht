@@ -34,7 +34,7 @@
 		display: block;
 		text-align: start;
 		padding: 1rem;
-		width: 400px;
+		width: min(400px, 100%);
 		box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 		margin-block: 4rem;
 	}
