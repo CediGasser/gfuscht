@@ -17,10 +17,14 @@
 		const animate = () => {
 			effect.update()
 			effect.draw()
-			requestAnimationFrame(animate)
+			return requestAnimationFrame(animate)
 		}
 
-		animate()
+		let frame = animate()
+
+		return () => {
+			cancelAnimationFrame(frame)
+		}
 	})
 </script>
 
