@@ -70,56 +70,56 @@
       }
     }
   
-    function update() {
-  // Calculate the forces of attraction or repulsion between each pair of balls
-  for (let i = 0; i < balls.length; i++) {
-    const ball1 = balls[i];
-    for (let j = i + 1; j < balls.length; j++) {
-      const ball2 = balls[j];
+  function update() {
+    // Calculate the forces of attraction or repulsion between each pair of balls
+    for (let i = 0; i < balls.length; i++) {
+      const ball1 = balls[i];
+      for (let j = i + 1; j < balls.length; j++) {
+        const ball2 = balls[j];
 
-      // Calculate the distance between the balls
-      const dx = ball1.x - ball2.x;
-      const dy = ball1.y - ball2.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
+        // Calculate the distance between the balls
+        const dx = ball1.x - ball2.x;
+        const dy = ball1.y - ball2.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
 
-      // Calculate the force of attraction or repulsion
-      const force = ball1.charge * FORCE_COEFICIENT * ball2.charge / distance;
+        // Calculate the force of attraction or repulsion
+        const force = ball1.charge * FORCE_COEFICIENT * ball2.charge / distance;
 
-      // Update the velocities of the balls based on the force
-      ball1.dx -= force * dx / distance;
-      ball1.dy -= force * dy / distance;
-      ball2.dx += force * dx / distance;
-      ball2.dy += force * dy / distance;
+        // Update the velocities of the balls based on the force
+        ball1.dx -= force * dx / distance;
+        ball1.dy -= force * dy / distance;
+        ball2.dx += force * dx / distance;
+        ball2.dy += force * dy / distance;
+      }
+    }
+
+    // Update the position of each ball based on its velocity
+    for (let i = 0; i < balls.length; i++) {
+      const ball = balls[i];
+
+      // Limit the velocities of the balls to a maximum value
+      ball.dx = Math.min(Math.max(ball.dx, -MAX_VELOCITY), MAX_VELOCITY);
+      ball.dy = Math.min(Math.max(ball.dy, -MAX_VELOCITY), MAX_VELOCITY);
+
+      // Update the ball's position
+      ball.x += ball.dx;
+      ball.y += ball.dy;
+
+      // Check if the ball has reached the edge of the canvas
+      if (ball.x - ball.r < 0 || ball.x + ball.r > canvas.width) {
+        ball.dx *= -1;
+      }
+      if (ball.y - ball.r < 0 || ball.y + ball.r > canvas.height) {
+        ball.dy *= -1;
+      }
+
+      // Randomly alter the ball's trajectory
+      if (Math.random() < 0.1) {
+        ball.dx += Math.random() * 10 - 5;
+        ball.dy += Math.random() * 10 - 5;
+      }
     }
   }
-
-  // Update the position of each ball based on its velocity
-  for (let i = 0; i < balls.length; i++) {
-    const ball = balls[i];
-
-    // Limit the velocities of the balls to a maximum value
-    ball.dx = Math.min(Math.max(ball.dx, -MAX_VELOCITY), MAX_VELOCITY);
-    ball.dy = Math.min(Math.max(ball.dy, -MAX_VELOCITY), MAX_VELOCITY);
-
-    // Update the ball's position
-    ball.x += ball.dx;
-    ball.y += ball.dy;
-
-    // Check if the ball has reached the edge of the canvas
-    if (ball.x - ball.r < 0 || ball.x + ball.r > canvas.width) {
-      ball.dx *= -1;
-    }
-    if (ball.y - ball.r < 0 || ball.y + ball.r > canvas.height) {
-      ball.dy *= -1;
-    }
-
-    // Randomly alter the ball's trajectory
-    if (Math.random() < 0.1) {
-      ball.dx += Math.random() * 10 - 5;
-      ball.dy += Math.random() * 10 - 5;
-    }
-  }
-}
 
     
   

@@ -6,8 +6,8 @@
 <section>
 	<div class="definition-card">
 		<h1>Gfuscht</h1>
-		<pre>\Gfu-scht\ <b>Noun</b></pre>
-		<p>All I do. Every day. Something that rectifies spending time which is essentialy lost.</p>
+		<pre>[gfu:ʃt]<b> Noun</b></pre>
+		<p>Things I do, to tell myself that I'm not wasting time.</p>
 	</div>
 </section>
 
