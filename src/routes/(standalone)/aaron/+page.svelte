@@ -19,8 +19,16 @@
     function inputEnter(): void {
         input.select();
     }
+
+    function handleKeydown(event: KeyboardEvent): void {
+        if (event.ctrlKey && event.key === "c") {
+            copyToClipboard();
+        }
+    }
 </script>
 
+
+<svelte:body on:keydown={handleKeydown} />
 <div class="wrapper">
     <h1>Ctrl + C... V2</h1>
     <input bind:this={input} type="text" bind:value={content} on:click={inputEnter}/>
@@ -36,12 +44,16 @@
     </button>
 </div>
 
-<style>
-    :global(html) {
-        background: radial-gradient(circle at bottom right, #42275a 0, #734b6d 100%);
-        height: 100vh;
-    }
+<svelte:head>
+    <style>
+        html {
+            background: radial-gradient(circle at bottom right, #42275a 0, #734b6d 100%);
+            height: 100vh;
+        }
+    </style>
+</svelte:head>
 
+<style>
     * {
         font-family: 'Courier New', Courier, monospace;
         color: rgb(236, 232, 252);
