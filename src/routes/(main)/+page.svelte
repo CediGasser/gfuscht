@@ -6,7 +6,7 @@
 <section>
 	<div class="definition-card">
 		<h1>Gfuscht</h1>
-		<pre>[gfu:ʃt]<b> Noun</b></pre>
+		<pre>/gfu:ʃt/<b> Noun</b></pre>
 		<p>Things I do, to tell myself that I'm not wasting time.</p>
 	</div>
 </section>
