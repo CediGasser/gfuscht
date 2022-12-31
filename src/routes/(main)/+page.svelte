@@ -18,6 +18,7 @@
 		<li><a href="/gravitygrid">Gravitygrid</a></li>
 		<li><a href="/metaballs">Metaballs</a></li>
 		<li><a href="/cubify">Cubify</a></li>
+		<li><a href="/define">Define</a></li>
 	</ul>
 </section>
 
