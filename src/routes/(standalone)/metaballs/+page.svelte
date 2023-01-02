@@ -1,10 +1,12 @@
 <script lang="ts">
-  import { First, BlackWhite } from '$lib/experiments';
+  import { First, BlackWhite, BlackWhiteBalls, IdkBlob } from '$lib/experiments'
   import { page } from '$app/stores'
   
   const components = [
     { name: 'First', component: First },
     { name: 'BlackWhite', component: BlackWhite },
+    { name: 'BlackWhiteBalls', component: BlackWhiteBalls },
+    { name: 'IdkBlob', component: IdkBlob }
   ];
 
   let current = parseInt($page.url.searchParams.get('id') || '0');
