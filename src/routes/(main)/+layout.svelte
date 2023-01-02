@@ -1,5 +1,6 @@
 <script lang="ts">
-	import '../../app.css';
+	import '$lib/assets/css/reset.css'
+	import '$lib/assets/css/app.css';
 </script>
 
 <main>
@@ -7,7 +8,7 @@
 </main>
 
 <footer>
-	<p>Code can be found <a alt="Gutes Footer?" href="https://github.com/CediGasser/gfuscht">here</a>.</p>
+	<p>Code can be found <a href="https://github.com/CediGasser/gfuscht">here</a>.</p>
 </footer>
 
 <style>

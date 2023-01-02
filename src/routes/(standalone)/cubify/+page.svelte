@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Cube from '$lib/Cube.svelte'
-	import ImageUpload from '$lib/ImageUpload.svelte'
+	import Cube from '$lib/components/Cube.svelte'
+	import ImageUpload from '$lib/components/ImageUpload.svelte'
 
 	let imgSrc: string
 </script>

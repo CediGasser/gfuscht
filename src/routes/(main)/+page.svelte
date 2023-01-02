@@ -1,14 +1,14 @@
+<script lang="ts">
+  import Definition from '$lib/components/Definition.svelte'
+</script>
+
 <svelte:head>
 	<title>Gfuscht</title>
 	<meta name="description" content="Gfuscht" />
 </svelte:head>
 
 <section>
-	<div class="definition-card">
-		<h1>Gfuscht</h1>
-		<pre>/gfu:ʃt/<b> Noun</b></pre>
-		<p>Things I do, to tell myself that I'm not wasting time.</p>
-	</div>
+	<Definition word="Gfuscht" phonetic="/gfu:ʃt/" type="Noun" definition="Things I do, to tell myself that I'm not wasting time." />
 </section>
 
 <section>
@@ -29,15 +29,6 @@
 		justify-content: center;
 		align-items: center;
 		flex: 1;
-	}
-
-	.definition-card {
-		display: block;
-		text-align: start;
-		padding: 1rem;
-		width: min(400px, 100%);
-		box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-		margin-block: 4rem;
 	}
 
 	ul {
