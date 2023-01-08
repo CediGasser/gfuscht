@@ -24,7 +24,7 @@
     return y;
   }
 
-  let balls = Array(20).fill(0).map(() => {
+  let balls: Ball[] = Array(20).fill(0).map(() => {
     return {
       x: randX(),
       y: randY(),
