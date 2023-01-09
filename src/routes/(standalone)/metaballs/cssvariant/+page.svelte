@@ -4,10 +4,51 @@
   export let ballCount: number = 8
 
   let frame: number
-  let balls: Array<{ x: number, y: number, vx: number, vy: number, size: number, color: string }> = []
-  const FORCE_COEFICIENT = 10
-  const MAX_VELOCITY = 8
+  let balls: Array<{ x: number, y: number, vx: number, vy: number, size: number, color: string, charge: number }> = []
+  const FORCE_COEFICIENT = 6
+  const MAX_VELOCITY = 20
   const PUSH_BACK = 1
+  const STEPS = 0.0000001
+  const MIN_BLOB_SIZE = 150
+  const MAX_BLOB_SIZE = 250
+  const RANDOM_MOVEMENT = 20
+
+  export function pulseDeterent() {
+    const { totalX, totalY } = balls.reduce((acc, ball) => {
+      acc.totalX += ball.x
+      acc.totalY += ball.y
+      return acc
+    }, { totalX: 0, totalY: 0 })
+
+    let deterent = {
+      x: totalX / balls.length,
+      y: totalY / balls.length,
+      _vx: 0,
+      _vy: 0,
+      size: 100,
+      color: `rgb(${Math.random() * 255}, 0, ${Math.random() * 255})`,
+      charge: -1000,
+      get vx() {
+        return this._vx
+      },
+      get vy() {
+        return this._vy
+      },
+      set vx(v) {},
+      set vy(v) {},
+    }
+
+    balls = [...balls, deterent]
+
+    const interval = setInterval(() => {
+      deterent.charge += 1;
+    }, 10)
+
+    setTimeout(() => {
+      balls = balls.filter(b => b !== deterent)
+      clearInterval(interval)
+    }, 250)
+  }
 
   const setup = () => {
     balls = Array(ballCount).fill(0).map(() => ({
@@ -15,12 +56,19 @@
       y: Math.random() * window.innerHeight,
       vx: Math.random() * 10 - 5,
       vy: Math.random() * 10 - 5,
-      size: Math.random() * 100 + 50,
-      color: `rgb(${Math.random() * 255}, 0, ${Math.random() * 255})`
+      size: Math.random() * MIN_BLOB_SIZE + MAX_BLOB_SIZE - MIN_BLOB_SIZE,
+      color: `rgb(${Math.random() * 255}, 0, ${Math.random() * 255})`,
+      charge: 1,
     }))
   }
 
+  let tPrevious = 0
+
   const update = (t: number) => {
+    // Calculate time since last frame
+    let tDelta = t - tPrevious
+
+    // Update the velocities of the balls based on the forces between them
     for (let i = 0; i < balls.length; i++) {
       const ball1 = balls[i];
       for (let j = i + 1; j < balls.length; j++) {
@@ -31,8 +79,8 @@
         const dy = ball1.y - ball2.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        // Calculate the force of attraction or repulsion
-        const force = FORCE_COEFICIENT / distance;
+        // Calculate the force of attraction
+        const force = FORCE_COEFICIENT / distance * ball1.charge * ball2.charge;
 
         // Update the velocities of the balls based on the force
         ball1.vx -= force * dx / distance;
@@ -46,12 +94,16 @@
     for (let i = 0; i < balls.length; i++) {
       const ball = balls[i];
 
-      // Limit the velocities of the balls to a maximum value
-      ball.vx = Math.min(Math.max(ball.vx, -MAX_VELOCITY), MAX_VELOCITY);
-      ball.vy = Math.min(Math.max(ball.vy, -MAX_VELOCITY), MAX_VELOCITY);
+      // Dampen the velocities after a certain max value
+      if (ball.vx > MAX_VELOCITY || ball.vx < MAX_VELOCITY) {
+        ball.vx *= 0.99
+      }
+      if (ball.vy > MAX_VELOCITY || ball.vy < MAX_VELOCITY) {
+        ball.vy *= 0.99
+      }
 
-      ball.x += ball.vx;
-      ball.y += ball.vy;
+      ball.x += ball.vx * t * STEPS
+      ball.y += ball.vy * t * STEPS
 
       // Bounce the balls off the walls and slow them down
       if (ball.x < 0 || ball.x > window.innerWidth) {
@@ -62,27 +114,28 @@
       }
 
       // Slow the balls down at border areas
-      if (ball.x < window.innerHeight * 0.25) {
+      if (ball.x < window.innerHeight * 0.3) {
         ball.vx += PUSH_BACK;
       }
-      if (ball.x > window.innerWidth * 0.75) {
+      if (ball.x > window.innerWidth * 0.7) {
         ball.vx -= PUSH_BACK;
       }
-      if (ball.y < window.innerWidth * 0.25) {
+      if (ball.y < window.innerWidth * 0.3) {
         ball.vy += PUSH_BACK;
       }
-      if (ball.y > window.innerHeight * 0.75) {
+      if (ball.y > window.innerHeight * 0.7) {
         ball.vy -= PUSH_BACK;
       }
 
       // Randomly alter the ball's trajectory
       if (Math.random() < 0.1) {
-        ball.vx += Math.random() * 10 - 5;
-        ball.vy += Math.random() * 10 - 5;
+        ball.vx += Math.random() * RANDOM_MOVEMENT - RANDOM_MOVEMENT/2;
+        ball.vy += Math.random() * RANDOM_MOVEMENT - RANDOM_MOVEMENT/2;
       }
     }
 
     balls = balls
+    tPrevious = t
   }
 
   const animate: FrameRequestCallback = (t) => {
@@ -107,6 +160,8 @@
   </div>
 </div>
 
+<button on:click={pulseDeterent}>Add deterent</button>
+
 <svelte:head>
   <style>
     html, body {
@@ -116,8 +171,15 @@
 </svelte:head>
 
 <style>
+  button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
   .outer-container {
-    filter: contrast(4) blur(5px);
+    filter: contrast(3) blur(15px);
     background-color: white;
     width: 100%;
     height: 100%;
