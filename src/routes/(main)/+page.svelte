@@ -12,13 +12,14 @@
 </section>
 
 <section>
-	<h1>Some projects</h1>
+	<h1>Some experiments</h1>
 	<ul>
 		<li><a href="/aaron">Aaron</a></li>
 		<li><a href="/gravitygrid">Gravitygrid</a></li>
 		<li><a href="/metaballs">Metaballs</a></li>
 		<li><a href="/cubify">Cubify</a></li>
 		<li><a href="/define">Define</a></li>
+		<li><a href="/morse">Morse</a></li>
 	</ul>
 </section>
 

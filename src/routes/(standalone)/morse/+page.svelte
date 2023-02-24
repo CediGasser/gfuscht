@@ -1,5 +1,6 @@
 <script lang="ts">
   import { focusOnLoad } from '$lib/Utils'
+  import { fade } from 'svelte/transition'
 
   let morseInput = '';
 
@@ -77,7 +78,7 @@
 <div class="morse">
   {#each morseOutput as word}
     {#each word as char}
-        <span class:dot={char === '.'} class:dash={char === '-'} class:space={char === ' '}></span>
+        <span transition:fade class:dot={char === '.'} class:dash={char === '-'} class:space={char === ' '}></span>
     {/each}
     <br/>
   {/each}
@@ -92,7 +93,7 @@
   @media (max-width: 480px) {
 		.morse {
 		  margin: 2rem;
-      --size: .8rem;
+      --size: .5rem;
 		}
 	}
 
