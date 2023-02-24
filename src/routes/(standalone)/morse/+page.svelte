@@ -3,7 +3,7 @@
 
   let morseInput = '';
 
-  let morse = {
+  let morse: Record<string, string> = {
     'a': '.-',
     'b': '-...',
     'c': '-.-.',
@@ -30,6 +30,7 @@
     'x': '-..-',
     'y': '-.--',
     'z': '--..',
+    '0': '-----',
     '1': '.----',
     '2': '..---',
     '3': '...--',
@@ -39,7 +40,6 @@
     '7': '--...',
     '8': '---..',
     '9': '----.',
-    '0': '-----',
     '.': '.-.-.-',
     ',': '--..--',
     '?': '..--..',
@@ -58,7 +58,7 @@
     '"': '.-..-.',
     '$': '...-..-',
     '@': '.--.-.',
-    ' ': '/',
+    ' ': ' ',
   };
 
   $: morseOutput = morseInput
@@ -66,7 +66,7 @@
     .split(' ')
     .map(word => 
       word.split('')
-      .map(char => morse[char] || char)
+      .map(char => morse[char] || ' ')
       .join(' '));
 </script>
 
@@ -89,13 +89,20 @@
     --size: 1.5rem;
   }
 
+  @media (max-width: 480px) {
+		.morse {
+		  margin: 2rem;
+      --size: .8rem;
+		}
+	}
+
   .dot {
     display: inline-block;
     width: var(--size);
     height: var(--size);
     border-radius: calc(var(--size) / 2);
     background: black;
-    margin-left: 0.1rem;
+    margin-right: 0.1rem;
   }
 
   .dash {
@@ -104,7 +111,7 @@
     height: var(--size);
     border-radius: calc(var(--size) / 2);
     background: black;
-    margin-left: 0.1rem;
+    margin-right: 0.1rem;
   }
 
   .space {
