@@ -8,7 +8,7 @@
   const FORCE_COEFICIENT = 6
   const MAX_VELOCITY = 20
   const PUSH_BACK = 1
-  const STEPS = 0.0000001
+  const STEPS = 0.001
   const MIN_BLOB_SIZE = 150
   const MAX_BLOB_SIZE = 250
   const RANDOM_MOVEMENT = 20
@@ -102,8 +102,8 @@
         ball.vy *= 0.99
       }
 
-      ball.x += ball.vx * t * STEPS
-      ball.y += ball.vy * t * STEPS
+      ball.x += ball.vx * tDelta * STEPS
+      ball.y += ball.vy * tDelta * STEPS
 
       // Bounce the balls off the walls and slow them down
       if (ball.x < 0 || ball.x > window.innerWidth) {
