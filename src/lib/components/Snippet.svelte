@@ -1,14 +1,37 @@
 <script lang="ts">
+  import { spring } from 'svelte/motion';
+  import Prism from 'prismjs';
+  import 'prismjs/themes/prism-tomorrow.css';
+
   export let code = '';
   export let animateGradient = false;
 
+  export let rotateX = spring(0, { damping: 0.3 });
+  export let rotateY = spring(0, { damping: 0.3 });
+
+  let div: HTMLDivElement;
+
+  const mouseMove = (e: MouseEvent) => {
+    let offset = div.getBoundingClientRect();
+    let dx = e.clientX - offset.left - offset.width / 2;
+    let dy = e.clientY - offset.top - offset.height / 2;
+
+    rotateX.set(dy / -100);
+    rotateY.set(dx / 100);
+  };
 </script>
 
+<svelte:window on:mousemove={mouseMove} />
+
 <div class="wrapper">
-  <div class="gradient-background" class:animate-gradient={animateGradient}>
+  <div 
+    class="gradient-background" 
+    class:animate-gradient={animateGradient} 
+    style="--rotateX: {$rotateX}deg;--rotateY: {$rotateY}deg;"
+    bind:this={div}>
     <div class="window-background">
       <div class="floating-code">
-          <pre><code>{code}</code></pre>
+          {@html Prism.highlight(code, Prism.languages.js, 'js')}
       </div>
     </div>
   </div>
@@ -20,26 +43,31 @@
   }
 
   .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    font-family: 'Courier New', Courier, monospace;
     color: white;
+    perspective: 1800px;
 
-    perspective: 20px;
+    --rotateX: 0deg;
+    --rotateY: 0deg;
+
+    --distance: 20px;
   }
 
   .gradient-background {
     margin: 1rem;
-    background: linear-gradient(45deg, #cf0000, #b103d0);
-    border-radius: 1rem;
-    border: 1px solid #000;
+    background: linear-gradient(45deg, #cf0000, #b103d0, #0000cf, #550086, #cf0000);
+    background-repeat: repeat;
+    background-size: 200% 200%;
 
-    transform: translateZ(-1px) rotateX(1deg) rotateY(1deg);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(200, 200, 200, .5);
+    
+    transform: translateZ(calc(-1 * var(--distance))) rotateX(var(--rotateX)) rotateY(var(--rotateY));
+    transform-style: preserve-3d;
   }
 
   .animate-gradient {
-    animation: gradient 1s ease infinite;
+    animation: gradient 15s ease infinite;
   }
 
   @keyframes gradient {
@@ -55,11 +83,12 @@
   }
 
   .window-background {
-    background: #000;
+    background: rgba(0, 0, 0, .7);
     padding: 1rem;
     border-radius: 1rem;
-    border: 1px solid #000;
-    transform: translateZ(1px);
+    border: 1px solid rgba(0, 0, 0, .5);
+    transform: translateZ(var(--distance));
+    transform-style: preserve-3d;
   }
 
   .floating-code {
@@ -67,6 +96,10 @@
     padding: 1rem;
     border-radius: 1rem;
     border: 1px solid #000;
-    transform: translateZ(2px);
+    transform: translateZ(var(--distance));
+    transform-style: preserve-3d;
+    background: transparent;
+    border: none;
+    white-space: pre-wrap;
   }
 </style>

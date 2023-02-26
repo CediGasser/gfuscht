@@ -20,6 +20,7 @@
 		<li><a href="/cubify">Cubify</a></li>
 		<li><a href="/define">Define</a></li>
 		<li><a href="/morse">Morse</a></li>
+		<li><a href="/codesnippet">Codesnippet</a></li>
 	</ul>
 </section>
 
