@@ -16,11 +16,12 @@
 	<ul>
 		<li><a href="/aaron">Aaron</a></li>
 		<li><a href="/gravitygrid">Gravitygrid</a></li>
-		<li><a href="/metaballs">Metaballs</a></li>
+		<li><a href="/metaballs?&id=3">Metaballs</a></li>
 		<li><a href="/cubify">Cubify</a></li>
 		<li><a href="/define">Define</a></li>
 		<li><a href="/morse">Morse</a></li>
 		<li><a href="/codesnippet">Codesnippet</a></li>
+		<li><a href="/pencil">Pencil</a></li>
 	</ul>
 </section>
 

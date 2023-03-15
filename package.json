@@ -10,12 +10,16 @@
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "^1.8.5",
+		"@threlte/core": "^5.0.9",
+		"@threlte/extras": "^4.9.3",
+		"@threlte/preprocess": "^0.0.2",
 		"@types/cookie": "^0.5.1",
 		"@types/prismjs": "^1.26.0",
-		"@types/three": "^0.144.0",
+		"@types/three": "^0.149.0",
 		"svelte": "^3.46.0",
 		"svelte-check": "^2.7.1",
 		"svelte-preprocess": "^4.10.6",
+		"three": "^0.150.1",
 		"tslib": "^2.3.1",
 		"typescript": "^4.7.4",
 		"vite": "^4.0.0"
@@ -24,8 +28,6 @@
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
 		"@sveltejs/adapter-node": "^1.0.0-next.92",
-		"@threlte/core": "^4.3.2",
-		"prismjs": "^1.29.0",
-		"three": "^0.145.0"
+		"prismjs": "^1.29.0"
 	}
 }

@@ -5,7 +5,10 @@ const config: UserConfig = {
 	plugins: [sveltekit()],
 	ssr: {
 		noExternal: ['three', 'troika-three-text']
-	}
+	},
+	assetsInclude: [
+		'**/*.glb'
+	]
 };
 
 export default config;
