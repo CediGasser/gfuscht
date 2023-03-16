@@ -11,6 +11,9 @@ interface CribDragStore {
   possibleGuesses: string[][];
 }
 
+// 3b101c091d53320c000910
+// 071d154502010a04000419
+
 var decodeHexStringToByteArray = function (hexString: string) {
   var result = [];
   while (hexString.length >= 2) { 
@@ -26,6 +29,10 @@ function hexToString(hex: string) {
     string += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
   }
   return string;
+}
+
+function stringToHex(string: string) {
+  return string.split("").map((c) => c.charCodeAt(0).toString(16).padStart(2, "0")).join("");
 }
 
 function toHexString(byteArray: number[]) {
@@ -57,22 +64,20 @@ function createCribDrag() {
       let messagesXor = state.messages.map(m => m.encrypted).reduce((acc, m) => {
         return hexXor(acc, m);
       });
-      let guessHex = guess.split("").map((c) => c.charCodeAt(0).toString(16).padStart(2, "0")).join("");
+      let guessHex = stringToHex(guess)
 
       state.possibleGuesses = [];
-
-      console.table({messagesXor, guessHex, guess})
 
       // calculate xor of the guessHex with every possible position in the messageXor
       // then xor that with every encrypted message to get the possible guesses
       for (let i = 0; i <= messagesXor.length - guessHex.length; i++) {
-        const guessXor = hexXor(messagesXor.slice(i, guessHex.length), guessHex);
-        console.log(guessXor)
+        let messageXorPart = messagesXor.slice(i, i + guessHex.length);
+        const guessXor = hexXor(messageXorPart, guessHex);
+        console.table({messageXorPart, guessHex, guessXor})
         const possibleGuesses = state.messages.map((m) => {
           return hexToString(hexXor(m.encrypted, guessXor));
         });
         state.possibleGuesses.push(possibleGuesses);
-        guessHex = '0' + guessHex;
       }
 
       let key = hexXor(messagesXor, guessHex)
@@ -101,3 +106,5 @@ function createCribDrag() {
 }
 
 export const cribDrag = createCribDrag();
+
+export { hexToString, hexXor, stringToHex, toHexString }
