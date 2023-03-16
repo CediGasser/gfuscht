@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { type Texture, CircleBufferGeometry, MeshStandardMaterial, BoxBufferGeometry, DoubleSide } from 'three'
-	import { DEG2RAD } from 'three/src/math/MathUtils'
+	import { type Texture, MeshStandardMaterial, BoxGeometry } from 'three'
 	import {
 		AmbientLight,
 		Canvas,
 		DirectionalLight,
 		Group,
-		HemisphereLight,
 		Mesh,
 		OrbitControls,
 		PerspectiveCamera,
@@ -17,10 +15,30 @@
 	export let src: string = 'trump.png'
 	const scale = spring(1)
 
+	function debounce<T extends Function>(cb: T, wait = 20) {
+		let h: number | null = null;
+		let callable = (...args: any) => {
+			if (h) clearTimeout(h);
+			console.log('cleare timeout')
+			h = setTimeout(() => {
+				cb(...args)
+				console.log('executed Fn')
+			}, wait);
+		};
+		return <T>(<any>callable);
+	}
+
+	const resetScale = debounce(function () {$scale = 1}, 100);
+
+	const makeBigger = () => {
+		$scale += .1
+		resetScale()
+	}
+
 	$: updateImage(src)
 
 	let texture: Texture;
-	const updateImage = async (imgSrc) => {
+	const updateImage = async (imgSrc: string) => {
 		texture = useTexture(imgSrc)
 	}
 </script>
@@ -36,7 +54,7 @@
 				target={{ y:0.5 }}
 			/>
 		</PerspectiveCamera>
-
+ 
 		<DirectionalLight shadow position={{ x: 3, y: 10, z: 10 }} />
 		<DirectionalLight position={{ x: -3, y: 10, z: -10 }} intensity={0.2} />
 		<AmbientLight intensity={0.2} />
@@ -45,11 +63,10 @@
 		<Group scale={$scale}>
 			<Mesh
 				interactive
-				on:pointerenter={() => ($scale = 2)}
-				on:pointerleave={() => ($scale = 1)}
+				on:click={makeBigger}
 				position={{ y: 0.5 }}
 				castShadow
-				geometry={new BoxBufferGeometry(1, 1, 1)}
+				geometry={new BoxGeometry(1, 1, 1)}
 				material={new MeshStandardMaterial({ color: '#ffffff', map: texture})}
 			/>
 		</Group>		
