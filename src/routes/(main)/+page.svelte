@@ -22,6 +22,7 @@
 		<li><a href="/morse">Morse</a></li>
 		<li><a href="/codesnippet">Codesnippet</a></li>
 		<li><a href="/pencil">Pencil</a></li>
+		<li><a href="/cribdrag">Cribdrag</a></li>
 	</ul>
 </section>
 
