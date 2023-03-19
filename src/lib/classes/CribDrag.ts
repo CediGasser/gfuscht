@@ -61,26 +61,23 @@ function createCribDrag() {
   return {
     subscribe,
     update: (message: string, guess: string) => update((state) => {
-      let messagesXor = state.messages.map(m => m.encrypted).reduce((acc, m) => {
-        return hexXor(acc, m);
-      });
-      let guessHex = stringToHex(guess)
+      // hex of guess
+      let guessHex = stringToHex(guess);
+      
 
       state.possibleGuesses = [];
-
-      // calculate xor of the guessHex with every possible position in the messageXor
-      // then xor that with every encrypted message to get the possible guesses
-      for (let i = 0; i <= messagesXor.length - guessHex.length; i++) {
-        let messageXorPart = messagesXor.slice(i, i + guessHex.length);
+      for (let i = 0; i <= message.length - guessHex.length; i += 2) {
+        const messageXorPart = message.slice(i, i + guessHex.length);
         const guessXor = hexXor(messageXorPart, guessHex);
-        console.table({messageXorPart, guessHex, guessXor})
-        const possibleGuesses = state.messages.map((m) => {
-          return hexToString(hexXor(m.encrypted, guessXor));
+        const guessesForThisIndex = state.messages.map((m) => {
+          const guessingMessagePart = m.encrypted.slice(i, i + guessHex.length);
+          const guessingMessageXor = hexXor(guessXor, guessingMessagePart);
+          return hexToString(guessingMessageXor);
         });
-        state.possibleGuesses.push(possibleGuesses);
+        state.possibleGuesses.push(guessesForThisIndex);
       }
 
-      let key = hexXor(messagesXor, guessHex)
+      let key = hexXor(message, guessHex);
 
       state.key = key + ' - ' + hexToString(key);
 
