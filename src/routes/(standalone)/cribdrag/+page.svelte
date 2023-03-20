@@ -26,7 +26,7 @@
 
   {#each $cribDrag.messages as msg }
     <p>{msg.encrypted}</p>
-    <input on:keyup={updateMessage(msg)} />
+    <input on:keyup={updateMessage(msg)} value={msg.guess} />
   {/each}
 
   <div class="addNewMessage">
@@ -36,8 +36,10 @@
   </div>
 
   <div class="possible-guesses">
-    {#each $cribDrag.possibleGuesses as guesses }
-      <ul>
+    {#each $cribDrag.possibleGuesses as guesses, i }
+      <ul 
+        on:click={() => cribDrag.setGuessIndex(i)}
+        on:keyup={() => cribDrag.setGuessIndex(i)}>
         {#each guesses as guess }
           <li>{guess}</li>
         {/each}
@@ -101,7 +103,19 @@
     margin: 1rem;
     padding: 0;
     list-style: none;
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
   }
+
+  .possible-guesses ul:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s ease;
+    transform: scale(1.02);
+  }
+
   .addNewMessage {
     margin: 1rem 0;
   }

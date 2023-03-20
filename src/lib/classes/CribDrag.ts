@@ -9,6 +9,7 @@ interface CribDragStore {
   messages: Message[];
   key: string;
   possibleGuesses: string[][];
+  guessIndex: number;
 }
 
 // 3b101c091d53320c000910
@@ -55,7 +56,8 @@ function createCribDrag() {
   const { subscribe, update, set } = writable<CribDragStore>({
     messages: [],
     key: "",
-    possibleGuesses: []
+    possibleGuesses: [],
+    guessIndex: 0,
   });
   
   return {
@@ -87,6 +89,13 @@ function createCribDrag() {
         }
         return m;
       });
+
+      if (state.possibleGuesses.length <= state.guessIndex) {
+        state.possibleGuesses[state.guessIndex].forEach((guess, i) => {
+          state.messages[i].guess = guess;
+        });
+      }
+
       return state;
     }),
     set,
@@ -98,7 +107,14 @@ function createCribDrag() {
       state.messages = state.messages.filter((m) => m.encrypted !== message);
       return state;
     }),
-    clear: () => set({ messages: [], key: "", possibleGuesses: [] })
+    setGuessIndex: (index: number) => update((state) => {
+      state.possibleGuesses[index].forEach((guess, i) => {
+        state.messages[i].guess = guess;
+      });
+      state.guessIndex = index;
+      return state;
+    }),
+    clear: () => set({ messages: [], key: "", possibleGuesses: [], guessIndex: 0 })
   };
 }
 
