@@ -71,7 +71,7 @@ const fetchApi = async (path: string): Promise<any> => {
 
     try {
         if (res.body === null) return null
-        
+
         json = await res.json()
     } catch (e) {
         console.error({
@@ -97,13 +97,13 @@ export const getNowPlaying = async () => {
 }
 
 export const getTopTracks = async (limit = 50, offset = 0) => {
-    const res: UsersTopTracksResponse = await fetchApi(`/me/top/tracks?limit=${limit}&offset=${offset}`)
+    const res: UsersTopTracksResponse = await fetchApi(`/me/top/tracks?limit=${limit}&offset=${offset}&time_range=short_term`)
 
     return res.items
 }
 
 export const getTopArtists = async (limit = 50, offset = 0) => {
-    const res: UsersTopArtistsResponse = await fetchApi(`/me/top/artists?limit=${limit}&offset=${offset}`)
+    const res: UsersTopArtistsResponse = await fetchApi(`/me/top/artists?limit=${limit}&offset=${offset}&time_range=short_term`)
 
     return res.items
 }

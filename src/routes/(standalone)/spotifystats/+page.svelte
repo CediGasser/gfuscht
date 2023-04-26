@@ -1,9 +1,13 @@
 <script lang="ts">
     import NowPlaying from '$lib/components/NowPlaying.svelte';
     import Profile from '$lib/components/Profile.svelte';
+    import Track from '$lib/components/Track.svelte';
+    import { fly } from 'svelte/transition';
 
     export let data
     $: ({ profile, nowPlaying, topArtists, topTracks } = data)
+
+    let selectedTab = 'tracks'
 </script>
 
 <main>
@@ -15,23 +19,47 @@
         </div>
 
         <div class="ranking">
-            <h2>Top Artists</h2>
-            <ul>
-                {#each topArtists as artist}
-                    <li>{artist.name}</li>
-                {/each}
-            </ul>
+            <!-- A select that is styles as a button group to switch between tabs -->
+            <div class="ranking-header">
+                <p>Top</p>
+                <div class="tab-group">
+                    <input type="radio" name="tabs" id="tracks" bind:group={selectedTab} value="tracks" />
+                    <label for="tracks">Tracks</label>
+                    
+                    <input type="radio" name="tabs" id="artists" bind:group={selectedTab} value="artists" />
+                    <label for="artists">Artists</label>
+                    <span class="glider"></span>
+                </div>
+            </div>
+
+            <!-- The content of the tabs -->
+            <div class="ranking-lists">
+                {#if selectedTab === 'artists'}
+                    <ul 
+                        in:fly={{x: -20, duration: 150, delay: 150}}
+                        out:fly={{x: -20, duration: 150}}>
+
+                        {#each topArtists as artist}
+                            <li>
+                                <a href={artist.external_urls.spotify}><h3>{artist.name}</h3></a>
+                            </li>
+                        {/each}
+                    </ul>
+                {:else if selectedTab === 'tracks'}
+                    <ul 
+                        in:fly={{x: 20, duration: 150, delay: 150}}
+                        out:fly={{x: 20, duration: 150}}>
+
+                        {#each topTracks as track}
+                            <li>
+                                <Track {track} />
+                            </li>
+                        {/each}
+                    </ul>
+                {/if}
+            </div>
         </div>
 
-        <div class="ranking">
-            <h2>Top Tracks</h2>
-            <ul>
-                {#each topTracks as track}
-                    <li>{track.name}</li>
-                {/each}
-            </ul>
-        </div>
-        
     </div>
 </main>
 
@@ -43,6 +71,9 @@
         justify-content: center;
         min-height: 100vh;
         font-family: 'Courier New', Courier, monospace;
+        --primary-color: #185ee0;
+        --secondary-color: #e6eef9;
+        background-color: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     }
 
     .wrapper {
@@ -52,18 +83,130 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        padding: 1rem;
+        padding: 2rem;
         border-radius: 1rem;
         backdrop-filter: blur(8px);
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-    }
-
-    h2 {
-        margin-top: 0;
+        gap: 4rem;
     }
 
     ul {
+        position: absolute;
         list-style: none;
         padding: 0;
+        max-width: 300px;
+    }
+
+    li {
+        min-height: 2rem;
+        margin-block: .5rem;
+        line-height: 1rem;
+        overflow: hidden;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+    }
+
+    .ranking {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ranking-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .ranking-header {
+        font-size: 1.25rem;
+        font-weight: 500;
+    }
+
+    .ranking-lists {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .tab-group input[type="radio"] {
+        display: none;
+    }
+
+    .tab-group {
+        display: flex;
+        padding: .2rem;
+        border-radius: .7rem;
+        box-shadow: inset 0 0 6px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    .tab-group label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2rem;
+        width: 100px;
+        border-radius: 99px;
+        cursor: pointer;
+        transition: color 0.15s ease-in;
+        z-index: 2;
+    }
+
+    .tab-group input[type="radio"]:checked + label {
+        color: var(--primary-color);
+    }
+
+    input[id="tracks"]:checked ~ .glider {
+        transform: translateX(0);
+    }
+
+    input[id="artists"]:checked ~ .glider {
+        transform: translateX(100%);
+    }
+
+    .glider {
+        position: absolute;
+        display: flex;
+        height: 2rem;
+        width: 100px;
+        background-color: var(--secondary-color);
+        z-index: 1;
+        border-radius: .5rem;
+        transition: 0.15s ease-out;
+        border: 1px solid #d1e0f5;
+    }
+
+    @media (max-width: 800px) {
+        .tab-group {
+            transform: scale(0.8);
+        }
+
+        .wrapper {
+            flex-direction: column;
+            gap: 2rem;
+        }
     }
 </style>

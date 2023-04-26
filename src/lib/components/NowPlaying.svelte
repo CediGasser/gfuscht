@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { EpisodeObject, TrackObjectFull } from 'spotify-api'
+    import Track from './Track.svelte';
 
     export let item: TrackObjectFull | EpisodeObject | null
 
@@ -16,10 +17,25 @@
 </script>
 
 <div>
-    {#if item}
-        <h2>Now Playing</h2>
-        <p>{name} - {creator}</p>
+    {#if item?.type === 'track'}
+        <h2>Listening to</h2>
+        <Track track={item} />
+    {:else if item?.type === 'episode'}
+        <h2>Listening to</h2>
+        <h3>{name}</h3>
+        <p>{creator}</p>
     {:else}
         <h2>Not Playing</h2>
     {/if}
 </div>
+
+<style>
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+</style>
