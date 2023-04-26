@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
 		"@sveltejs/adapter-node": "^1.0.0-next.92",
+		"@types/spotify-api": "^0.0.21",
 		"prismjs": "^1.29.0"
 	}
 }
