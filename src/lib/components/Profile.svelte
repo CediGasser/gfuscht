@@ -1,9 +1,8 @@
 <script lang="ts">
     import type { CurrentUsersProfileResponse } from "spotify-api";
-    import { prop_dev } from "svelte/internal";
 
     export let profile: CurrentUsersProfileResponse
-    console.log(profile)
+
     let img = profile.images && profile.images.length > 0 ? profile.images[0] : { url: '/trump.png', height: 300, width: 300 }
 </script>
 

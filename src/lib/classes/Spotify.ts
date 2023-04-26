@@ -70,9 +70,15 @@ const fetchApi = async (path: string): Promise<any> => {
     let json = null
 
     try {
+        if (res.body === null) return null
+        
         json = await res.json()
     } catch (e) {
-        console.error(res)
+        console.error({
+            path,
+            status: res.status,
+            res
+        })
     }
 
     return json

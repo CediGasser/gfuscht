@@ -19,10 +19,8 @@
 		let h: number | null = null;
 		let callable = (...args: any) => {
 			if (h) clearTimeout(h);
-			console.log('cleare timeout')
 			h = setTimeout(() => {
 				cb(...args)
-				console.log('executed Fn')
 			}, wait);
 		};
 		return <T>(<any>callable);
