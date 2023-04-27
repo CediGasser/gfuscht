@@ -47,6 +47,7 @@ const getAccessToken = async () => {
 };
 
 let token: SpotifyToken = null; // Singleton which will be used to store the token so we don't have to fetch it every time
+let retried = false // Flag to prevent infinite loops
 
 const fetchApi = async (path: string): Promise<any> => {
     const access_token = await getAccessToken()
@@ -55,11 +56,15 @@ const fetchApi = async (path: string): Promise<any> => {
     })
 
     if (res.status === 401) {
+        if (retried) throw new Error('Unauthorized')
+        retried = true
         token = null
         return fetchApi(path)
     } else if (res.status === 429) {
         const retryAfter = res.headers.get('Retry-After')
         if (retryAfter) {
+            if (retried) throw new Error('Already retried')
+            retried = true
             await new Promise(resolve => setTimeout(resolve, parseInt(retryAfter) * 1000))
             return fetchApi(path)
         }
@@ -67,21 +72,9 @@ const fetchApi = async (path: string): Promise<any> => {
         throw new Error(`Error fetching ${path}: ${res.status} ${res.statusText}`)
     }
 
-    let json = null
+    if (res.body === null) return null
 
-    try {
-        if (res.body === null) return null
-
-        json = await res.json()
-    } catch (e) {
-        console.error({
-            path,
-            status: res.status,
-            res
-        })
-    }
-
-    return json
+    return await res.json()
 }
 
 export const getProfile = async () => {
