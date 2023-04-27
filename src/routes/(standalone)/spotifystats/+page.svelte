@@ -5,7 +5,7 @@
     import { fly } from 'svelte/transition';
 
     export let data
-    $: ({ profile, nowPlaying, topArtists, topTracks } = data)
+    $: ({ profile, nowPlaying, topArtists, topTracks } = data.streamed)
 
     let selectedTab = 'tracks'
 </script>
@@ -14,8 +14,21 @@
     <div class="wrapper">
 
         <div class="profile-info">
-            <Profile {profile} />
-            <NowPlaying item={nowPlaying} />
+            {#await profile}
+                <p>Loading...</p>
+            {:then profile}
+                <Profile {profile} />
+            {:catch error}
+                <p>{error.message}</p>
+            {/await}
+
+            {#await nowPlaying}
+                <p>Loading...</p>
+            {:then nowPlaying}
+                <NowPlaying item={nowPlaying} />
+            {:catch error}
+                <p>{error.message}</p>
+            {/await}
         </div>
 
         <div class="ranking">
@@ -38,23 +51,33 @@
                     <ul 
                         in:fly={{x: -20, duration: 150, delay: 150}}
                         out:fly={{x: -20, duration: 150}}>
-
-                        {#each topArtists as artist}
-                            <li>
-                                <a href={artist.external_urls.spotify}><h3>{artist.name}</h3></a>
-                            </li>
-                        {/each}
+                        {#await topArtists}
+                            <p>Loading...</p>
+                        {:then topArtists}
+                            {#each topArtists as artist}
+                                <li>
+                                    <a href={artist.external_urls.spotify}><h3>{artist.name}</h3></a>
+                                </li>
+                            {/each}
+                        {:catch error}
+                            <p>{error.message}</p>
+                        {/await}
                     </ul>
                 {:else if selectedTab === 'tracks'}
                     <ul 
                         in:fly={{x: 20, duration: 150, delay: 150}}
                         out:fly={{x: 20, duration: 150}}>
-
-                        {#each topTracks as track}
-                            <li>
-                                <Track {track} />
-                            </li>
-                        {/each}
+                        {#await topTracks}
+                            <p>Loading...</p>
+                        {:then topTracks}
+                            {#each topTracks as track}
+                                <li>
+                                    <Track {track} />
+                                </li>
+                            {/each}
+                        {:catch error}
+                            <p>{error.message}</p>
+                        {/await}
                     </ul>
                 {/if}
             </div>

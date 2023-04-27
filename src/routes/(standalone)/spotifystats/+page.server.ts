@@ -2,9 +2,11 @@ import { getNowPlaying, getProfile, getTopArtists, getTopTracks } from "$lib/cla
 
 export const load = () => {
     return {
-        profile: getProfile(),
-        nowPlaying: getNowPlaying(),
-        topArtists: getTopArtists(5),
-        topTracks: getTopTracks(5),
+        streamed: {
+            profile: getProfile(),
+            nowPlaying: getNowPlaying(),
+            topArtists: getTopArtists(5),
+            topTracks: getTopTracks(5),
+        }
     }
 }

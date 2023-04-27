@@ -2,7 +2,7 @@ import { browser } from '$app/environment';
 import type { CurrentlyPlayingObject, 
               UsersTopTracksResponse, 
               UsersTopArtistsResponse,
-              CurrentUsersProfileResponse } from 'spotify-api'
+              CurrentUsersProfileResponse } from '$lib/types/spotify'
 
 const redirect_uri = browser ? 'https://gfuscht.cedricgasser.com/spotifystats' : 'http://localhost:5173/'
 const token_endpoint = `https://accounts.spotify.com/api/token`;
@@ -21,29 +21,34 @@ const getAccessToken = async () => {
     }
 
     // Otherwise, fetch a new token
-    const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_USER_REFRESH_TOKEN} = await import('$env/static/private')
+    try {
+        const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_USER_REFRESH_TOKEN } = await import('$env/static/private')
+    
 
-	const newToken = await fetch(token_endpoint, {
-		method: 'POST',
-		headers: {
-		    'Content-Type': 'application/x-www-form-urlencoded'
-		},
-		body: new URLSearchParams({
-			grant_type: 'refresh_token',
-			refresh_token: SPOTIFY_USER_REFRESH_TOKEN,
-			redirect_uri,
-			client_id: SPOTIFY_CLIENT_ID,
-			client_secret: SPOTIFY_CLIENT_SECRET,
-		})
-	}).then(res => res.json());
+        const newToken = await fetch(token_endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                grant_type: 'refresh_token',
+                refresh_token: SPOTIFY_USER_REFRESH_TOKEN,
+                redirect_uri,
+                client_id: SPOTIFY_CLIENT_ID,
+                client_secret: SPOTIFY_CLIENT_SECRET,
+            })
+        }).then(res => res.json());
 
-    // Update the singleton token with the new token
-    token = {
-        access_token: newToken.access_token,
-        expires_at: new Date(new Date().getTime() + newToken.expires_in * 1000),
+        // Update the singleton token with the new token
+        token = {
+            access_token: newToken.access_token,
+            expires_at: new Date(new Date().getTime() + newToken.expires_in * 1000),
+        }
+
+        return newToken.access_token as string;
+    } catch (e) {
+        throw new Error('Error fetching access token: ' + e)
     }
-
-	return newToken.access_token as string;
 };
 
 let token: SpotifyToken = null; // Singleton which will be used to store the token so we don't have to fetch it every time

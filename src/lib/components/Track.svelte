@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { TrackObjectFull } from "spotify-api";
+    import type { TrackObjectFull } from '$lib/types/spotify';
 
     export let track: TrackObjectFull
 </script>

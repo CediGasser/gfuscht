@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { CurrentUsersProfileResponse } from "spotify-api";
+    import type { CurrentUsersProfileResponse } from '$lib/types/spotify';
 
     export let profile: CurrentUsersProfileResponse
 
