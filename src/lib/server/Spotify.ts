@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private'
 import type { CurrentlyPlayingObject, 
               UsersTopTracksResponse, 
               UsersTopArtistsResponse,
@@ -18,9 +19,7 @@ const getAccessToken = async () => {
     }
 
     // Otherwise, fetch a new token
-    const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_USER_REFRESH_TOKEN, SPOTIFY_REDIRECT_URI } = await import('$env/static/private')
-
-    if (!SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET || !SPOTIFY_USER_REFRESH_TOKEN) {
+    if (!env.SPOTIFY_CLIENT_ID || !env.SPOTIFY_CLIENT_SECRET || !env.SPOTIFY_USER_REFRESH_TOKEN) {
         throw new Error('Missing Spotify API secrets')
     }
 
@@ -31,10 +30,10 @@ const getAccessToken = async () => {
         },
         body: new URLSearchParams({
             grant_type: 'refresh_token',
-            refresh_token: SPOTIFY_USER_REFRESH_TOKEN,
-            redirect_uri: SPOTIFY_REDIRECT_URI,
-            client_id: SPOTIFY_CLIENT_ID,
-            client_secret: SPOTIFY_CLIENT_SECRET,
+            refresh_token: env.SPOTIFY_USER_REFRESH_TOKEN,
+            redirect_uri: env.SPOTIFY_REDIRECT_URI,
+            client_id: env.SPOTIFY_CLIENT_ID,
+            client_secret: env.SPOTIFY_CLIENT_SECRET,
         })
     }).then(res => res.json());
 

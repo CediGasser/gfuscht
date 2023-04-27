@@ -1,4 +1,4 @@
-import { getNowPlaying, getProfile, getTopArtists, getTopTracks } from "$lib/classes/Spotify"
+import { getNowPlaying, getProfile, getTopArtists, getTopTracks } from "$lib/server/Spotify"
 
 export const load = () => {
     return {
