@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { EpisodeObject, TrackObjectFull } from 'spotify-api'
+    import type { EpisodeObject, TrackObjectFull } from '$lib/types/spotify'
     import Track from './Track.svelte';
 
     export let item: TrackObjectFull | EpisodeObject | null
