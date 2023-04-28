@@ -19,7 +19,7 @@ const getAccessToken = async () => {
     }
 
     // Otherwise, fetch a new token
-    if (!env.SPOTIFY_CLIENT_ID || !env.SPOTIFY_CLIENT_SECRET || !env.SPOTIFY_USER_REFRESH_TOKEN) {
+    if (!env.SPOTIFY_CLIENT_ID || !env.SPOTIFY_CLIENT_SECRET || !env.SPOTIFY_USER_REFRESH_TOKEN || !env.SPOTIFY_REDIRECT_URI) {
         throw new Error('Missing Spotify API secrets')
     }
 
@@ -80,7 +80,12 @@ const fetchApi = async (path: string): Promise<any> => {
 export const getProfile = async () => {
     const res: CurrentUsersProfileResponse = await fetchApi('/me')
 
-    return res
+    return { 
+        display_name: res.display_name,
+        images: res.images,
+        external_urls: res.external_urls,
+        followers: res.followers,
+    }
 }
 
 export const getNowPlaying = async () => {
