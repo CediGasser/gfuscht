@@ -1,5 +1,7 @@
 <script lang="ts">
-    import type { CurrentUsersProfileResponse } from '$lib/types/spotify';
+    import type { CurrentUsersProfileResponse } from '$lib/types/spotify'
+    import { fadeOnLoad } from '$lib/actions'
+    import { fade } from 'svelte/transition';
 
     export let profile: CurrentUsersProfileResponse
 
@@ -7,7 +9,7 @@
 </script>
 
 
-<img src={img.url} height={200} width={200} alt={profile.display_name} />
+<img use:fadeOnLoad={{ duration: 0.2 }} in:fade src={img.url} height={200} width={200} alt={profile.display_name} />
 <a href={profile.external_urls.spotify}>{profile.display_name}</a>
 {#if profile.product && profile.product != 'undefined' && profile.product != 'open'}
     <p>{profile.product}</p>

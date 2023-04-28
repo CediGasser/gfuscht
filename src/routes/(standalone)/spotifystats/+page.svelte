@@ -142,6 +142,7 @@
         align-items: center;
         justify-content: center;
         width: 300px;
+        overflow: hidden;
     }
 
     .ranking {
