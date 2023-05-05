@@ -1,34 +1,22 @@
 <script lang="ts">
-    import NowPlaying from '$lib/components/NowPlaying.svelte';
-    import Profile from '$lib/components/Profile.svelte';
-    import Track from '$lib/components/Track.svelte';
-    import { fly } from 'svelte/transition';
+    import NowPlaying from "$lib/components/NowPlaying.svelte";
+    import Profile from "$lib/components/Profile.svelte";
+    import Track from "$lib/components/Track.svelte";
+    import { fly } from "svelte/transition";
 
-    export let data
-    $: ({ profile, nowPlaying, topArtists, topTracks } = data.streamed)
+    export let data;
+    $: ({ topArtists } = data.streamed);
+    $: ({ profile, nowPlaying, topTracks } = data);
 
-    let selectedTab = 'tracks'
+    let selectedTab = "tracks";
 </script>
 
 <main>
     <div class="wrapper">
-
         <div class="profile-info">
-            {#await profile}
-                <p>Loading...</p>
-            {:then profile}
-                <Profile {profile} />
-            {:catch error}
-                <p>{error.message}</p>
-            {/await}
+            <Profile {profile} />
 
-            {#await nowPlaying}
-                <p>Loading...</p>
-            {:then nowPlaying}
-                <NowPlaying item={nowPlaying} />
-            {:catch error}
-                <p>{error.message}</p>
-            {/await}
+            <NowPlaying item={nowPlaying} />
         </div>
 
         <div class="ranking">
@@ -36,43 +24,53 @@
             <div class="ranking-header">
                 <p>Top</p>
                 <div class="tab-group">
-                    <input type="radio" name="tabs" id="tracks" bind:group={selectedTab} value="tracks" />
+                    <input
+                        type="radio"
+                        name="tabs"
+                        id="tracks"
+                        bind:group={selectedTab}
+                        value="tracks"
+                    />
                     <label for="tracks">Tracks</label>
-                    
-                    <input type="radio" name="tabs" id="artists" bind:group={selectedTab} value="artists" />
+
+                    <input
+                        type="radio"
+                        name="tabs"
+                        id="artists"
+                        bind:group={selectedTab}
+                        value="artists"
+                    />
                     <label for="artists">Artists</label>
-                    <span class="glider"></span>
+                    <span class="glider" />
                 </div>
             </div>
 
             <!-- The content of the tabs -->
             <div class="ranking-lists">
-                {#if selectedTab === 'artists'}
-                    <ul 
-                        in:fly={{x: -20, duration: 150, delay: 150}}
-                        out:fly={{x: -20, duration: 150}}>
+                {#if selectedTab === "tracks"}
+                    <ul
+                        in:fly={{ x: 20, duration: 150, delay: 150 }}
+                        out:fly={{ x: 20, duration: 150 }}
+                    >
+                        {#each topTracks as track}
+                            <li>
+                                <Track {track} />
+                            </li>
+                        {/each}
+                    </ul>
+                {:else if selectedTab === "artists"}
+                    <ul
+                        in:fly={{ x: -20, duration: 150, delay: 150 }}
+                        out:fly={{ x: -20, duration: 150 }}
+                    >
                         {#await topArtists}
                             <p>Loading...</p>
                         {:then topArtists}
                             {#each topArtists as artist}
                                 <li>
-                                    <a href={artist.external_urls.spotify}><h3>{artist.name}</h3></a>
-                                </li>
-                            {/each}
-                        {:catch error}
-                            <p>{error.message}</p>
-                        {/await}
-                    </ul>
-                {:else if selectedTab === 'tracks'}
-                    <ul 
-                        in:fly={{x: 20, duration: 150, delay: 150}}
-                        out:fly={{x: 20, duration: 150}}>
-                        {#await topTracks}
-                            <p>Loading...</p>
-                        {:then topTracks}
-                            {#each topTracks as track}
-                                <li>
-                                    <Track {track} />
+                                    <a href={artist.external_urls.spotify}
+                                        ><h3>{artist.name}</h3></a
+                                    >
                                 </li>
                             {/each}
                         {:catch error}
@@ -82,7 +80,6 @@
                 {/if}
             </div>
         </div>
-
     </div>
 </main>
 
@@ -93,10 +90,14 @@
         align-items: center;
         justify-content: center;
         min-height: 100vh;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: "Courier New", Courier, monospace;
         --primary-color: #185ee0;
         --secondary-color: #e6eef9;
-        background-color: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        background-color: linear-gradient(
+            45deg,
+            var(--primary-color),
+            var(--secondary-color)
+        );
     }
 
     .wrapper {
@@ -111,6 +112,7 @@
         backdrop-filter: blur(8px);
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
         gap: 4rem;
+        min-height: 500px;
     }
 
     ul {
@@ -122,7 +124,7 @@
 
     li {
         min-height: 2rem;
-        margin-block: .5rem;
+        margin-block: 0.5rem;
         line-height: 1rem;
         overflow: hidden;
     }
@@ -182,8 +184,8 @@
 
     .tab-group {
         display: flex;
-        padding: .2rem;
-        border-radius: .7rem;
+        padding: 0.2rem;
+        border-radius: 0.7rem;
         box-shadow: inset 0 0 6px 1px rgba(0, 0, 0, 0.2);
     }
 
@@ -218,7 +220,7 @@
         width: 100px;
         background-color: var(--secondary-color);
         z-index: 1;
-        border-radius: .5rem;
+        border-radius: 0.5rem;
         transition: 0.15s ease-out;
         border: 1px solid #d1e0f5;
     }

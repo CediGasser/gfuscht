@@ -3,6 +3,10 @@ interface FadeOnLoadParams {
     duration?: number;
 }
 export const fadeOnLoad = (node: HTMLElement, params: FadeOnLoadParams = {}) => {
+    if (node instanceof HTMLImageElement && node.complete) {
+        return;
+    }
+
     params.duration = params.duration || 0.1;
 
     node.style.opacity = '0';

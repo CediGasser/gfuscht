@@ -1,20 +1,31 @@
 <script lang="ts">
-    import { fadeOnLoad } from '$lib/actions'
-  import type { ExternalUrlObject, FollowersObject, ImageObject } from '$lib/types/spotify'
-    import { fade } from 'svelte/transition';
+    import { fadeOnLoad } from "$lib/actions";
+    import type {
+        ExternalUrlObject,
+        FollowersObject,
+        ImageObject,
+    } from "$lib/types/spotify";
 
-    export let profile: { 
-        display_name: string | undefined, 
-        external_urls: ExternalUrlObject, 
-        followers: FollowersObject | undefined, 
-        images: ImageObject[] | undefined
-    }
+    export let profile: {
+        display_name: string | undefined;
+        external_urls: ExternalUrlObject;
+        followers: FollowersObject | undefined;
+        images: ImageObject[] | undefined;
+    };
 
-    let img = profile.images && profile.images.length > 0 ? profile.images[0] : { url: '/trump.png', height: 300, width: 300 }
+    let img =
+        profile.images && profile.images.length > 0
+            ? profile.images[0]
+            : { url: "/trump.png", height: 300, width: 300 };
 </script>
 
-
-<img use:fadeOnLoad={{ duration: 0.2 }} in:fade src={img.url} height={200} width={200} alt={profile.display_name} />
+<img
+    use:fadeOnLoad={{ duration: 0.2 }}
+    src={img.url}
+    height={200}
+    width={200}
+    alt={profile.display_name}
+/>
 <a href={profile.external_urls.spotify}>{profile.display_name}</a>
 {#if profile.followers}
     <p>{profile.followers.total} followers</p>
