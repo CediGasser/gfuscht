@@ -5,13 +5,15 @@
 <main>
   <h1>Sup wie gahds?</h1>
   
-  <div class="shader">
-    <img src={norway} alt="Asakusa at dusk">
-    <div class="shader__layer specular">
-      <div class="shader__layer mask"></div>
+  <div class="wrapper">
+    <div class="shader">
+      <img src={norway} alt="Asakusa at dusk">
+      <div class="shader__layer specular">
+        <div class="shader__layer mask"></div>
+      </div>
     </div>
+    <a href="https://www.instagram.com/balinfilms" class="img-attrib">&copy Balin</a>
   </div>
-  <a href="https://www.instagram.com/balinfilms" class="img-attrib">&copy Balin</a>
 
 </main>
 
@@ -30,6 +32,15 @@
     margin-block: 40vh;
     font-weight: 400;
     font-size: 2.4rem;
+  }
+
+  img {
+    display: block;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
   }
 
   .img-attrib {
