@@ -24,6 +24,7 @@
 		<li><a href="/pencil">Pencil</a></li>
 		<li><a href="/cribdrag">Cribdrag</a></li>
 		<li><a href="/spotifystats">Spotifystats</a></li>
+		<li><a href="/blendmode">Blendmode</a></li>
 	</ul>
 </section>
 
