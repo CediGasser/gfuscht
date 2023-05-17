@@ -11,6 +11,7 @@
       <div class="shader__layer mask"></div>
     </div>
   </div>
+  <a href="https://www.instagram.com/balinfilms" class="img-attrib">&copy Balin</a>
 
 </main>
 
@@ -29,6 +30,14 @@
     margin-block: 40vh;
     font-weight: 400;
     font-size: 2.4rem;
+  }
+
+  .img-attrib {
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.7);
+    width: 100%;
+    text-align: end;
+    padding-inline: 0.5rem;
   }
 
   .shader {
