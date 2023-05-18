@@ -107,4 +107,28 @@
     border-radius: 16px;
     border: solid 2px #4f7878;
   }
+
+  @media (max-width: 850px) {
+    .wrapper {
+      transform: scale(.6);
+      padding: 4px;
+      overflow: visible;
+    }
+
+    .wrapper::after {
+      box-shadow: none;
+    }
+  }
+
+  @media (max-width: 450px) {
+    .wrapper {
+      transform: scale(.4);
+      padding: 4px;
+      overflow: visible;
+    }
+
+    .wrapper::after {
+      box-shadow: none;
+    }
+  }
 </style>
