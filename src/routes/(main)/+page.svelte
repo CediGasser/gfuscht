@@ -26,6 +26,7 @@
 		<li><a href="/spotifystats">Spotifystats</a></li>
 		<li><a href="/blendmode">Blendmode</a></li>
 		<li><a href="/clock">Clock</a></li>
+		<li><a href="/geo">Geo</a></li>
 	</ul>
 </section>
 
