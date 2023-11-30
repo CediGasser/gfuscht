@@ -7,19 +7,12 @@
 </section>
 
 <style>
-    :root {
-        --font-mono: 'Fira Mono', monospace;
-        --heading-color: rgba(0, 0, 0, 0.7);
-        --text-color: #444444;
-        font-weight: 400;
-    }
-
-    section {
+  section {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		flex: 1;
-        height: 100vh;
+    height: 100vh;
 	}
 </style>

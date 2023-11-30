@@ -24,13 +24,15 @@
 	.definition-card {
 		padding: 1rem;
 		width: min(400px, 100%);
-		box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 0 30px var(--theme-surface);
+        border-radius: var(--theme-radius);
+        color: var(--theme-text);
+        background-color: var(--theme-surface);
 	}
 
     .definition-card * {
         padding: 0;
         border: none;
-        color: var(--text-color);
         background: transparent;
     }
 
@@ -41,22 +43,23 @@
         height: auto;
         font-size: 2.4em;
         font-weight: 400;
-        color: var(--heading-color);
+        color: var(--theme-primary);
     }
 
     .phonetic {
         font-family: var(--font-mono);
         margin-inline-start: 0.5rem;
+        color: var(--theme-subtle)
     }
 
     .type {
         font-weight: bold;
         margin-inline-start: 0.5rem;
+        color: var(--theme-subtle)
     }
 
     .definition {
         font-weight: 400;
-        color: var(--heading-color);
         margin-block: 1rem;
     }
 </style>
