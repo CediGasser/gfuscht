@@ -28,14 +28,22 @@ export class Effect {
 	public movingParticles: MovingParticle[] = []
 	public particleSize: number
 	public sensorDistance: number
+	public accent: string
 
-	constructor (canvas, particleSize, res, sensorDistance) {
+	constructor (
+			canvas: HTMLCanvasElement, 
+			particleSize: number,
+			res: number, 
+			sensorDistance: number, 
+			accent: string
+		) {
 		this.canvas = canvas
 		this.width = canvas.width
 		this.height = canvas.height
 		this.particleSize = particleSize
 		this.sensorDistance = sensorDistance
 		this.res = res
+		this.accent = accent
 	}
 
 	setup () {
@@ -45,6 +53,7 @@ export class Effect {
 		for (let i = 0; i < rows; i++) {
 			for (let j = 0; j < cols; j++) {
 				let p = new Particle(j * this.res, i * this.res, this.particleSize, this.res)
+				p.color = this.accent
 				this.gridParticles.push(p)
 			}
 		}

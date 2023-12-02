@@ -6,10 +6,13 @@
 	let effect: Effect
 
 	onMount(() => {
+		let styles = window.getComputedStyle(canvas)
+		let accent = styles.getPropertyValue('--theme-primary')
+
 		canvas.width = window.innerWidth
 		canvas.height = window.innerHeight
 
-		effect = new Effect(canvas, 5, 15, 100)
+		effect = new Effect(canvas, 5, 15, 100, accent)
 		effect.setup()
 
 		effect.draw()
@@ -32,6 +35,7 @@
 
 <style>
 	canvas {
+		background-color: var(--theme-base);
 		top: 0;
 		left: 0;
 		opacity: 0.5;

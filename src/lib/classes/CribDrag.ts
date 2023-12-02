@@ -7,6 +7,7 @@ export type Message = {
 
 interface CribDragStore {
   messages: Message[];
+  keyHex: string;
   key: string;
   possibleGuesses: string[][];
   guessIndex: number;
@@ -55,6 +56,7 @@ function hexXor(a: string, b: string) {
 function createCribDrag() {
   const { subscribe, update, set } = writable<CribDragStore>({
     messages: [],
+    keyHex: "",
     key: "",
     possibleGuesses: [],
     guessIndex: 0,
@@ -81,7 +83,8 @@ function createCribDrag() {
 
       let key = hexXor(message, guessHex);
 
-      state.key = key + ' - ' + hexToString(key);
+      state.keyHex = key;
+      state.key = hexToString(key);
 
       state.messages = state.messages.map((m) => {
         if (m.encrypted === message) {
@@ -114,7 +117,7 @@ function createCribDrag() {
       state.guessIndex = index;
       return state;
     }),
-    clear: () => set({ messages: [], key: "", possibleGuesses: [], guessIndex: 0 })
+    clear: () => set({ messages: [], keyHex: "", key: "", possibleGuesses: [], guessIndex: 0 })
   };
 }
 

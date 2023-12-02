@@ -22,18 +22,21 @@
 </script>
 <main>
   <h1>Crib Drag</h1>
-  <pre>{$cribDrag.key}</pre>
 
-  {#each $cribDrag.messages as msg }
-    <p>{msg.encrypted}</p>
+  <section class="container">
+    <h2>Your messages</h2>
+
+    {#each $cribDrag.messages as msg }
+    <p class="monospace">{msg.encrypted}</p>
     <input on:keyup={updateMessage(msg)} value={msg.guess} />
-  {/each}
-
-  <div class="addNewMessage">
-    <label for="newMsg">Add new message</label>
-    <input bind:value={newMsg} id="newMsg" />
-    <button on:click={addMessage}>Add</button>
-  </div>
+    {/each}
+    
+    <div class="addNewMessage">
+      <label for="newMsg" hidden>Add new message</label>
+      <input placeholder="New encrypted message" bind:value={newMsg} id="newMsg" />
+      <button on:click={addMessage}>Add</button>
+    </div>
+  </section>
 
   <div class="possible-guesses">
     {#each $cribDrag.possibleGuesses as guesses, i }
@@ -47,52 +50,52 @@
     {/each}
   </div>
 
-  <div class="playground">
-    <div class="xor">
-      <label for="xor">XOR</label>
-      <input bind:value={xor1} id="xor" />
-      <input bind:value={xor2} id="xor" />
-      <p>Hex: <span>{xorRes}</span></p>
-      <p>Str: <span>{hexToString(xorRes)}</span></p>
-    </div>
-    <div class="toHex">
-      <input bind:value={str}/>
-      <p>Hex: {strAsHex}</p>
-    </div>
+  <div class="container">
+    <h2>The resulting key:</h2>
+    
+    <pre class="monospace">{$cribDrag.keyHex}</pre>
+    <pre>{$cribDrag.key}</pre>
   </div>
 </main>
 
 <style>
   main {
     height: max(100vh, 100%);
-    background-color: black;
-    color: white;
+    padding: 1rem;
+    color: var(--theme-text);
+  }
+
+  .container {
+    background-color: var(--theme-surface);
+    border-radius: calc(var(--theme-radius) * 2);
     padding: 1rem;
   }
 
   input {
-    background-color: black;
-    color: white;
-    border: 1px solid white;
-    border-radius: .5rem;
+    background-color: var(--theme-overlay);
+    border: 1px solid var(--theme-highlight-mid);
+    border-radius: var(--theme-radius);
+    color: var(--theme-text);
+    padding-inline: 0.5rem;
   }
 
   pre {
-    background-color: black;
-    color: white;
-    border: 1px solid white;
-    border-radius: .5rem;
     padding: 1rem;
     margin: 1rem;
   }
 
   button {
-    background-color: black;
-    color: white;
-    border: 1px solid white;
-    border-radius: .5rem;
+    background-color: var(--theme-primary);
+    border: 1px solid var(--theme-highlight-mid);
+    border-radius: var(--theme-radius);
     padding: .5rem;
     margin: 1rem;
+    color: var(--theme-highlight-low);
+    cursor: pointer;
+  }
+
+  .monospace {
+    font-family: var(--font-mono);
   }
 
   .possible-guesses {
@@ -104,10 +107,10 @@
     padding: 0;
     list-style: none;
     cursor: pointer;
-    border: 1px solid white;
+    border: 1px solid var(--theme-highlight-high);
     border-radius: 1rem;
     padding: 1rem;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--theme-surface);
   }
 
   .possible-guesses ul:hover {
@@ -118,15 +121,5 @@
 
   .addNewMessage {
     margin: 1rem 0;
-  }
-  .playground {
-    margin: 4rem;
-    border: 1px solid white;
-    border-radius: 1rem;
-    padding: 1rem;
-    margin-top: 4rem;
-  }
-  .toHex {
-    margin-top: 1rem;
   }
 </style>

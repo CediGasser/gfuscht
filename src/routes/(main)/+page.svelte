@@ -15,7 +15,6 @@
 	<section>
 		<h1>Some experiments</h1>
 		<ul>
-			<li><a href="/aaron">Aaron</a></li>
 			<li><a href="/gravitygrid">Gravitygrid</a></li>
 			<li><a href="/metaballs?&id=3">Metaballs</a></li>
 			<li><a href="/cubify">Cubify</a></li>

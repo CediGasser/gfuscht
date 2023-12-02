@@ -78,7 +78,12 @@
 <div class="morse">
   {#each morseOutput as word}
     {#each word as char}
-        <span transition:fade class:dot={char === '.'} class:dash={char === '-'} class:space={char === ' '}></span>
+        <span 
+          transition:fade 
+          class:dot={char === '.'} 
+          class:dash={char === '-'} 
+          class:space={char === ' '}>
+        </span>
     {/each}
     <br/>
   {/each}
@@ -97,12 +102,15 @@
 		}
 	}
 
+  span {
+    background-color: var(--theme-primary);
+    border-radius: calc(var(--size) / 2);
+  }
+
   .dot {
     display: inline-block;
     width: var(--size);
     height: var(--size);
-    border-radius: calc(var(--size) / 2);
-    background: black;
     margin-right: 0.1rem;
   }
 
@@ -110,8 +118,6 @@
     display: inline-block;
     width: calc(var(--size) * 3);
     height: var(--size);
-    border-radius: calc(var(--size) / 2);
-    background: black;
     margin-right: 0.1rem;
   }
 
@@ -128,12 +134,14 @@
   }
 
   input {
+    color: var(--theme-text);
     display: inline;
     font-size: 2rem;
     padding: 1rem;
     margin: 2rem;
-    border: 1px solid black;
-    border-radius: 0.5rem;
+    border: 1px solid var(--theme-highlight-mid);
+    border-radius: var(--theme-radius);
     width: 100%;
+    background-color: var(--theme-overlay);
   }
 </style>

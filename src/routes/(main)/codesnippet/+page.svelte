@@ -32,8 +32,6 @@ doSomething();`;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    
-    margin-top: 6rem;
+    height: 100dvh;
   }
 </style>
