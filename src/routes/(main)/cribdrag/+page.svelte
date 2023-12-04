@@ -38,7 +38,8 @@
     </div>
   </section>
 
-  <div class="possible-guesses">
+  <div class="container possible-guesses">
+    <h2>Select what seems like decrypted parts:</h2>
     {#each $cribDrag.possibleGuesses as guesses, i }
       <ul 
         on:click={() => cribDrag.setGuessIndex(i)}
@@ -52,7 +53,7 @@
 
   <div class="container">
     <h2>The resulting key:</h2>
-    
+
     <pre class="monospace">{$cribDrag.keyHex}</pre>
     <pre>{$cribDrag.key}</pre>
   </div>
@@ -69,6 +70,7 @@
     background-color: var(--theme-surface);
     border-radius: calc(var(--theme-radius) * 2);
     padding: 1rem;
+    margin-block: 1rem;
   }
 
   input {
