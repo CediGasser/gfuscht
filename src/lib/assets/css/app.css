@@ -23,13 +23,13 @@
 
 .theme-light {
 	--font-mono: 'Fira Mono', monospace;
-	--theme-base: #b9c6d2;
-	--theme-surface: #ffffff;
-	--theme-overlay: #ffe0c9;
-	--theme-muted: #9893a5;
-	--theme-subtle: #797593;
+	--theme-base: #dddddd;
+	--theme-surface: #eeeeee;
+	--theme-overlay: #ffffff;
+	--theme-muted: #716565;
+	--theme-subtle: #554a4a;
 	
-	--theme-text: #3a2f28;
+	--theme-text: #231e1e;
 	
 	--theme-primary: #ff3e00;
 	--theme-secondary: #eb6f92;

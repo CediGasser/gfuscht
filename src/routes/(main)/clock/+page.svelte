@@ -54,7 +54,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #99eaf0;
+    background: var(--theme-base);
   }
 
   span {
@@ -86,8 +86,8 @@
     bottom: 0;
     z-index: 1;
     border-radius: 8px;
-    box-shadow: inset 0 0 16px 64px #99eaf0,
-                inset 0 0 64px 64px #99eaf0;
+    box-shadow: inset 0 0 16px 64px var(--theme-base),
+                inset 0 0 64px 64px var(--theme-base);
   }
 
   .clock {
@@ -105,7 +105,7 @@
     bottom: 0;
     z-index: 1;
     border-radius: 16px;
-    border: solid 2px #4f7878;
+    border: solid 2px var(--theme-primary);
   }
 
   @media (max-width: 850px) {
