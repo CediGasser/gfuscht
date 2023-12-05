@@ -29,7 +29,9 @@
 <main>
   <div class="wrapper"
       on:click={() => XIIHoursDay = !XIIHoursDay} 
-      on:keypress={() => XIIHoursDay = !XIIHoursDay}>
+      on:keypress={() => XIIHoursDay = !XIIHoursDay}
+      role="button"
+      tabindex="0">
     <div class="clock">
       <Digit value={hours1} max={XIIHoursDay ? 1 : 2} />
       <Digit value={hours2} />
