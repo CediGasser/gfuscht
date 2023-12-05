@@ -15,3 +15,7 @@ export const fadeOnLoad = (node: HTMLElement, params: FadeOnLoadParams = {}) => 
         node.style.opacity = '1';
     };
 }
+
+export const focusOnLoad = (node: HTMLElement) => {
+    node.focus();
+}

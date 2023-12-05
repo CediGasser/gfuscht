@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { focusOnLoad } from '$lib/Utils'
+  import { focusOnLoad } from '$lib/actions'
   import { fade } from 'svelte/transition'
 
   let morseInput = '';
