@@ -1,9 +1,11 @@
 <script lang="ts">
   import '$lib/assets/css/reset.css'
   import '$lib/assets/css/app.css'
+
+  import { themeStore, themeRoot } from '$lib/classes/theme'; 
 </script>
 
-<div class="theme-rose-pine">
+<div use:themeRoot class="{$themeStore}">
   <slot />
 </div>
 

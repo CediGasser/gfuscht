@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte'
 	import { Effect } from '$lib/classes/gravitygrid'
+	import { themeStore } from '$lib/classes/theme'
 
 	let canvas: HTMLCanvasElement
 	let effect: Effect
 
 	onMount(() => {
-		let styles = window.getComputedStyle(canvas)
-		let accent = styles.getPropertyValue('--theme-primary')
+		let accent = themeStore.getPropertyValue('--theme-primary') ?? 'red'
 
 		canvas.width = window.innerWidth
 		canvas.height = window.innerHeight
