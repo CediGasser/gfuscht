@@ -23,6 +23,7 @@
 <style>
   main {
     padding: 2rem;
+    height: 100vh;
   }
 
   h1 {

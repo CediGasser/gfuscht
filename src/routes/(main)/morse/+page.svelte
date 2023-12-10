@@ -71,25 +71,31 @@
       .join(' '));
 </script>
 
-<div class="controls">
-  <input use:focusOnLoad bind:value={morseInput} />
-</div>
-
-<div class="morse">
-  {#each morseOutput as word}
-    {#each word as char}
+<main>
+  <div class="controls">
+    <input use:focusOnLoad bind:value={morseInput} />
+  </div>
+  
+  <div class="morse">
+    {#each morseOutput as word}
+      {#each word as char}
         <span 
           transition:fade 
           class:dot={char === '.'} 
           class:dash={char === '-'} 
           class:space={char === ' '}>
         </span>
+      {/each}
+      <br/>
     {/each}
-    <br/>
-  {/each}
-</div>
+  </div>
+</main>
 
 <style>
+  main {
+    height: 100vh;
+  }
+
   .morse {
     margin: 6rem;
     --size: 1.5rem;

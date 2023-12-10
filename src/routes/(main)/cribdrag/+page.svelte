@@ -61,9 +61,10 @@
 
 <style>
   main {
-    height: max(100vh, 100%);
+    height: 100vh;
     padding: 1rem;
     color: var(--theme-text);
+    background-color: var(--theme-base);
   }
 
   .container {
