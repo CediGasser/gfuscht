@@ -19,13 +19,4 @@
         white-space: nowrap;
         line-height: 1rem;
     }
-
-    a {
-        text-decoration: none;
-        color: #000;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
 </style>

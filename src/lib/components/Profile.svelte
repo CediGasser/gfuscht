@@ -35,18 +35,12 @@
     img {
         border-radius: 50%;
         margin-block: 2rem;
-        box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 1rem var(--theme-surface);
     }
 
     a {
         font-size: 2rem;
         font-weight: bold;
-        text-decoration: none;
-        color: #000;
-    }
-
-    a:hover {
-        text-decoration: underline;
     }
 
     p {

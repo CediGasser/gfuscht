@@ -37,5 +37,4 @@
         justify-content: center;
         height: 100%;
     }
-
 </style>

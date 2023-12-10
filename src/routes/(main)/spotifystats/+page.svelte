@@ -93,11 +93,6 @@
         font-family: "Courier New", Courier, monospace;
         --primary-color: #185ee0;
         --secondary-color: #e6eef9;
-        background-color: linear-gradient(
-            45deg,
-            var(--primary-color),
-            var(--secondary-color)
-        );
     }
 
     .wrapper {
@@ -110,6 +105,7 @@
         padding: 2rem;
         border-radius: 1rem;
         backdrop-filter: blur(8px);
+        background-color: var(--theme-surface);
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
         gap: 4rem;
         min-height: 500px;
@@ -127,15 +123,6 @@
         margin-block: 0.5rem;
         line-height: 1rem;
         overflow: hidden;
-    }
-
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
-
-    a:hover {
-        text-decoration: underline;
     }
 
     .profile-info {
@@ -187,6 +174,7 @@
         padding: 0.2rem;
         border-radius: 0.7rem;
         box-shadow: inset 0 0 6px 1px rgba(0, 0, 0, 0.2);
+        background-color: var(--theme-base);
     }
 
     .tab-group label {
@@ -202,7 +190,7 @@
     }
 
     .tab-group input[type="radio"]:checked + label {
-        color: var(--primary-color);
+        color: var(--theme-primary);
     }
 
     input[id="tracks"]:checked ~ .glider {
@@ -218,11 +206,10 @@
         display: flex;
         height: 2rem;
         width: 100px;
-        background-color: var(--secondary-color);
+        background-color: var(--theme-overlay);
         z-index: 1;
         border-radius: 0.5rem;
         transition: 0.15s ease-out;
-        border: 1px solid #d1e0f5;
     }
 
     @media (max-width: 800px) {

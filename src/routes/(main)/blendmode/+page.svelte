@@ -12,7 +12,7 @@
         <div class="shader__layer mask"></div>
       </div>
     </div>
-    <a href="https://www.instagram.com/balinfilms" class="img-attrib">&copy Balin</a>
+    <a href="https://www.instagram.com/balinfilms">&copy Balin</a>
   </div>
 
 </main>
@@ -22,7 +22,6 @@
     display: flex;
     align-items: center;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: rgba(0, 0, 0, 0.7);
     padding: 2rem;
     flex-direction: column;
     padding-bottom: 80vh;
@@ -43,10 +42,10 @@
     flex-direction: column;
   }
 
-  .img-attrib {
+  a {
     text-decoration: none;
-    color:rgba(0, 0, 0, 0.7);
     width: 100%;
+    color: rgba(from var(--theme-text) r g b 0.9);
     text-align: end;
     padding-inline: 0.5rem;
   }
