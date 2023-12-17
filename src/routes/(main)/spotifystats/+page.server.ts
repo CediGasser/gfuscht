@@ -5,10 +5,8 @@ export const load = async ({ cookies }) => {
     let accessToken = cookies.get('spotify_token')
 
     if (!accessToken) {
-        console.log('No access token')
         let refreshToken = cookies.get('spotify_refresh_token')
         if (!refreshToken) {
-            console.log('No refresh token')
             throw redirect(301, '/spotifystats/login')
         }
 
@@ -16,7 +14,6 @@ export const load = async ({ cookies }) => {
     }
 
     if (!accessToken) {
-        console.log('No access token found after refresh')
         throw redirect(301, '/spotifystats/login')
     }
 

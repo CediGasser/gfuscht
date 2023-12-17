@@ -10,7 +10,12 @@ import { error } from '@sveltejs/kit';
 const token_endpoint = `https://accounts.spotify.com/api/token`;
 
 if (!publicEnv.PUBLIC_SPOTIFY_CLIENT_ID || !env.SPOTIFY_CLIENT_SECRET || !publicEnv.PUBLIC_SPOTIFY_REDIRECT_URI) {
-    throw new Error('Missing Spotify API secrets')
+    let error = 'Missing Spotify API secrets:'
+    if (!publicEnv.PUBLIC_SPOTIFY_CLIENT_ID) error += ' PUBLIC_SPOTIFY_CLIENT_ID'
+    if (!env.SPOTIFY_CLIENT_SECRET) error += ' SPOTIFY_CLIENT_SECRET'
+    if (!publicEnv.PUBLIC_SPOTIFY_REDIRECT_URI) error += ' PUBLIC_SPOTIFY_REDIRECT_URI'
+
+    console.error(error)
 }
 
 type TimeRange = 'short_term' | 'medium_term' | 'long_term';

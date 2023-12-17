@@ -6,7 +6,6 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
   var state = url.searchParams.get('state')
 
   if (state === null || code === null) {
-    console.log('No state or code', state, code)
     throw redirect(301, '/spotifystats/login')
   } 
 
