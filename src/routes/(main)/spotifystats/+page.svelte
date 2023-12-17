@@ -91,8 +91,6 @@
         justify-content: center;
         min-height: 100vh;
         font-family: "Courier New", Courier, monospace;
-        --primary-color: #185ee0;
-        --secondary-color: #e6eef9;
     }
 
     .wrapper {

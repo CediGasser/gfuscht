@@ -15,7 +15,7 @@
     justify-content: center;
     height: 100vh;
     background-color: var(--theme-base);
-    font-family: var(--font-mono);
+    font-family: var(--theme-font-mono);
   }
   h1 {
     text-align: center;

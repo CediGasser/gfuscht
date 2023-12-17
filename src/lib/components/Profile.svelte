@@ -35,7 +35,7 @@
     img {
         border-radius: 50%;
         margin-block: 2rem;
-        box-shadow: 0 0 1rem var(--theme-surface);
+        box-shadow: 0 0 1rem var(--theme-shadow);
     }
 
     a {

@@ -42,7 +42,7 @@
     align-items: center;
     background-color: var(--theme-overlay);
     border-radius: 8px;
-    box-shadow: 0 0 12px 4px var(--theme-surface);
+    box-shadow: 0 0 12px 4px var(--theme-shadow);
     gap: 0;
     transition: all 0.2s ease-in;
     transform: translateY(calc(var(--offset) * var(--digit-size) * -1));

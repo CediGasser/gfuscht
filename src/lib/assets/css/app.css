@@ -7,27 +7,17 @@
 
 :root {
 	font-family: Harmony, serif;
-	--font-mono: 'Fira Mono', monospace;
-	--pure-white: #ffffff;
-	--primary-color: #b9c6d2;
-	--secondary-color: #d0dde9;
-	--tertiary-color: #edf0f8;
-	--accent-color: #ff3e00;
-	--heading-color: rgba(0, 0, 0, 0.7);
-	--text-color: #444444;
-	--background-without-opacity: rgba(255, 255, 255, 0.7);
-	--column-width: 42rem;
-	--column-margin-top: 4rem;
-	--theme-base: #191724;
 }
 
 .theme-light {
-	--font-mono: 'Fira Mono', monospace;
+	--theme-font-mono: 'Fira Mono', monospace;
 	--theme-base: #dddddd;
 	--theme-surface: #eeeeee;
 	--theme-overlay: #ffffff;
 	--theme-muted: #716565;
 	--theme-subtle: #554a4a;
+
+	--theme-shadow: rgba(0, 0, 0, 0.2);
 	
 	--theme-text: #231e1e;
 	
@@ -47,12 +37,14 @@
 
 .theme-rose-pine {
 	font-family: Harmony, serif;
-	--font-mono: 'Fira Mono', monospace;
+	--theme-font-mono: 'Fira Mono', monospace;
 	--theme-base: #191724;
 	--theme-surface: #1f1d2e;
 	--theme-overlay: #26233a;
 	--theme-muted: #6e6a86;
 	--theme-subtle: #908caa;
+
+	--theme-shadow: rgba(0, 0, 0, 0.2);
 	
 	--theme-text: #e0def4;
 	
@@ -72,12 +64,14 @@
 
 .theme-rose-pine-dawn {
 	font-family: Harmony, serif;
-	--font-mono: 'Fira Mono', monospace;
+	--theme-font-mono: 'Fira Mono', monospace;
 	--theme-base: #faf4ed;
 	--theme-surface: #fffaf3;
 	--theme-overlay: #f2e9e1;
 	--theme-muted: #9893a5;
 	--theme-subtle: #797593;
+
+	--theme-shadow: rgba(0, 0, 0, 0.2);
 	
 	--theme-text: #575279;
 	

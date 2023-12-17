@@ -98,7 +98,7 @@
   }
 
   .monospace {
-    font-family: var(--font-mono);
+    font-family: var(--theme-font-mono);
   }
 
   .possible-guesses {

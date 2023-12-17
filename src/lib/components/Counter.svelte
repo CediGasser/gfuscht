@@ -51,12 +51,12 @@
 		border: 0;
 		background-color: transparent;
 		touch-action: manipulation;
-		color: var(--text-color);
+		color: var(--theme-text);
 		font-size: 2rem;
 	}
 
 	.counter button:hover {
-		background-color: var(--secondary-color);
+		background-color: var(--theme-secondary);
 	}
 
 	svg {
@@ -67,7 +67,7 @@
 	path {
 		vector-effect: non-scaling-stroke;
 		stroke-width: 2px;
-		stroke: var(--text-color);
+		stroke: var(--theme-text);
 	}
 
 	.counter-viewport {
@@ -84,7 +84,7 @@
 		width: 100%;
 		height: 100%;
 		font-weight: 400;
-		color: var(--accent-color);
+		color: var(--theme-primary);
 		font-size: 4rem;
 		align-items: center;
 		justify-content: center;

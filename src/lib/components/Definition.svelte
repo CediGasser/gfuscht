@@ -24,7 +24,7 @@
 	.definition-card {
 		padding: 1rem;
 		width: min(400px, 100%);
-		box-shadow: 0 0 30px var(--theme-surface);
+		box-shadow: 0 0 30px var(--theme-shadow);
         border-radius: var(--theme-radius);
         color: var(--theme-text);
         background-color: var(--theme-surface);
@@ -47,7 +47,7 @@
     }
 
     .phonetic {
-        font-family: var(--font-mono);
+        font-family: var(--theme-font-mono);
         margin-inline-start: 0.5rem;
         color: var(--theme-subtle)
     }
