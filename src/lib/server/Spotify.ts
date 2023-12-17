@@ -82,7 +82,9 @@ const fetchApi = async (path: string, accessToken: string): Promise<any> => {
     })
 
     if (res.status === 401) {
-        throw error(401, 'Unauthorized: ' + res.status + ' ' + res.statusText + ' ' + await res.text()) 
+        throw error(401, {
+            message: 'Unauthorized: ' + await res.text()
+        }) 
     } else if (res.status === 429) {
         const retryAfter = res.headers.get('Retry-After')
         if (retryAfter) {

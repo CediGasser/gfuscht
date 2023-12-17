@@ -1,12 +1,15 @@
 import { getAccessToken, getNowPlaying, getProfile, getTopArtists, getTopTracks } from "$lib/server/Spotify"
 import { redirect } from "@sveltejs/kit"
 
-export const load = async ({ cookies }) => {
+export const load = async ({ cookies, setHeaders }) => {
     let accessToken = cookies.get('spotify_token')
 
     if (!accessToken) {
         let refreshToken = cookies.get('spotify_refresh_token')
         if (!refreshToken) {
+            setHeaders({
+                'Cache-Control': 'private, max-age=0, no-cache'
+            })
             throw redirect(301, '/spotifystats/login')
         }
 
@@ -14,6 +17,9 @@ export const load = async ({ cookies }) => {
     }
 
     if (!accessToken) {
+        setHeaders({
+            'Cache-Control': 'private, max-age=0, no-cache'
+        })
         throw redirect(301, '/spotifystats/login')
     }
 
