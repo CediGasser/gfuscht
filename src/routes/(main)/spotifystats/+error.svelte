@@ -5,6 +5,8 @@
 <main>
   <h1>{$page.status}</h1>
   <h2>{$page.error?.message}</h2>
+  <br/>
+  <a href="/spotifystats/login">Try Login</a>
 </main>
 
 <style>

@@ -13,7 +13,13 @@ export const GET: RequestHandler = async ({ url, cookies, setHeaders }) => {
     throw redirect(301, '/spotifystats/login')
   } 
 
-  let token = await getAccessToken({authorizationCode: code})
+  let token = null
+  try {
+    token = await getAccessToken({authorizationCode: code})
+  } catch (e) {
+    console.error(e)
+    throw redirect(301, '/spotifystats/login')
+  }
 
   if (token === null) {
     throw error(401, {

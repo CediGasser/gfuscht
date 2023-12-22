@@ -1,5 +1,6 @@
-import { getAccessToken, getNowPlaying, getProfile, getTopArtists, getTopTracks } from "$lib/server/Spotify"
-import { redirect } from "@sveltejs/kit"
+import { getAccessToken, getNowPlaying, getProfile, getTopArtists, getTopTracks, type HttpError } from "$lib/server/Spotify"
+import { error, redirect} from "@sveltejs/kit"
+
 
 export const load = async ({ cookies, setHeaders }) => {
     let accessToken = cookies.get('spotify_token')
@@ -31,12 +32,23 @@ export const load = async ({ cookies, setHeaders }) => {
         accessToken = token.access_token
     }
 
-    return {
-        profile: getProfile(accessToken),
-        nowPlaying: getNowPlaying(accessToken),
-        topTracks: getTopTracks(accessToken, 5),
-        streamed: {
-            topArtists: getTopArtists(accessToken, 5),
+    let stats = null
+
+    try {
+        stats = {
+            profile: getProfile(accessToken),
+            nowPlaying: getNowPlaying(accessToken),
+            topTracks: getTopTracks(accessToken, 5),
+            streamed: {
+                topArtists: getTopArtists(accessToken, 5),
+            }
         }
+    } catch (_e) {
+        let e = _e as HttpError
+        console.error('Error getting Spotify stats')
+        console.error(e)
+        throw error(e.status, e.message)
     }
+
+    return stats
 }
