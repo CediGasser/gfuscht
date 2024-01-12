@@ -10,7 +10,7 @@ export const GET: RequestHandler = async ({ url, cookies, setHeaders }) => {
   })
 
   if (state === null || code === null) {
-    throw redirect(301, '/spotifystats/login')
+    redirect(301, '/spotifystats/login');
   } 
 
   let token = null
@@ -18,13 +18,13 @@ export const GET: RequestHandler = async ({ url, cookies, setHeaders }) => {
     token = await getAccessToken({authorizationCode: code})
   } catch (e) {
     console.error(e)
-    throw redirect(301, '/spotifystats/login')
+    redirect(301, '/spotifystats/login');
   }
 
   if (token === null) {
-    throw error(401, {
-      message: 'Failed to get access token'
-    })
+    error(401, {
+            message: 'Failed to get access token'
+          });
   }
 
   cookies.set('spotify_token', token.access_token, {
@@ -37,5 +37,5 @@ export const GET: RequestHandler = async ({ url, cookies, setHeaders }) => {
     path: '/'
   })
 
-  throw redirect(301, '/spotifystats')
+  redirect(301, '/spotifystats');
 }

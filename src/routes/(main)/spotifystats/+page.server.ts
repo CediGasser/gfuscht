@@ -1,5 +1,5 @@
 import { getAccessToken, getNowPlaying, getProfile, getTopArtists, getTopTracks, type HttpError } from "$lib/server/Spotify"
-import { error, redirect} from "@sveltejs/kit"
+import { error, redirect, type NumericRange} from "@sveltejs/kit"
 
 
 export const load = async ({ cookies, setHeaders }) => {
@@ -11,7 +11,7 @@ export const load = async ({ cookies, setHeaders }) => {
 
     // redirect to login if no tokens are present
     if (!accessToken && !refreshToken) {
-        throw redirect(301, '/spotifystats/login')
+        redirect(301, '/spotifystats/login');
     }
 
     // get new access token if only refresh token is present
@@ -20,9 +20,9 @@ export const load = async ({ cookies, setHeaders }) => {
 
         if (!token) {
             // if refresh token is invalid, delete cookies and redirect to login
-            cookies.delete('spotify_token')
-            cookies.delete('spotify_refresh_token')
-            throw redirect(301, '/spotifystats/login')
+            cookies.delete('spotify_token', { path: '/' })
+            cookies.delete('spotify_refresh_token', { path: '/' })
+            redirect(301, '/spotifystats/login');
         }
 
         cookies.set('spotify_token', token.access_token, {
@@ -36,9 +36,9 @@ export const load = async ({ cookies, setHeaders }) => {
 
     try {
         stats = {
-            profile: getProfile(accessToken),
-            nowPlaying: getNowPlaying(accessToken),
-            topTracks: getTopTracks(accessToken, 5),
+            profile: await getProfile(accessToken),
+            nowPlaying: await getNowPlaying(accessToken),
+            topTracks: await getTopTracks(accessToken, 5),
             streamed: {
                 topArtists: getTopArtists(accessToken, 5),
             }
@@ -46,8 +46,8 @@ export const load = async ({ cookies, setHeaders }) => {
     } catch (_e) {
         let e = _e as HttpError
         console.error('Error getting Spotify stats')
-        console.error(e)
-        throw error(e.status, e.message)
+        console.error(JSON.stringify(e))
+        error(e.status as NumericRange<400, 599>, e.message);
     }
 
     return stats
