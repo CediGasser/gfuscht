@@ -34,20 +34,23 @@
     <div class="addNewMessage">
       <label for="newMsg" hidden>Add new message</label>
       <input placeholder="New encrypted message" bind:value={newMsg} id="newMsg" />
-      <button on:click={addMessage}>Add</button>
+      <button class="new-message" on:click={addMessage}>Add</button>
     </div>
   </section>
 
   <div class="container possible-guesses">
     <h2>Select what seems like decrypted parts:</h2>
     {#each $cribDrag.possibleGuesses as guesses, i }
-      <ul 
+      <button
+        class="guess"
         on:click={() => cribDrag.setGuessIndex(i)}
         on:keyup={() => cribDrag.setGuessIndex(i)}>
-        {#each guesses as guess }
-          <li>{guess}</li>
-        {/each}
-      </ul>
+        <ul >
+          {#each guesses as guess }
+            <li>{guess}</li>
+          {/each}
+        </ul>
+      </button>
     {/each}
   </div>
 
@@ -87,7 +90,7 @@
     margin: 1rem;
   }
 
-  button {
+  button.new-message {
     background-color: var(--theme-primary);
     border: 1px solid var(--theme-highlight-mid);
     border-radius: var(--theme-radius);
@@ -95,6 +98,22 @@
     margin: 1rem;
     color: var(--theme-highlight-low);
     cursor: pointer;
+  }
+
+  button.guess {
+    background-color: var(--theme-surface);
+    border: 1px solid var(--theme-highlight-high);
+    border-radius: var(--theme-radius);
+    padding: .5rem;
+    margin: 1rem;
+    color: var(--theme-text);
+    cursor: pointer;
+  }
+
+  button.guess:hover {
+    background-color: var(--theme-highlight-mid);
+    transition: transform 0.2s ease;
+    transform: scale(1.05);
   }
 
   .monospace {
@@ -106,20 +125,8 @@
     flex-wrap: wrap;
   }
   .possible-guesses ul {
-    margin: 1rem;
     padding: 0;
     list-style: none;
-    cursor: pointer;
-    border: 1px solid var(--theme-highlight-high);
-    border-radius: 1rem;
-    padding: 1rem;
-    background-color: var(--theme-surface);
-  }
-
-  .possible-guesses ul:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: transform 0.2s ease;
-    transform: scale(1.02);
   }
 
   .addNewMessage {

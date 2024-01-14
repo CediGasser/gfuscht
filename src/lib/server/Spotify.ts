@@ -1,3 +1,4 @@
+import { building } from '$app/environment'
 import { env } from '$env/dynamic/private'
 import { env as publicEnv } from '$env/dynamic/public'
 import { sleep } from '$lib/utils'
@@ -8,7 +9,8 @@ import type { CurrentlyPlayingObject,
 
 const token_endpoint = `https://accounts.spotify.com/api/token`;
 
-if (!publicEnv.PUBLIC_SPOTIFY_CLIENT_ID || !env.SPOTIFY_CLIENT_SECRET || !publicEnv.PUBLIC_SPOTIFY_REDIRECT_URI) {
+// Can't use env. vars during build time, so we'll just check that first
+if (!building && (!publicEnv.PUBLIC_SPOTIFY_CLIENT_ID || !env.SPOTIFY_CLIENT_SECRET || !publicEnv.PUBLIC_SPOTIFY_REDIRECT_URI)) {
     let error = 'Missing Spotify API secrets:'
     if (!publicEnv.PUBLIC_SPOTIFY_CLIENT_ID) error += ' PUBLIC_SPOTIFY_CLIENT_ID'
     if (!env.SPOTIFY_CLIENT_SECRET) error += ' SPOTIFY_CLIENT_SECRET'

@@ -9,26 +9,25 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@sveltejs/kit": "^2.0.0",
-    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "@sveltejs/adapter-node": "^3.0.0",
+    "@sveltejs/kit": "^2.3.2",
+    "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "@threlte/core": "^5.0.9",
     "@threlte/extras": "^4.9.3",
     "@threlte/preprocess": "^0.0.2",
     "@types/cookie": "^0.5.4",
     "@types/prismjs": "^1.26.3",
     "@types/three": "^0.149.0",
-    "svelte": "^4.2.7",
-    "svelte-check": "^3.6.2",
-    "svelte-preprocess": "^5.1.1",
+    "svelte": "^4.2.8",
+    "svelte-check": "^3.6.3",
     "three": "^0.150.1",
     "tslib": "^2.6.2",
-    "typescript": "^5.3.2",
-    "vite": "^5.0.0"
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11"
   },
   "type": "module",
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.10",
-    "@sveltejs/adapter-node": "^2.0.0",
     "prismjs": "^1.29.0"
   }
 }
