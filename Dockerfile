@@ -1,13 +1,13 @@
 # syntax=docker/dockerfile:1
 
-FROM node:16.15.1-alpine3.15 AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json svelte.config.js ./
 RUN npm ci
 COPY . .
 RUN npm run build && npm prune --production
 
-FROM node:16.15.1-alpine3.15
+FROM node:20-alpine
 USER node:node
 WORKDIR /app
 COPY --from=builder --chown=node:node /app/build ./build
