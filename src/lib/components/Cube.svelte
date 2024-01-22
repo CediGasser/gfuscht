@@ -1,7 +1,7 @@
 <script lang="ts">
   import { T, useLoader } from '@threlte/core'
   import { interactivity } from '@threlte/extras'
-  import { TextureLoader } from 'three'
+  import { Mesh, TextureLoader } from 'three'
   import { spring } from 'svelte/motion'
 
   interactivity()
