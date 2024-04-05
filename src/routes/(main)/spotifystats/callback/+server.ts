@@ -1,41 +1,41 @@
-import { redirect, error, type RequestHandler } from "@sveltejs/kit";
-import { getAccessToken } from "$lib/server/Spotify";
+import { redirect, error, type RequestHandler } from '@sveltejs/kit'
+import { getAccessToken } from '$lib/server/Spotify'
 
 export const GET: RequestHandler = async ({ url, cookies, setHeaders }) => {
-  var code = url.searchParams.get('code')
+  var code = url.searchParams.get('code') ?? undefined
   var state = url.searchParams.get('state')
 
   setHeaders({
-    'Cache-Control': 'private, max-age=0, no-cache'
+    'Cache-Control': 'private, max-age=0, no-cache',
   })
 
   if (state === null || code === null) {
-    redirect(301, '/spotifystats/login');
-  } 
+    redirect(301, '/spotifystats/login')
+  }
 
   let token = null
   try {
-    token = await getAccessToken({authorizationCode: code})
+    token = await getAccessToken({ authorizationCode: code })
   } catch (e) {
     console.error(e)
-    redirect(301, '/spotifystats/login');
+    redirect(301, '/spotifystats/login')
   }
 
-  if (token === null) {
-    error(401, {
-            message: 'Failed to get access token'
-          });
+  if (!token) {
+    throw error(401, {
+      message: 'Failed to get access token',
+    })
   }
 
   cookies.set('spotify_token', token.access_token, {
     maxAge: token.expires_in,
-    path: '/'
+    path: '/',
   })
 
   cookies.set('spotify_refresh_token', token.refresh_token, {
     maxAge: 365 * 24 * 60 * 60,
-    path: '/'
+    path: '/',
   })
 
-  redirect(301, '/spotifystats');
+  throw redirect(301, '/spotifystats')
 }
