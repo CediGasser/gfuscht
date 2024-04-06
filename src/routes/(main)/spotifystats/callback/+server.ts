@@ -22,7 +22,7 @@ export const GET: RequestHandler = async ({ url, cookies, setHeaders }) => {
   }
 
   if (!token) {
-    throw error(401, {
+    error(401, {
       message: 'Failed to get access token',
     })
   }
@@ -37,5 +37,5 @@ export const GET: RequestHandler = async ({ url, cookies, setHeaders }) => {
     path: '/',
   })
 
-  throw redirect(301, '/spotifystats')
+  redirect(301, '/spotifystats')
 }

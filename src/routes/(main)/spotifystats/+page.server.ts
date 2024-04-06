@@ -6,7 +6,7 @@ import {
   getTopTracks,
   type HttpError,
 } from '$lib/server/Spotify'
-import { error, redirect } from '@sveltejs/kit'
+import { error, redirect, type NumericRange } from '@sveltejs/kit'
 
 export const load = async ({ cookies, setHeaders }) => {
   let accessToken = cookies.get('spotify_token')
@@ -17,7 +17,7 @@ export const load = async ({ cookies, setHeaders }) => {
 
   // redirect to login if no tokens are present
   if (!accessToken && !refreshToken) {
-    throw redirect(301, '/spotifystats/login')
+    redirect(301, '/spotifystats/login')
   }
 
   // get new access token if only refresh token is present
@@ -28,7 +28,7 @@ export const load = async ({ cookies, setHeaders }) => {
       // if refresh token is invalid, delete cookies and redirect to login
       cookies.delete('spotify_token', { path: '/' })
       cookies.delete('spotify_refresh_token', { path: '/' })
-      throw redirect(301, '/spotifystats/login')
+      redirect(301, '/spotifystats/login')
     } else {
       cookies.set('spotify_token', token.access_token, {
         maxAge: token.expires_in,
@@ -53,7 +53,7 @@ export const load = async ({ cookies, setHeaders }) => {
     let e = _e as HttpError
     console.error('Error getting Spotify stats')
     console.error(JSON.stringify(e))
-    error(e.status, e.message)
+    error(e.status as NumericRange<400, 599>, e.message)
   }
 
   return stats
