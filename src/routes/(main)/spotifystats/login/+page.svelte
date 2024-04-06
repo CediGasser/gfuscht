@@ -4,9 +4,9 @@
 
   let url = 'https://accounts.spotify.com/authorize?'
   let params = {
-    client_id: publicEnv.PUBLIC_SPOTIFY_CLIENT_ID,
+    client_id: publicEnv.PUBLIC_SPOTIFY_CLIENT_ID ?? '',
     response_type: 'code',
-    redirect_uri: publicEnv.PUBLIC_SPOTIFY_REDIRECT_URI,
+    redirect_uri: publicEnv.PUBLIC_SPOTIFY_REDIRECT_URI ?? '',
     scope: 'user-read-private user-read-email user-top-read user-read-currently-playing',
     state: randomString(16)
   }
