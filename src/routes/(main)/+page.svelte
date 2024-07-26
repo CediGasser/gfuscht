@@ -38,6 +38,7 @@
       <li><a href="/clock">Clock</a></li>
       <li><a href="/geo">Geo</a></li>
       <li><a href="/unitylight">Unity Light</a></li>
+      <li><a href="/sand">Sand</a></li>
     </ul>
   </section>
 </main>
