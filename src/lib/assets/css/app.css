@@ -1,148 +1,148 @@
 @import '@fontsource/fira-mono';
 
 @font-face {
-    font-family: Harmony;
-    src: url("$lib/assets/harmony/harmony.otf") format("opentype");
+  font-family: Harmony;
+  src: url('$lib/assets/harmony/harmony.otf') format('opentype');
 }
 
 :root {
-	font-family: Harmony, serif;
+  font-family: Harmony, serif;
 }
 
 .theme-light {
-	--theme-font-mono: 'Fira Mono', monospace;
-	--theme-base: #dddddd;
-	--theme-surface: #eeeeee;
-	--theme-overlay: #ffffff;
-	--theme-muted: #716565;
-	--theme-subtle: #554a4a;
+  --theme-font-mono: 'Fira Mono', monospace;
+  --theme-base: #dddddd;
+  --theme-surface: #eeeeee;
+  --theme-overlay: #ffffff;
+  --theme-muted: #716565;
+  --theme-subtle: #554a4a;
 
-	--theme-shadow: rgba(0, 0, 0, 0.2);
-	
-	--theme-text: #231e1e;
-	
-	--theme-primary: #ff3e00;
-	--theme-secondary: #eb6f92;
-	--theme-tertiary: #ebbcba;
-	--theme-quaternary: #31748f;
-	--theme-quinary: #9ccfd8;
-	--theme-senary: #c4a7e7;
-	
-	--theme-highlight-low: #f4ede8;
-	--theme-highlight-mid: #dfdad9;
-	--theme-highlight-high: #cecacd;
-	
-	--theme-radius: 0;
+  --theme-shadow: rgba(0, 0, 0, 0.2);
+
+  --theme-text: #231e1e;
+
+  --theme-primary: #ff3e00;
+  --theme-secondary: #eb6f92;
+  --theme-tertiary: #ebbcba;
+  --theme-quaternary: #31748f;
+  --theme-quinary: #9ccfd8;
+  --theme-senary: #c4a7e7;
+
+  --theme-highlight-low: #f4ede8;
+  --theme-highlight-mid: #dfdad9;
+  --theme-highlight-high: #cecacd;
+
+  --theme-radius: 0;
 }
 
 .theme-rose-pine {
-	font-family: Harmony, serif;
-	--theme-font-mono: 'Fira Mono', monospace;
-	--theme-base: #191724;
-	--theme-surface: #1f1d2e;
-	--theme-overlay: #26233a;
-	--theme-muted: #6e6a86;
-	--theme-subtle: #908caa;
+  font-family: Harmony, serif;
+  --theme-font-mono: 'Fira Mono', monospace;
+  --theme-base: #191724;
+  --theme-surface: #1f1d2e;
+  --theme-overlay: #26233a;
+  --theme-muted: #6e6a86;
+  --theme-subtle: #908caa;
 
-	--theme-shadow: rgba(0, 0, 0, 0.2);
-	
-	--theme-text: #e0def4;
-	
-	--theme-primary: #eb6f92;
-	--theme-secondary: #f6c177;
-	--theme-tertiary: #ebbcba;
-	--theme-quaternary: #31748f;
-	--theme-quinary: #9ccfd8;
-	--theme-senary: #c4a7e7;
-	
-	--theme-highlight-low: #21202e;
-	--theme-highlight-mid: #403d52;
-	--theme-highlight-high: #524f67;
-	
-	--theme-radius: 12px;
+  --theme-shadow: rgba(0, 0, 0, 0.2);
+
+  --theme-text: #e0def4;
+
+  --theme-primary: #eb6f92;
+  --theme-secondary: #f6c177;
+  --theme-tertiary: #ebbcba;
+  --theme-quaternary: #31748f;
+  --theme-quinary: #9ccfd8;
+  --theme-senary: #c4a7e7;
+
+  --theme-highlight-low: #21202e;
+  --theme-highlight-mid: #403d52;
+  --theme-highlight-high: #524f67;
+
+  --theme-radius: 12px;
 }
 
 .theme-rose-pine-dawn {
-	font-family: Harmony, serif;
-	--theme-font-mono: 'Fira Mono', monospace;
-	--theme-base: #faf4ed;
-	--theme-surface: #fffaf3;
-	--theme-overlay: #f2e9e1;
-	--theme-muted: #9893a5;
-	--theme-subtle: #797593;
+  font-family: Harmony, serif;
+  --theme-font-mono: 'Fira Mono', monospace;
+  --theme-base: #faf4ed;
+  --theme-surface: #fffaf3;
+  --theme-overlay: #f2e9e1;
+  --theme-muted: #9893a5;
+  --theme-subtle: #797593;
 
-	--theme-shadow: rgba(0, 0, 0, 0.2);
-	
-	--theme-text: #575279;
-	
-	--theme-primary: #b4637a;
-	--theme-secondary: #ea9d34;
-	--theme-tertiary: #d7827e;
-	--theme-quaternary: #286983;
-	--theme-quinary: #56949f;
-	--theme-senary: #907aa9;
-	
-	--theme-highlight-low: #f4ede8;
-	--theme-highlight-mid: #dfdad9;
-	--theme-highlight-high: #cecacd;
-	
-	--theme-radius: 12px;
+  --theme-shadow: rgba(0, 0, 0, 0.2);
+
+  --theme-text: #575279;
+
+  --theme-primary: #b4637a;
+  --theme-secondary: #ea9d34;
+  --theme-tertiary: #d7827e;
+  --theme-quaternary: #286983;
+  --theme-quinary: #56949f;
+  --theme-senary: #907aa9;
+
+  --theme-highlight-low: #f4ede8;
+  --theme-highlight-mid: #dfdad9;
+  --theme-highlight-high: #cecacd;
+
+  --theme-radius: 12px;
 }
 
 body {
-	min-height: 100vh;
-	margin: 0;
-	overscroll-behavior-y: none;
-	background-color: var(--theme-base);
-	color: var(--theme-text);
+  min-height: 100vh;
+  margin: 0;
+  overscroll-behavior-y: none;
+  background-color: var(--theme-base);
+  color: var(--theme-text);
 }
 
 #svelte {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1,
 h2 {
-	margin-bottom: 1rem;
-	color: var(--theme-primary);
+  margin-bottom: 1rem;
+  color: var(--theme-primary);
 }
 
 p {
-	font-weight: 400;
-	line-height: 1.5;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 a {
-	color: var(--theme-secondary);
-	text-decoration: none;
+  color: var(--theme-secondary);
+  text-decoration: none;
 }
 
 a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 h1 {
-	font-size: 2rem;
+  font-size: 2rem;
 }
 
 h2 {
-	font-size: 1rem;
+  font-size: 1rem;
 }
 
 input,
 button {
-	font-size: inherit;
-	font-family: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 button:focus:not(:focus-visible) {
-	outline: none;
+  outline: none;
 }
 
 @media (min-width: 720px) {
-	h1 {
-		font-size: 2.4rem;
-	}
+  h1 {
+    font-size: 2.4rem;
+  }
 }

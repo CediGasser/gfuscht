@@ -206,8 +206,7 @@
     requestAnimationFrame((t) => draw(ctx, t))
   }
 
-  let intervalId: number | undefined = undefined
-
+  let intervalId: number | null = null
   let mousePosition: { x: number; y: number } = { x: 0, y: 0 }
 
   const onMousemove = (e: MouseEvent) => {
@@ -215,25 +214,65 @@
     mousePosition.y = e.clientY
   }
 
-  const onMousedown = () => {
-    clearInterval(intervalId)
-
-    intervalId = setInterval(() => {
-      paint(mousePosition.x, mousePosition.y)
-    }, DRAW_INTERVAL)
+  const onTouchmove = (e: TouchEvent) => {
+    mousePosition.x = e.touches[0].clientX
+    mousePosition.y = e.touches[0].clientY
   }
 
-  const onMouseup = () => {
-    clearInterval(intervalId)
+  const startDrawing = (e: TouchEvent | MouseEvent) => {
+    if (e instanceof MouseEvent) {
+      mousePosition.x = e.clientX
+      mousePosition.y = e.clientY
+    } else {
+      mousePosition.x = e.touches[0].clientX
+      mousePosition.y = e.touches[0].clientY
+    }
+
+    if (!intervalId) {
+      intervalId = setInterval(() => {
+        paint(mousePosition.x, mousePosition.y)
+      }, DRAW_INTERVAL)
+    }
+  }
+
+  const stopDrawing = () => {
+    if (intervalId) {
+      clearInterval(intervalId)
+      intervalId = null
+    }
   }
 </script>
+
+<svelte:head>
+  <style>
+    html {
+      overflow: hidden;
+    }
+  </style>
+</svelte:head>
 
 <svelte:window
   bind:innerWidth={screenWidth}
   bind:innerHeight={screenHeight}
   on:mousemove={onMousemove}
-  on:mousedown={onMousedown}
-  on:mouseup={onMouseup}
+  on:mousedown={startDrawing}
+  on:mouseup={stopDrawing}
+  on:mouseleave={stopDrawing}
+  on:touchmove={onTouchmove}
+  on:touchstart={startDrawing}
+  on:touchend={stopDrawing}
+  on:touchcancel={stopDrawing}
 />
 
 <canvas width={screenWidth} height={screenHeight} use:simAction></canvas>
+
+<style>
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+  }
+</style>
