@@ -29,11 +29,9 @@
     <ul>
       <li><a href="/gravitygrid">Gravitygrid</a></li>
       <li><a href="/metaballs?&id=3">Metaballs</a></li>
-      <li><a href="/cubify">Cubify</a></li>
       <li><a href="/define">Define</a></li>
       <li><a href="/morse">Morse</a></li>
       <li><a href="/codesnippet">Codesnippet</a></li>
-      <li><a href="/pencil">Pencil</a></li>
       <li><a href="/cribdrag">Cribdrag</a></li>
       <li><a href="/spotifystats">Spotifystats</a></li>
       <li><a href="/blendmode">Blendmode</a></li>
