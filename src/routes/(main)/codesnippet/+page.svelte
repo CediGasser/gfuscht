@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Snippet from '$lib/components/Snippet.svelte';
+  import Seo from '$lib/components/Seo.svelte'
+  import Snippet from '$lib/components/Snippet.svelte'
 
-  let code = 
-`import { Snippet } from '$lib/components/Snippet.svelte';
+  let code = `import { Snippet } from '$lib/components/Snippet.svelte';
 
 let code = \`<Snippet {code} />\`;
 
@@ -19,12 +19,17 @@ function doSomething() {
   console.log('Hello world!');
 }
 
-doSomething();`;
-
+doSomething();`
 </script>
 
+<Seo
+  title="Code Snippet"
+  description="Using CSS perspective and mouse tracking to create a 3D effect on a code snippet."
+  keywords="css, perspective, 3d, effect, code, snippet"
+/>
+
 <div class="wrapper">
-  <Snippet {code} animateGradient/>
+  <Snippet {code} animateGradient />
 </div>
 
 <style>

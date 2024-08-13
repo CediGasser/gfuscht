@@ -1,16 +1,23 @@
 <script lang="ts">
-  import { cribDrag, type Message, hexXor, hexToString, stringToHex } from "$lib/classes/CribDrag";
-  let newMsg = "";
+  import {
+    cribDrag,
+    type Message,
+    hexXor,
+    hexToString,
+    stringToHex,
+  } from '$lib/classes/CribDrag'
+  import Seo from '$lib/components/Seo.svelte'
+  let newMsg = ''
 
   const addMessage = () => {
-    cribDrag.add(newMsg);
-    newMsg = "";
-  };
+    cribDrag.add(newMsg)
+    newMsg = ''
+  }
 
   const updateMessage = (msg: Message) => (e: Event) => {
     let input = e.target as HTMLInputElement
-    cribDrag.update(msg.encrypted, input.value);
-  };
+    cribDrag.update(msg.encrypted, input.value)
+  }
 
   // playground stuff
   let xor1 = ''
@@ -20,33 +27,45 @@
   let str = ''
   $: strAsHex = stringToHex(str)
 </script>
+
+<Seo
+  title="Crib Drag"
+  description="WIP. A tool to help decrypt OTP messages using the crib dragging technique."
+  keywords="otp, crib drag, decrypt, encryption, one time pad"
+/>
+
 <main>
   <h1>Crib Drag</h1>
 
   <section class="container">
     <h2>Your messages</h2>
 
-    {#each $cribDrag.messages as msg }
-    <p class="monospace">{msg.encrypted}</p>
-    <input on:keyup={updateMessage(msg)} value={msg.guess} />
+    {#each $cribDrag.messages as msg}
+      <p class="monospace">{msg.encrypted}</p>
+      <input on:keyup={updateMessage(msg)} value={msg.guess} />
     {/each}
-    
+
     <div class="addNewMessage">
       <label for="newMsg" hidden>Add new message</label>
-      <input placeholder="New encrypted message" bind:value={newMsg} id="newMsg" />
+      <input
+        placeholder="New encrypted message"
+        bind:value={newMsg}
+        id="newMsg"
+      />
       <button class="new-message" on:click={addMessage}>Add</button>
     </div>
   </section>
 
   <div class="container possible-guesses">
     <h2>Select what seems like decrypted parts:</h2>
-    {#each $cribDrag.possibleGuesses as guesses, i }
+    {#each $cribDrag.possibleGuesses as guesses, i}
       <button
         class="guess"
         on:click={() => cribDrag.setGuessIndex(i)}
-        on:keyup={() => cribDrag.setGuessIndex(i)}>
-        <ul >
-          {#each guesses as guess }
+        on:keyup={() => cribDrag.setGuessIndex(i)}
+      >
+        <ul>
+          {#each guesses as guess}
             <li>{guess}</li>
           {/each}
         </ul>
@@ -94,7 +113,7 @@
     background-color: var(--theme-primary);
     border: 1px solid var(--theme-highlight-mid);
     border-radius: var(--theme-radius);
-    padding: .5rem;
+    padding: 0.5rem;
     margin: 1rem;
     color: var(--theme-highlight-low);
     cursor: pointer;
@@ -104,7 +123,7 @@
     background-color: var(--theme-surface);
     border: 1px solid var(--theme-highlight-high);
     border-radius: var(--theme-radius);
-    padding: .5rem;
+    padding: 0.5rem;
     margin: 1rem;
     color: var(--theme-text);
     cursor: pointer;

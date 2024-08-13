@@ -1,6 +1,7 @@
 <script lang="ts">
   import Definition from '$lib/components/Definition.svelte'
   import { themeStore } from '$lib/classes/theme'
+  import Seo from '$lib/components/Seo.svelte'
 
   let themes: Record<string, string> = {
     'theme-rose-pine': 'Rose Pine',
@@ -9,10 +10,11 @@
   }
 </script>
 
-<svelte:head>
-  <title>Gfuscht</title>
-  <meta name="description" content="Gfuscht" />
-</svelte:head>
+<Seo
+  title="Gfuscht"
+  description="Gfuscht"
+  keywords="gfuscht, experiments, svelte, web, development, code"
+/>
 
 <main>
   <section>

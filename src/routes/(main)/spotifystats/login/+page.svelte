@@ -1,18 +1,26 @@
 <script lang="ts">
-  import { env as publicEnv } from "$env/dynamic/public";
-  import { randomString } from "$lib/utils";
+  import { env as publicEnv } from '$env/dynamic/public'
+  import Seo from '$lib/components/Seo.svelte'
+  import { randomString } from '$lib/utils'
 
   let url = 'https://accounts.spotify.com/authorize?'
   let params = {
     client_id: publicEnv.PUBLIC_SPOTIFY_CLIENT_ID ?? '',
     response_type: 'code',
     redirect_uri: publicEnv.PUBLIC_SPOTIFY_REDIRECT_URI ?? '',
-    scope: 'user-read-private user-read-email user-top-read user-read-currently-playing',
-    state: randomString(16)
+    scope:
+      'user-read-private user-read-email user-top-read user-read-currently-playing',
+    state: randomString(16),
   }
 
   url += new URLSearchParams(params).toString()
 </script>
+
+<Seo
+  title="Login with Spotify"
+  description="Login with Spotify to see your top tracks and artists."
+  keywords="spotify, login, top tracks, top artists"
+/>
 
 <main>
   <a href={url}>Login with Spotify</a>

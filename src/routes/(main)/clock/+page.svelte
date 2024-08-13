@@ -2,6 +2,7 @@
   import { fade } from 'svelte/transition'
   import Digit from './Digit.svelte'
   import ListColumn from './ListColumn.svelte'
+  import Seo from '$lib/components/Seo.svelte'
 
   export let XIIHoursDay = false
   export let time: Date // = new Date('2023-05-18T11:30:15')
@@ -27,6 +28,12 @@
     if (!time) dateTime = new Date()
   }, 100)
 </script>
+
+<Seo
+  title="Clock"
+  description="Digital clock with a fancy design. Click to toggle between 12 and 24 hours format."
+  keywords="clock, digital, fancy, design, 12 hours, 24 hours"
+/>
 
 <main>
   <div

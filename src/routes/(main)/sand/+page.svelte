@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Seo from '$lib/components/Seo.svelte'
   import BlackWhite from '$lib/experiments/BlackWhite.svelte'
 
   const randomNotNull = (array: any[]) => {
@@ -242,6 +243,12 @@
     }
   }
 </script>
+
+<Seo
+  title="Sand"
+  description="A simple sand simulation."
+  keywords="sand, simulation"
+/>
 
 <svelte:head>
   <style>

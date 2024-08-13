@@ -1,10 +1,18 @@
 <script lang="ts">
+  import Seo from '$lib/components/Seo.svelte'
+
   let enlightend = false
 
   const toggleMode = () => {
     enlightend = !enlightend
   }
 </script>
+
+<Seo
+  title="Unity Light"
+  description="Recreation of the effect from the Unity Light watch face."
+  keywords="unity light, watch face, effect, glow"
+/>
 
 <main>
   <div class="unitylight" class:enlightend></div>

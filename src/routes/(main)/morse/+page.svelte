@@ -1,36 +1,37 @@
 <script lang="ts">
   import { focusOnLoad } from '$lib/actions'
+  import Seo from '$lib/components/Seo.svelte'
   import { fade } from 'svelte/transition'
 
-  let morseInput = '';
+  let morseInput = ''
 
   let morse: Record<string, string> = {
-    'a': '.-',
-    'b': '-...',
-    'c': '-.-.',
-    'd': '-..',
-    'e': '.',
-    'f': '..-.',
-    'g': '--.',
-    'h': '....',
-    'i': '..',
-    'j': '.---',
-    'k': '-.-',
-    'l': '.-..',
-    'm': '--',
-    'n': '-.',
-    'o': '---',
-    'p': '.--.',
-    'q': '--.-',
-    'r': '.-.',
-    's': '...',
-    't': '-',
-    'u': '..-',
-    'v': '...-',
-    'w': '.--',
-    'x': '-..-',
-    'y': '-.--',
-    'z': '--..',
+    a: '.-',
+    b: '-...',
+    c: '-.-.',
+    d: '-..',
+    e: '.',
+    f: '..-.',
+    g: '--.',
+    h: '....',
+    i: '..',
+    j: '.---',
+    k: '-.-',
+    l: '.-..',
+    m: '--',
+    n: '-.',
+    o: '---',
+    p: '.--.',
+    q: '--.-',
+    r: '.-.',
+    s: '...',
+    t: '-',
+    u: '..-',
+    v: '...-',
+    w: '.--',
+    x: '-..-',
+    y: '-.--',
+    z: '--..',
     '0': '-----',
     '1': '.----',
     '2': '..---',
@@ -55,38 +56,47 @@
     '=': '-...-',
     '+': '.-.-.',
     '-': '-....-',
-    '_': '..--.-',
+    _: '..--.-',
     '"': '.-..-.',
-    '$': '...-..-',
+    $: '...-..-',
     '@': '.--.-.',
     ' ': ' ',
-  };
+  }
 
   $: morseOutput = morseInput
     .toLowerCase()
     .split(' ')
-    .map(word => 
-      word.split('')
-      .map(char => morse[char] || ' ')
-      .join(' '));
+    .map((word) =>
+      word
+        .split('')
+        .map((char) => morse[char] || ' ')
+        .join(' ')
+    )
 </script>
+
+<Seo
+  title="Morse Code"
+  description="Convert text to morse code."
+  keywords="morse, code, text, convert"
+/>
 
 <main>
   <div class="controls">
     <input use:focusOnLoad bind:value={morseInput} />
   </div>
-  
+
   <div class="morse">
     {#each morseOutput as word}
       {#each word as char}
-        <span 
-          transition:fade 
-          class:dot={char === '.'} 
-          class:dash={char === '-'} 
-          class:space={char === ' '}>
+        <span
+          transition:fade
+          class:dot={char === '.'}
+          class:dash={char === '-'}
+          class:space={char === ' '}
+        >
         </span>
       {/each}
-      <br/>
+      <br />
     {/each}
   </div>
 </main>
@@ -102,11 +112,11 @@
   }
 
   @media (max-width: 480px) {
-		.morse {
-		  margin: 2rem;
-      --size: .5rem;
-		}
-	}
+    .morse {
+      margin: 2rem;
+      --size: 0.5rem;
+    }
+  }
 
   span {
     background-color: var(--theme-primary);
