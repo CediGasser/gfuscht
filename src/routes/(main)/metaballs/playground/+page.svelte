@@ -2,6 +2,7 @@
   import { ParameteredOne } from '$lib/experiments'
   import { GravitySystem } from '$lib/classes/GravitySystem'
   import type { FalloffType } from '$lib/classes/FalloffFunctions'
+  import { MetaballsPainter } from '$lib/classes/MetaballsPainter'
 
   let falloffType: FalloffType = 'electricFieldFalloff'
 
@@ -18,16 +19,16 @@
   let ballSize = 20
   let threshholdValue = 0.5
   let gravitySystem = GravitySystem.fromRandom(width, height, 10)
+
+  let metaballsPainter = new MetaballsPainter()
 </script>
 
 <main>
   <ParameteredOne
-    {gravitySystem}
+    provider={gravitySystem}
+    painter={metaballsPainter}
     {width}
     {height}
-    {falloffType}
-    {ballSize}
-    {threshholdValue}
   />
   <div>
     <label for="falloffFunction">Falloff Function </label>
