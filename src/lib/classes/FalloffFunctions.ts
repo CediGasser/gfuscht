@@ -20,3 +20,31 @@ export const cubedFalloff = (x: number, y: number): number => {
 export const customPowerFalloff = (x: number, y: number): number => {
   return 1 / (Math.abs(Math.pow(x, 2)) + Math.abs(Math.pow(y, 2)))
 }
+
+export type FalloffType =
+  | 'electricFieldFalloff'
+  | 'constrainedFalloff'
+  | 'toTheForthFalloff'
+  | 'cubedFalloff'
+  | 'customPowerFalloff'
+
+export const applyFalloff = (
+  type: FalloffType,
+  x: number,
+  y: number
+): number => {
+  switch (type) {
+    case 'electricFieldFalloff':
+      return electricFieldFalloff(x, y)
+    case 'constrainedFalloff':
+      return constrainedFalloff(x, y)
+    case 'toTheForthFalloff':
+      return toTheForthFalloff(x, y)
+    case 'cubedFalloff':
+      return cubedFalloff(x, y)
+    case 'customPowerFalloff':
+      return customPowerFalloff(x, y)
+    default:
+      return 0
+  }
+}

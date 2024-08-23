@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { electricFieldFalloff } from '$lib/classes/FalloffFunctions'
+  import { applyFalloff, type FalloffType } from '$lib/classes/FalloffFunctions'
   import type { GravitySystem } from '$lib/classes/GravitySystem'
 
   let canvas: HTMLCanvasElement
@@ -12,21 +12,22 @@
 
   export let ballSize = 20
   export let threshholdValue = 1
-  export let falloffFunction = electricFieldFalloff
+  export let falloffType: FalloffType = 'electricFieldFalloff'
   export let threshholdFunction = (value: number): boolean =>
     value > threshholdValue
 
   function draw() {
     ctx.clearRect(0, 0, width, height)
+    const points = gravitySystem.getPoints()
 
     for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
         let totalValue = 0
-        for (let i = 0; i < gravitySystem.getPoints().length; i++) {
-          const ball = gravitySystem.getPoints()[i]
+        for (let i = 0, len = points.length; i < len; i++) {
+          const ball = points[i]
           const dx = (x - ball.x) / ballSize
           const dy = (y - ball.y) / ballSize
-          const value = falloffFunction(dx, dy)
+          const value = applyFalloff(falloffType, dx, dy)
           totalValue += value
         }
 

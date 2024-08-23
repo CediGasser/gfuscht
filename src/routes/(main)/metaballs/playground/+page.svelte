@@ -1,9 +1,17 @@
 <script lang="ts">
   import { ParameteredOne } from '$lib/experiments'
-  import * as falloffFunctions from '$lib/classes/FalloffFunctions'
   import { GravitySystem } from '$lib/classes/GravitySystem'
+  import type { FalloffType } from '$lib/classes/FalloffFunctions'
 
-  let falloffFunction = falloffFunctions.electricFieldFalloff
+  let falloffType: FalloffType = 'electricFieldFalloff'
+
+  let falloffTypes = {
+    electricFieldFalloff: 'Electric Field',
+    customPowerFalloff: 'Custom Power',
+    toTheForthFalloff: 'To The Forth',
+    constrainedFalloff: 'Constrained',
+    cubedFalloff: 'Cubed',
+  }
 
   let width = 600
   let height = 600
@@ -17,15 +25,15 @@
     {gravitySystem}
     {width}
     {height}
-    {falloffFunction}
+    {falloffType}
     {ballSize}
     {threshholdValue}
   />
   <div>
     <label for="falloffFunction">Falloff Function </label>
-    <select name="falloffFunction" bind:value={falloffFunction}>
-      {#each Object.values(falloffFunctions) as func}
-        <option value={func}>{func.name}</option>
+    <select name="falloffFunction" bind:value={falloffType}>
+      {#each Object.entries(falloffTypes) as [type, name]}
+        <option value={type}>{name}</option>
       {/each}
     </select>
 
