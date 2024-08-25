@@ -4,8 +4,6 @@
   import type { FalloffType } from '$lib/classes/FalloffFunctions'
   import { MetaballsPainter } from '$lib/classes/MetaballsPainter'
 
-  let falloffType: FalloffType = 'electricFieldFalloff'
-
   let falloffTypes = {
     electricFieldFalloff: 'Electric Field',
     customPowerFalloff: 'Custom Power',
@@ -16,11 +14,17 @@
 
   let width = 600
   let height = 600
-  let ballSize = 20
-  let threshholdValue = 0.5
   let gravitySystem = GravitySystem.fromRandom(width, height, 10)
 
+  let ballSize = $state(20)
+  let threshholdValue = $state(1)
+  let falloffType: FalloffType = $state('electricFieldFalloff')
   let metaballsPainter = new MetaballsPainter()
+  $effect(() => {
+    metaballsPainter.ballSize = ballSize
+    metaballsPainter.threshhold = threshholdValue
+    metaballsPainter.falloffType = falloffType
+  })
 </script>
 
 <main>
