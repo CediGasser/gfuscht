@@ -1,7 +1,6 @@
 <script lang="ts">
   import { ParameteredOne } from '$lib/experiments'
   import { GravitySystem } from '$lib/classes/GravitySystem'
-  import type { FalloffType } from '$lib/classes/FalloffFunctions'
   import { MetaballsPainter } from '$lib/classes/MetaballsPainter'
 
   let falloffTypes = {
@@ -14,37 +13,25 @@
 
   let width = 600
   let height = 600
-  let gravitySystem = GravitySystem.fromRandom(width, height, 10)
+  let isPlaying = $state(true)
 
-  let ballSize = $state(20)
-  let threshholdValue = $state(1)
-  let falloffType: FalloffType = $state('electricFieldFalloff')
-  let metaballsPainter = new MetaballsPainter()
-  $effect(() => {
-    metaballsPainter.ballSize = ballSize
-    metaballsPainter.threshhold = threshholdValue
-    metaballsPainter.falloffType = falloffType
-  })
+  let pointProvider = $state(GravitySystem.fromRandom(width, height, 10))
+
+  let pointPainter = $state(new MetaballsPainter())
 </script>
 
 <main>
-  <ParameteredOne
-    provider={gravitySystem}
-    painter={metaballsPainter}
-    {width}
-    {height}
-  />
-  <div>
+  <div class="options">
     <label for="falloffFunction">Falloff Function </label>
-    <select name="falloffFunction" bind:value={falloffType}>
+    <select name="falloffFunction" bind:value={pointPainter.falloffType}>
       {#each Object.entries(falloffTypes) as [type, name]}
         <option value={type}>{name}</option>
       {/each}
     </select>
 
     <button
-      on:click={() =>
-        (gravitySystem = GravitySystem.fromRandom(width, height, 10))}
+      onclick={() =>
+        (pointProvider = GravitySystem.fromRandom(width, height, 10))}
       >Randomize</button
     >
 
@@ -54,7 +41,7 @@
       name="ballSize"
       min="1"
       max="200"
-      bind:value={ballSize}
+      bind:value={pointPainter.ballSize}
     />
 
     <label for="threshholdValue">Threshhold Value</label>
@@ -64,19 +51,83 @@
       min="0"
       max="4"
       step="0.01"
-      bind:value={threshholdValue}
+      bind:value={pointPainter.threshhold}
     />
+  </div>
+  <div>
+    <label for="forceCoefficent">Force Coefficent</label>
+    <input
+      type="range"
+      name="forceCoefficent"
+      min="0"
+      max="0.5"
+      step="0.001"
+      bind:value={pointProvider.forceCoeficient}
+    />
+
+    <label for="maxVelocity">Max Velocity</label>
+    <input
+      type="range"
+      name="maxVelocity"
+      min="0"
+      max="10"
+      step="0.1"
+      bind:value={pointProvider.maxVelocity}
+    />
+
+    <label for="borderZone">Border Zone</label>
+    <input
+      type="range"
+      name="borderZone"
+      min="0"
+      max="100"
+      bind:value={pointProvider.borderZone}
+    />
+  </div>
+  <div>
+    <ParameteredOne
+      provider={pointProvider}
+      painter={pointPainter}
+      {width}
+      {height}
+      bind:isPlaying
+    />
+
+    <div class="controlls">
+      {#if isPlaying}
+        <button onclick={() => (isPlaying = false)}>Pause</button>
+      {:else}
+        <button onclick={() => (isPlaying = true)}>Play</button>
+      {/if}
+    </div>
   </div>
 </main>
 
 <style>
   main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: aliceblue;
+    padding: 1rem;
+  }
+
+  div.controlls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem;
+  }
+
+  div.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
   }
 
   select {
