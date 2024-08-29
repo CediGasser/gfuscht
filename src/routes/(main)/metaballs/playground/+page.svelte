@@ -18,73 +18,101 @@
   let pointProvider = $state(GravitySystem.fromRandom(width, height, 10))
 
   let pointPainter = $state(new MetaballsPainter())
+
+  const onRandomize = () => {
+    pointProvider = GravitySystem.fromRandom(width, height, 10)
+    pointPainter.paint(pointProvider.getPoints())
+  }
 </script>
 
 <main>
   <div class="options">
-    <label for="falloffFunction">Falloff Function </label>
-    <select name="falloffFunction" bind:value={pointPainter.falloffType}>
-      {#each Object.entries(falloffTypes) as [type, name]}
-        <option value={type}>{name}</option>
-      {/each}
-    </select>
+    <div class="pointsPainter">
+      <label for="falloffFunction">Falloff Function </label>
+      <select name="falloffFunction" bind:value={pointPainter.falloffType}>
+        {#each Object.entries(falloffTypes) as [type, name]}
+          <option value={type}>{name}</option>
+        {/each}
+      </select>
 
-    <button
-      onclick={() =>
-        (pointProvider = GravitySystem.fromRandom(width, height, 10))}
-      >Randomize</button
-    >
+      <label for="ballSize">Ball Size</label>
+      <input
+        type="range"
+        name="ballSize"
+        min="1"
+        max="100"
+        bind:value={pointPainter.ballSize}
+      />
 
-    <label for="ballSize">Ball Size</label>
-    <input
-      type="range"
-      name="ballSize"
-      min="1"
-      max="200"
-      bind:value={pointPainter.ballSize}
-    />
+      <label for="threshholdValue">Threshhold Value</label>
+      <input
+        type="range"
+        name="threshholdValue"
+        min="0.1"
+        max="2"
+        step="0.01"
+        bind:value={pointPainter.threshhold}
+      />
 
-    <label for="threshholdValue">Threshhold Value</label>
-    <input
-      type="range"
-      name="threshholdValue"
-      min="0"
-      max="4"
-      step="0.01"
-      bind:value={pointPainter.threshhold}
-    />
+      <label for="color">Color</label>
+      <input type="color" name="color" bind:value={pointPainter.color} />
+    </div>
+
+    <div class="pointsProvider">
+      <button onclick={onRandomize}>Randomize</button>
+
+      <label for="forceCoefficent">Force Coefficent</label>
+      <input
+        type="range"
+        name="forceCoefficent"
+        min="0"
+        max="0.2"
+        step="0.001"
+        bind:value={pointProvider.forceCoeficient}
+      />
+
+      <label for="maxVelocity">Max Velocity</label>
+      <input
+        type="range"
+        name="maxVelocity"
+        min="0"
+        max="10"
+        step="0.1"
+        bind:value={pointProvider.maxVelocity}
+      />
+
+      <label for="borderZone">Border Zone</label>
+      <input
+        type="range"
+        name="borderZone"
+        min="0"
+        max="0.5"
+        step="0.01"
+        bind:value={pointProvider.borderZone}
+      />
+
+      <label for="borderPushBack">Border Push Back</label>
+      <input
+        type="range"
+        name="borderPushBack"
+        min="0"
+        max="0.02"
+        step="0.0001"
+        bind:value={pointProvider.borderPushBack}
+      />
+
+      <label for="damping">Damping</label>
+      <input
+        type="range"
+        name="damping"
+        min="0"
+        max="1"
+        step="0.01"
+        bind:value={pointProvider.damping}
+      />
+    </div>
   </div>
-  <div>
-    <label for="forceCoefficent">Force Coefficent</label>
-    <input
-      type="range"
-      name="forceCoefficent"
-      min="0"
-      max="0.5"
-      step="0.001"
-      bind:value={pointProvider.forceCoeficient}
-    />
-
-    <label for="maxVelocity">Max Velocity</label>
-    <input
-      type="range"
-      name="maxVelocity"
-      min="0"
-      max="10"
-      step="0.1"
-      bind:value={pointProvider.maxVelocity}
-    />
-
-    <label for="borderZone">Border Zone</label>
-    <input
-      type="range"
-      name="borderZone"
-      min="0"
-      max="100"
-      bind:value={pointProvider.borderZone}
-    />
-  </div>
-  <div>
+  <div class="simulation">
     <ParameteredOne
       provider={pointProvider}
       painter={pointPainter}
@@ -111,6 +139,15 @@
     justify-content: center;
     height: 100vh;
     padding: 1rem;
+    gap: 1rem;
+  }
+
+  div.simulation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 
   div.controlls {
@@ -127,11 +164,22 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: 1rem;
+    width: 100%;
   }
 
-  select {
+  div.options > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    border: 1px solid var(--theme-primary);
+    border-radius: var(--theme-radius);
+    width: 100%;
+    padding: 4rem;
+  }
+
+  div.options > div > label {
     margin-top: 1rem;
-    height: 2rem;
   }
 </style>

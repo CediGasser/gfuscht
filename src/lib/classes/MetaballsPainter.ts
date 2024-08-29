@@ -16,9 +16,9 @@ export class MetaballsPainter implements IPointsPainter {
   }
 
   constructor(
-    ballSize: number = 10,
+    ballSize: number = 20,
     threshhold: number = 1,
-    color: string = 'firebrick',
+    color: string = '#40ddff',
     falloffType: FalloffType = 'electricFieldFalloff'
   ) {
     this.ballSize = ballSize

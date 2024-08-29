@@ -11,9 +11,10 @@ export class GravitySystem implements IPointsProvider {
   public width: number = 600
   public height: number = 600
 
-  public forceCoeficient = 0.1
+  public forceCoeficient = 0.06
   public maxVelocity = 0.1
-  public borderZone = 200
+  // number in percentage of the canvas size
+  public borderZone = 0.2
   public borderPushBack = 0.001
   public maxDt = 100
   public damping = 0.99
@@ -87,16 +88,16 @@ export class GravitySystem implements IPointsProvider {
       }
 
       // Check if the ball is close to the edge of the canvas and dampend its velocity
-      if (point.y > this.height - this.borderZone) {
+      if (point.y > this.height - this.borderZone * this.height) {
         point.dy -= this.borderPushBack
       }
-      if (point.y < this.borderZone) {
+      if (point.y < this.borderZone * this.height) {
         point.dy += this.borderPushBack
       }
-      if (point.x > this.width - this.borderZone) {
+      if (point.x > this.width - this.borderZone * this.width) {
         point.dx -= this.borderPushBack
       }
-      if (point.x < this.borderZone) {
+      if (point.x < this.borderZone * this.width) {
         point.dx += this.borderPushBack
       }
 
