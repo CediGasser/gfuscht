@@ -1,13 +1,10 @@
+import GradientSettings from '$lib/components/metaballs/GradientSettings.svelte'
 import type { IPointsPainter, IPoint } from '$lib/types/CreativeCodingBasics'
 import { applyFalloff, type FalloffType } from './FalloffFunctions'
-import MetaballsSettings from '$lib/components/metaballs/MetaballsSettings.svelte'
 
-export class MetaballsPainter implements IPointsPainter {
-  public OptionsComponent = MetaballsSettings
+export class GradientPainter implements IPointsPainter {
+  public OptionsComponent = GradientSettings
 
-  public ballSize
-  public threshhold
-  public color
   public falloffType
 
   private ctx: CanvasRenderingContext2D | null = null
@@ -18,15 +15,7 @@ export class MetaballsPainter implements IPointsPainter {
     return this.ctx
   }
 
-  constructor(
-    ballSize: number = 20,
-    threshhold: number = 1,
-    color: string = '#40ddff',
-    falloffType: FalloffType = 'electricFieldFalloff'
-  ) {
-    this.ballSize = ballSize
-    this.threshhold = threshhold
-    this.color = color
+  constructor(falloffType: FalloffType = 'electricFieldFalloff') {
     this.falloffType = falloffType
   }
 
@@ -45,17 +34,15 @@ export class MetaballsPainter implements IPointsPainter {
         let totalValue = 0
         for (let i = 0, len = points.length; i < len; i++) {
           const ball = points[i]
-          const dx = (x - ball.x) / this.ballSize
-          const dy = (y - ball.y) / this.ballSize
+          const dx = x - ball.x
+          const dy = y - ball.y
           const value = applyFalloff(this.falloffType, dx, dy)
           totalValue += value
         }
 
-        if (totalValue > this.threshhold) {
-          let color = this.color
-          this.context.fillStyle = color
-          this.context.fillRect(x, y, 1, 1)
-        }
+        let color = `hsl(${totalValue * 360}, 100%, 50%)`
+        this.context.fillStyle = color
+        this.context.fillRect(x, y, 1, 1)
       }
     }
   }

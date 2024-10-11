@@ -2,63 +2,49 @@
   import { ParameteredOne } from '$lib/experiments'
   import { GravitySystem } from '$lib/classes/GravitySystem'
   import { MetaballsPainter } from '$lib/classes/MetaballsPainter'
-
-  let falloffTypes = {
-    electricFieldFalloff: 'Electric Field',
-    customPowerFalloff: 'Custom Power',
-    toTheForthFalloff: 'To The Forth',
-    constrainedFalloff: 'Constrained',
-    cubedFalloff: 'Cubed',
-  }
+  import { GradientPainter } from '$lib/classes/GradientPainter'
+  import type { IPointsPainter } from '$lib/types/CreativeCodingBasics'
 
   let width = 600
   let height = 600
   let isPlaying = $state(true)
 
+  const painters = {
+    Gradient: new GradientPainter(),
+    Metaballs: new MetaballsPainter(),
+  } as const
+
   let pointProvider = $state(GravitySystem.fromRandom(width, height, 10))
 
-  let pointPainter = $state(new MetaballsPainter())
+  let selectedPainter: keyof typeof painters = $state('Metaballs')
+  let pointPainter: IPointsPainter = $derived(painters[selectedPainter])
+
+  let negativeCharges = $state(false)
 
   const onRandomize = () => {
-    pointProvider = GravitySystem.fromRandom(width, height, 10)
+    pointProvider = GravitySystem.fromRandom(width, height, 10, negativeCharges)
     pointPainter.paint(pointProvider.getPoints())
   }
 </script>
 
 <main>
   <div class="options">
-    <div class="pointsPainter">
-      <label for="falloffFunction">Falloff Function </label>
-      <select name="falloffFunction" bind:value={pointPainter.falloffType}>
-        {#each Object.entries(falloffTypes) as [type, name]}
-          <option value={type}>{name}</option>
-        {/each}
-      </select>
-
-      <label for="ballSize">Ball Size</label>
-      <input
-        type="range"
-        name="ballSize"
-        min="1"
-        max="100"
-        bind:value={pointPainter.ballSize}
-      />
-
-      <label for="threshholdValue">Threshhold Value</label>
-      <input
-        type="range"
-        name="threshholdValue"
-        min="0.1"
-        max="2"
-        step="0.01"
-        bind:value={pointPainter.threshhold}
-      />
-
-      <label for="color">Color</label>
-      <input type="color" name="color" bind:value={pointPainter.color} />
-    </div>
-
+    <pointPainter.OptionsComponent pointsPainter={pointPainter} />
+    <label for="painter">Painter</label>
+    <select name="painter" bind:value={selectedPainter}>
+      {#each Object.keys(painters) as painter}
+        <option value={painter}>{painter}</option>
+      {/each}
+    </select>
     <div class="pointsProvider">
+      <label for="randomCharges">Negative Charges</label>
+      <input
+        type="checkbox"
+        name="randomCharges"
+        bind:checked={negativeCharges}
+        onchange={onRandomize}
+      />
+
       <button onclick={onRandomize}>Randomize</button>
 
       <label for="forceCoefficent">Force Coefficent</label>

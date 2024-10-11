@@ -1,3 +1,5 @@
+import type { SvelteComponent } from 'svelte'
+
 export interface IPoint {
   x: number
   y: number
@@ -9,6 +11,7 @@ export interface IPointsProvider {
 }
 
 export interface IPointsPainter {
+  OptionsComponent: any
   context: CanvasRenderingContext2D | null
   paint(points: IPoint[]): void
 }

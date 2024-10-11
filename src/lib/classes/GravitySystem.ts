@@ -3,11 +3,11 @@ import type { IPointsProvider, IPoint } from '$lib/types/CreativeCodingBasics'
 interface IGravitatingPoint extends IPoint {
   dx: number
   dy: number
-  mass: number
+  charge: number
 }
 
 export class GravitySystem implements IPointsProvider {
-  public points: IGravitatingPoint[] = []
+  private points: IGravitatingPoint[] = []
   public width: number = 600
   public height: number = 600
 
@@ -21,15 +21,21 @@ export class GravitySystem implements IPointsProvider {
 
   private previousTime: number = 0
 
-  constructor(width: number, height: number, points: IPoint[]) {
+  constructor(
+    width: number,
+    height: number,
+    points: Partial<IGravitatingPoint>[]
+  ) {
     this.width = width
     this.height = height
 
     this.points = points.map((point) => ({
-      ...point,
+      x: 0,
+      y: 0,
       dx: 0,
       dy: 0,
-      mass: 1,
+      charge: 1,
+      ...point,
     }))
   }
 
@@ -51,7 +57,8 @@ export class GravitySystem implements IPointsProvider {
         const distance = Math.sqrt(dx * dx + dy * dy)
 
         // Calculate the force of attraction or repulsion
-        const force = this.forceCoeficient / distance
+        const force =
+          (this.forceCoeficient / distance) * point1.charge * point2.charge
 
         // Update the velocities of the balls based on the force
         point1.dx -= (force * dx) / distance
@@ -109,12 +116,18 @@ export class GravitySystem implements IPointsProvider {
     }
   }
 
-  public static fromRandom = (width: number, height: number, count: number) => {
-    const points: IPoint[] = []
+  public static fromRandom = (
+    width: number,
+    height: number,
+    count: number,
+    negativeCharges: boolean = false
+  ) => {
+    const points: Partial<IGravitatingPoint>[] = []
     for (let i = 0; i < count; i++) {
       points.push({
         x: Math.random() * width,
         y: Math.random() * height,
+        charge: negativeCharges && Math.random() > 0.5 ? -1 : 1,
       })
     }
     return new GravitySystem(width, height, points)
