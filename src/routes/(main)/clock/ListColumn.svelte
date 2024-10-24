@@ -1,6 +1,10 @@
 <script lang="ts">
-  export let index: number = 0
-  export let values: string[] = ['AM', 'PM']
+  interface Props {
+    index?: number;
+    values?: string[];
+  }
+
+  let { index = 0, values = ['AM', 'PM'] }: Props = $props();
 </script>
 
 <div class="wrapper">

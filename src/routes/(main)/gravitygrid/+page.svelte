@@ -4,7 +4,7 @@
   import { themeStore } from '$lib/classes/theme'
   import Seo from '$lib/components/Seo.svelte'
 
-  let canvas: HTMLCanvasElement
+  let canvas: HTMLCanvasElement = $state()
   let effect: Effect
 
   onMount(() => {

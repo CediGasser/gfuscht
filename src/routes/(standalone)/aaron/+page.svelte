@@ -1,10 +1,10 @@
 <script lang="ts">
   import Seo from '$lib/components/Seo.svelte'
 
-  let content = 'Hello World'
-  let input: HTMLInputElement
+  let content = $state('Hello World')
+  let input: HTMLInputElement = $state()
 
-  let animate = false
+  let animate = $state(false)
 
   // copy content to clipboard
   function copyToClipboard(): void {
@@ -35,16 +35,16 @@
   keywords="copy, clipboard, text, button, faster"
 />
 
-<svelte:body on:keydown={handleKeydown} />
+<svelte:body onkeydown={handleKeydown} />
 <div class="wrapper">
   <h1>Ctrl + C... V2</h1>
   <input
     bind:this={input}
     type="text"
     bind:value={content}
-    on:click={inputEnter}
+    onclick={inputEnter}
   />
-  <button on:click={copyToClipboard}
+  <button onclick={copyToClipboard}
     >Copy
     <div class="svg-container">
       <svg

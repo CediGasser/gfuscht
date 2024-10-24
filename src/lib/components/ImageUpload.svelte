@@ -1,5 +1,9 @@
 <script lang="ts">
-    	export let dataUrl: string;
+    interface Props {
+        dataUrl: string;
+    }
+
+    let { dataUrl = $bindable() }: Props = $props();
 	
 	const onUpload = (event: Event) => {
         	const target = event.target as HTMLInputElement;
@@ -13,4 +17,4 @@
 	}
 </script>
 
-<input type="file" accept=".jpg, .jpeg, .png" on:change={onUpload}/>
+<input type="file" accept=".jpg, .jpeg, .png" onchange={onUpload}/>

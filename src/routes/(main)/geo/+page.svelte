@@ -1,7 +1,11 @@
 <script lang="ts">
   import Seo from '$lib/components/Seo.svelte'
 
-  export let data
+  interface Props {
+    data: any;
+  }
+
+  let { data }: Props = $props();
 
   const registerGeoHandler = () => {
     navigator.registerProtocolHandler('geo', 'geo?q=%s')
@@ -19,7 +23,7 @@
     <pre>geo:</pre>
     links can be handled by this site.
   </h1>
-  <button on:click={registerGeoHandler}>Yes please</button>
+  <button onclick={registerGeoHandler}>Yes please</button>
 
   <div class="results">
     <h2>Results</h2>

@@ -3,13 +3,22 @@
   import Prism from 'prismjs';
   import 'prismjs/themes/prism-tomorrow.css';
 
-  export let code = '';
-  export let animateGradient = false;
 
-  export let rotateX = spring(0, { damping: 0.3 });
-  export let rotateY = spring(0, { damping: 0.3 });
+  interface Props {
+    code?: string;
+    animateGradient?: boolean;
+    rotateX?: any;
+    rotateY?: any;
+  }
 
-  let div: HTMLDivElement;
+  let {
+    code = '',
+    animateGradient = false,
+    rotateX = spring(0, { damping: 0.3 }),
+    rotateY = spring(0, { damping: 0.3 })
+  }: Props = $props();
+
+  let div: HTMLDivElement = $state();
 
   const mouseMove = (e: MouseEvent) => {
     let offset = div.getBoundingClientRect();
@@ -21,7 +30,7 @@
   };
 </script>
 
-<svelte:window on:mousemove={mouseMove} />
+<svelte:window onmousemove={mouseMove} />
 
 <div class="wrapper">
   <div 

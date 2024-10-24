@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import { First, BlackWhite, BlackWhiteBalls, IdkBlob } from '$lib/experiments'
   import { page } from '$app/stores'
   import Seo from '$lib/components/Seo.svelte'
@@ -10,8 +12,10 @@
     { name: 'IdkBlob', component: IdkBlob },
   ]
 
-  let current = parseInt($page.url.searchParams.get('id') || '0')
-  $: $page.url.searchParams.set('id', current.toString())
+  let current = $state(parseInt($page.url.searchParams.get('id') || '0'))
+  run(() => {
+    $page.url.searchParams.set('id', current.toString())
+  });
 </script>
 
 <Seo

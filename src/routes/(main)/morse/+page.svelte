@@ -3,7 +3,7 @@
   import Seo from '$lib/components/Seo.svelte'
   import { fade } from 'svelte/transition'
 
-  let morseInput = ''
+  let morseInput = $state('')
 
   let morse: Record<string, string> = {
     a: '.-',
@@ -63,7 +63,7 @@
     ' ': ' ',
   }
 
-  $: morseOutput = morseInput
+  let morseOutput = $derived(morseInput
     .toLowerCase()
     .split(' ')
     .map((word) =>
@@ -71,7 +71,7 @@
         .split('')
         .map((char) => morse[char] || ' ')
         .join(' ')
-    )
+    ));
 </script>
 
 <Seo

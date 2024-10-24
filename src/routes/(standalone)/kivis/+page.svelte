@@ -1,5 +1,5 @@
 <script lang="ts">
-  // import Chart from "./Chart.svelte";
+  import Chart from "./Chart.svelte";
   import data from "./data.json";
 
   console.log(data);
@@ -8,7 +8,7 @@
 <main>
   <blockquote>"A new relationship between art and science."</blockquote>
   <p>Albert-László Barabási</p>
-  <!-- <Chart {data} /> -->
+  <Chart {data} />
 </main>
 
 <style>
