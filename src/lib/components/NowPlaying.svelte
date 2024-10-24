@@ -2,10 +2,14 @@
     import type { EpisodeObject, TrackObjectFull } from '$lib/types/spotify'
     import Track from './Track.svelte';
 
-    export let item: TrackObjectFull | EpisodeObject | null
+    interface Props {
+        item: TrackObjectFull | EpisodeObject | null;
+    }
 
-    let name: string
-    let creator: string
+    let { item }: Props = $props();
+
+    let name: string = $state()
+    let creator: string = $state()
     
     if (item?.type === 'track') {
         name = item.name

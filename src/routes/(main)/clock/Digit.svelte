@@ -1,11 +1,20 @@
 <script lang="ts">
-  export let value: number = 0
-  export let min: number = 0
-  export let max: number = 9
-  export let steps: number = 1
+  interface Props {
+    value?: number;
+    min?: number;
+    max?: number;
+    steps?: number;
+  }
 
-  $: numbers = Array(Math.ceil((max - min) / steps) + 1).fill(null).map((n, i) => min + i * steps)
-  $: offset = Math.round((value - min) / steps)
+  let {
+    value = 0,
+    min = 0,
+    max = 9,
+    steps = 1
+  }: Props = $props();
+
+  let numbers = $derived(Array(Math.ceil((max - min) / steps) + 1).fill(null).map((n, i) => min + i * steps));
+  let offset = $derived(Math.round((value - min) / steps));
 
 
 </script>

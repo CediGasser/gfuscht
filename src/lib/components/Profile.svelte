@@ -6,12 +6,16 @@
         ImageObject,
     } from "$lib/types/spotify";
 
-    export let profile: {
+    interface Props {
+        profile: {
         display_name: string | undefined;
         external_urls: ExternalUrlObject;
         followers: FollowersObject | undefined;
         images: ImageObject[] | undefined;
     };
+    }
+
+    let { profile }: Props = $props();
 
     let img =
         profile.images && profile.images.length > 0

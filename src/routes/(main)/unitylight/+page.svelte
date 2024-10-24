@@ -1,7 +1,7 @@
 <script lang="ts">
   import Seo from '$lib/components/Seo.svelte'
 
-  let enlightend = false
+  let enlightend = $state(false)
 
   const toggleMode = () => {
     enlightend = !enlightend
@@ -25,7 +25,7 @@
   </section>
 </main>
 
-<svelte:document on:click={toggleMode} />
+<svelte:document onclick={toggleMode} />
 
 <style>
   @property --color {

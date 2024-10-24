@@ -4,25 +4,29 @@
   import ListColumn from './ListColumn.svelte'
   import Seo from '$lib/components/Seo.svelte'
 
-  export let XIIHoursDay = false
-  export let time: Date // = new Date('2023-05-18T11:30:15')
-  export let dateTime = time ?? new Date()
+  interface Props {
+    XIIHoursDay?: boolean;
+    time: Date;
+    dateTime?: any;
+  }
+
+  let { XIIHoursDay = $bindable(false), time, dateTime = $bindable(time ?? new Date()) }: Props = $props();
 
   let halfDays = ['AM', 'PM']
-  $: listIndex = Math.floor(dateTime.getHours() / 12)
+  let listIndex = $derived(Math.floor(dateTime.getHours() / 12));
 
-  $: hours = XIIHoursDay
+  let hours = $derived(XIIHoursDay
     ? ((dateTime.getHours() - 1) % 12) + 1
-    : dateTime.getHours()
+    : dateTime.getHours());
 
-  $: hours1 = Math.floor(hours / 10)
-  $: hours2 = hours % 10
+  let hours1 = $derived(Math.floor(hours / 10));
+  let hours2 = $derived(hours % 10);
 
-  $: minutes1 = Math.floor(dateTime.getMinutes() / 10)
-  $: minutes2 = dateTime.getMinutes() % 10
+  let minutes1 = $derived(Math.floor(dateTime.getMinutes() / 10));
+  let minutes2 = $derived(dateTime.getMinutes() % 10);
 
-  $: seconds1 = Math.floor(dateTime.getSeconds() / 10)
-  $: seconds2 = dateTime.getSeconds() % 10
+  let seconds1 = $derived(Math.floor(dateTime.getSeconds() / 10));
+  let seconds2 = $derived(dateTime.getSeconds() % 10);
 
   setInterval(() => {
     if (!time) dateTime = new Date()
@@ -38,8 +42,8 @@
 <main>
   <div
     class="wrapper"
-    on:click={() => (XIIHoursDay = !XIIHoursDay)}
-    on:keypress={() => (XIIHoursDay = !XIIHoursDay)}
+    onclick={() => (XIIHoursDay = !XIIHoursDay)}
+    onkeypress={() => (XIIHoursDay = !XIIHoursDay)}
     role="button"
     tabindex="0"
   >

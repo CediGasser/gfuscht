@@ -20,12 +20,12 @@
   const BRUSH_SIZE = 4
   const DRAW_INTERVAL = 20
 
-  let screenHeight: number = 0
-  let screenWidth: number = 0
+  let screenHeight: number = $state(0)
+  let screenWidth: number = $state(0)
 
   const cellSize = 5
-  $: gridHeight = Math.ceil(screenHeight / cellSize)
-  $: gridWidth = Math.ceil(screenWidth / cellSize)
+  let gridHeight = $derived(Math.ceil(screenHeight / cellSize));
+  let gridWidth = $derived(Math.ceil(screenWidth / cellSize));
 
   let cellsToUpdate: Cell[] = []
   let cellsToRerender: Cell[] = []
@@ -33,7 +33,7 @@
   let updateCount = 0
   let renderCount = 0
 
-  $: grid = Array.from(
+  let grid = $derived(Array.from(
     {
       length: gridHeight,
     },
@@ -44,7 +44,7 @@
         },
         () => 0
       )
-  ) as (number | string)[][]
+  ) as (number | string)[][]);
 
   const isValidCell = (x: number, y: number): boolean => {
     return x >= 0 && x < gridWidth && y >= 0 && y < gridHeight
@@ -261,14 +261,14 @@
 <svelte:window
   bind:innerWidth={screenWidth}
   bind:innerHeight={screenHeight}
-  on:mousemove={onMousemove}
-  on:mousedown={startDrawing}
-  on:mouseup={stopDrawing}
-  on:mouseleave={stopDrawing}
-  on:touchmove={onTouchmove}
-  on:touchstart={startDrawing}
-  on:touchend={stopDrawing}
-  on:touchcancel={stopDrawing}
+  onmousemove={onMousemove}
+  onmousedown={startDrawing}
+  onmouseup={stopDrawing}
+  onmouseleave={stopDrawing}
+  ontouchmove={onTouchmove}
+  ontouchstart={startDrawing}
+  ontouchend={stopDrawing}
+  ontouchcancel={stopDrawing}
 />
 
 <canvas width={screenWidth} height={screenHeight} use:simAction></canvas>

@@ -5,11 +5,15 @@
   import Track from '$lib/components/Track.svelte'
   import { fly } from 'svelte/transition'
 
-  export let data
-  $: ({ topArtists } = data.streamed)
-  $: ({ profile, nowPlaying, topTracks } = data)
+  interface Props {
+    data: any;
+  }
 
-  let selectedTab = 'tracks'
+  let { data }: Props = $props();
+  let { topArtists } = $derived(data.streamed);
+  let { profile, nowPlaying, topTracks } = $derived(data);
+
+  let selectedTab = $state('tracks')
 </script>
 
 <Seo

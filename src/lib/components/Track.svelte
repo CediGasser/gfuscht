@@ -1,7 +1,11 @@
 <script lang="ts">
     import type { TrackObjectFull } from '$lib/types/spotify';
 
-    export let track: TrackObjectFull
+    interface Props {
+        track: TrackObjectFull;
+    }
+
+    let { track }: Props = $props();
 </script>
 
 <a href={track.external_urls.spotify}><h3>{track.name}</h3></a>

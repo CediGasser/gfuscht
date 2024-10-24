@@ -7,7 +7,7 @@
     stringToHex,
   } from '$lib/classes/CribDrag'
   import Seo from '$lib/components/Seo.svelte'
-  let newMsg = ''
+  let newMsg = $state('')
 
   const addMessage = () => {
     cribDrag.add(newMsg)
@@ -22,10 +22,10 @@
   // playground stuff
   let xor1 = ''
   let xor2 = ''
-  $: xorRes = hexXor(xor1, xor2)
+  let xorRes = $derived(hexXor(xor1, xor2));
 
   let str = ''
-  $: strAsHex = stringToHex(str)
+  let strAsHex = $derived(stringToHex(str));
 </script>
 
 <Seo
@@ -42,7 +42,7 @@
 
     {#each $cribDrag.messages as msg}
       <p class="monospace">{msg.encrypted}</p>
-      <input on:keyup={updateMessage(msg)} value={msg.guess} />
+      <input onkeyup={updateMessage(msg)} value={msg.guess} />
     {/each}
 
     <div class="addNewMessage">
@@ -52,7 +52,7 @@
         bind:value={newMsg}
         id="newMsg"
       />
-      <button class="new-message" on:click={addMessage}>Add</button>
+      <button class="new-message" onclick={addMessage}>Add</button>
     </div>
   </section>
 
@@ -61,8 +61,8 @@
     {#each $cribDrag.possibleGuesses as guesses, i}
       <button
         class="guess"
-        on:click={() => cribDrag.setGuessIndex(i)}
-        on:keyup={() => cribDrag.setGuessIndex(i)}
+        onclick={() => cribDrag.setGuessIndex(i)}
+        onkeyup={() => cribDrag.setGuessIndex(i)}
       >
         <ul>
           {#each guesses as guess}

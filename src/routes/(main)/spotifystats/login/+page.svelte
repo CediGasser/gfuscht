@@ -3,7 +3,7 @@
   import Seo from '$lib/components/Seo.svelte'
   import { randomString } from '$lib/utils'
 
-  let url = 'https://accounts.spotify.com/authorize?'
+  let url = $state('https://accounts.spotify.com/authorize?')
   let params = {
     client_id: publicEnv.PUBLIC_SPOTIFY_CLIENT_ID ?? '',
     response_type: 'code',

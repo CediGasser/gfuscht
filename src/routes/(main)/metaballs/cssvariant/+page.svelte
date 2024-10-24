@@ -1,10 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte"
 
-  export let ballCount: number = 8
+  interface Props {
+    ballCount?: number;
+  }
+
+  let { ballCount = 8 }: Props = $props();
 
   let frame: number
-  let balls: Array<{ x: number, y: number, vx: number, vy: number, size: number, color: string, charge: number }> = []
+  let balls: Array<{ x: number, y: number, vx: number, vy: number, size: number, color: string, charge: number }> = $state([])
   const FORCE_COEFICIENT = 6
   const MAX_VELOCITY = 20
   const PUSH_BACK = 1
@@ -160,7 +164,7 @@
   </div>
 </div>
 
-<button on:click={pulseDeterent}>Add deterent</button>
+<button onclick={pulseDeterent}>Add deterent</button>
 
 <svelte:head>
   <style>

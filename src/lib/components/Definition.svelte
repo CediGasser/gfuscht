@@ -1,11 +1,21 @@
 <script lang="ts">
     import '$lib/assets/css/app.css'
-    export let word: string = 'Custom'
-    export let phonetic: string = '/ˈkəstəm/'
-    export let type: string = 'Adjective'
-    export let definition: string = 'This might be customizable. Try it.'
 
-    export let editable: boolean = false
+    interface Props {
+        word?: string;
+        phonetic?: string;
+        type?: string;
+        definition?: string;
+        editable?: boolean;
+    }
+
+    let {
+        word = $bindable('Custom'),
+        phonetic = $bindable('/ˈkəstəm/'),
+        type = $bindable('Adjective'),
+        definition = $bindable('This might be customizable. Try it.'),
+        editable = false
+    }: Props = $props();
 </script>
 
 <div class="definition-card">
