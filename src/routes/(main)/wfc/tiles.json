@@ -76,7 +76,7 @@
   },
   {
     "name": "blue_2_curve.png",
-    "sockets": ["0", "0", "b2", "b2"],
+    "sockets": ["b2", "0", "0", "b2"],
     "rotationVariants": [0, 90, 180, 270]
   },
   {

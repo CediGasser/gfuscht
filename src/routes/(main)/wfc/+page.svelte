@@ -1,6 +1,6 @@
 <script lang="ts">
   import { browser } from "$app/environment";
-  import tiles from "./less_tiles.json";
+  import tiles from "./tiles.json";
   import { Wfc, generateTiles } from "./wfc.svelte";
 
   const wfc = new Wfc(tiles, 10, 10);
