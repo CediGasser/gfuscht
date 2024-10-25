@@ -1,39 +1,53 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import tiles from "./less_tiles.json";
-  import { Wfc } from "./wfc.svelte";
+  import { Wfc, generateTiles } from "./wfc.svelte";
 
   const wfc = new Wfc(tiles, 10, 10);
-  if (browser) {
-    wfc.collapse(5, 5);
-  }
+
+  const start = async () => {
+    await wfc.collapse(5, 5);
+    console.log("done");
+  };
+
+  $inspect(wfc.grid);
+
+  start();
 </script>
 
 <main>
-  {#each wfc.grid as row}
-    <div class="column">
-      {#each row as tiles}
-        {#if tiles.length === 1}
-          {@const tile = tiles[0]}
-          <img
-            style="--rotation: {tile.rotation}deg;"
-            class="tile"
-            src="/wfc-images/{tile.name}"
-            alt={tile.name}
-          />
-        {:else if tiles.length < 1}
-          <span class="tile">X</span>
-        {:else}
-          <span class="tile">{tiles.length}</span>
-        {/if}
-      {/each}
-    </div>
-  {/each}
+  <div class="canvas">
+    {#each wfc.grid as column}
+      <div class="column">
+        {#each column as tiles}
+          {#if tiles.length === 1}
+            {@const tile = tiles[0]}
+            <img
+              style="--rotation: {tile.rotation}deg;"
+              class="tile"
+              src="/wfc-images/{tile.name}"
+              alt={tile.name}
+            />
+          {:else if tiles.length < 1}
+            <span class="tile">X</span>
+          {:else}
+            <span class="tile">{tiles.length}</span>
+          {/if}
+        {/each}
+      </div>
+    {/each}
+  </div>
 </main>
 
 <style>
   main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
+  }
+  div.canvas {
     display: flex;
     flex-direction: row;
   }
@@ -54,6 +68,5 @@
     width: 64px;
     height: 64px;
     image-rendering: pixelated;
-    image-rendering: crisp-edges;
   }
 </style>

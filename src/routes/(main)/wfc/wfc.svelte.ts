@@ -17,7 +17,7 @@ type Tile = {
   rotation: number;
 };
 
-function generateTiles(tiles: RawTile[]): Tile[] {
+export function generateTiles(tiles: RawTile[]): Tile[] {
   const result: Tile[] = [];
   for (const tile of tiles) {
     const sockets = tile.sockets;
@@ -73,8 +73,8 @@ export class Wfc {
     const neighbors: { [key: string]: { x: number, y: number } } = {}
     if (x > 0) neighbors.left = { x: x - 1, y };
     if (x < this.width - 1) neighbors.right = { x: x + 1, y };
-    if (y > 0) neighbors.bottom = { x, y: y - 1 };
-    if (y < this.height - 1) neighbors.top = { x, y: y + 1 };
+    if (y > 0) neighbors.top = { x, y: y - 1 };
+    if (y < this.height - 1) neighbors.bottom = { x, y: y + 1 };
     return neighbors;
   }
 
@@ -98,21 +98,25 @@ export class Wfc {
 
   public getLowestEntropyTile() {
     let minEntropy = Infinity;
-    let minEntropyTile: { x: number, y: number } | null = null;
+    let minEntropyTiles: { x: number, y: number }[] = [];
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
         const tileOptions = this.grid[x][y];
         const entropy = tileOptions.length;
         if (entropy < minEntropy && entropy > 1) {
           minEntropy = entropy;
-          minEntropyTile = { x, y };
+          minEntropyTiles = [{ x, y }];
+        } else if (entropy === minEntropy) {
+          minEntropyTiles.push({ x, y });
         }
       }
     }
+    if (minEntropyTiles.length === 0) return null;
+    const minEntropyTile = minEntropyTiles[Math.floor(Math.random() * minEntropyTiles.length)];
     return minEntropyTile;
   }
 
-  public async collapse(x: number, y: number) {
+  public async collapse(x: number, y: number, delay = 5) {
     const tileOptions = this.grid[x][y];
 
     const tileIndex = Math.floor(Math.random() * tileOptions.length);
@@ -123,7 +127,8 @@ export class Wfc {
       const { x, y } = stack.pop() as { x: number; y: number };
       const neighbors = Object.values(this.getNeighbors(x, y));
 
-      await sleep(50)
+      if (delay > 0) await sleep(delay);
+
       for (const neighbor of neighbors) {
         const optionCount = this.grid[neighbor.x][neighbor.y].length;
         this.reduce(neighbor.x, neighbor.y);
@@ -136,7 +141,7 @@ export class Wfc {
     // choose lowest entropy tile next
     const nextTile = this.getLowestEntropyTile();
     if (nextTile)
-      this.collapse(nextTile.x, nextTile.y);
+      await this.collapse(nextTile.x, nextTile.y);
   }
 
   get grid() {
