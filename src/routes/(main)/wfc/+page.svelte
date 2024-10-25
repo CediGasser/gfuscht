@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from "$app/environment";
   import tiles from "./directed_tiles.json";
   import { Wfc } from "./wfc.svelte";
 
@@ -9,7 +10,7 @@
     console.log("done");
   };
 
-  start();
+  if (browser) start();
 </script>
 
 <main>
