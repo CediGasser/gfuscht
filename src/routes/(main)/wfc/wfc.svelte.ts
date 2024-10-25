@@ -1,4 +1,5 @@
 import { sleep } from "$lib/utils";
+import { walk } from "svelte/compiler";
 
 const TOP = 0;
 const RIGHT = 1;
@@ -57,15 +58,16 @@ export class Wfc {
   private _grid: Tile[][][] = $state([[]]);
   private width: number;
   private height: number;
+  public tiles: Tile[] = [];
 
   constructor(tileset: RawTile[], width: number, height: number) {
     this.width = width;
     this.height = height;
 
-    const tiles = generateTiles(tileset);
+    this.tiles = generateTiles(tileset);
 
     this.grid = Array.from({ length: this.width }, () =>
-      Array.from({ length: this.height }, () => tiles),
+      Array.from({ length: this.height }, () => this.tiles),
     )
   }
 
@@ -96,6 +98,20 @@ export class Wfc {
     });
   }
 
+  public propagate(stack: { x: number, y: number }[]) {
+    while (stack.length > 0) {
+      const { x, y } = stack.pop() as { x: number; y: number };
+      const neighbors = Object.values(this.getNeighbors(x, y));
+      for (const neighbor of neighbors) {
+        const optionCount = this.grid[neighbor.x][neighbor.y].length;
+        this.reduce(neighbor.x, neighbor.y);
+        const newOptionCount = this.grid[neighbor.x][neighbor.y].length;
+        if (optionCount > newOptionCount)
+          stack.push(neighbor);
+      }
+    }
+  }
+
   public getLowestEntropyTile() {
     let minEntropy = Infinity;
     let minEntropyTiles: { x: number, y: number }[] = [];
@@ -122,21 +138,8 @@ export class Wfc {
     const tileIndex = Math.floor(Math.random() * tileOptions.length);
     this.grid[x][y] = [tileOptions[tileIndex]];
 
-    const stack = [{ x, y }]; // stack of positions to propagate
-    while (stack.length > 0) {
-      const { x, y } = stack.pop() as { x: number; y: number };
-      const neighbors = Object.values(this.getNeighbors(x, y));
-
-      if (delay > 0) await sleep(delay);
-
-      for (const neighbor of neighbors) {
-        const optionCount = this.grid[neighbor.x][neighbor.y].length;
-        this.reduce(neighbor.x, neighbor.y);
-        const newOptionCount = this.grid[neighbor.x][neighbor.y].length;
-        if (optionCount > newOptionCount)
-          stack.push(neighbor);
-      }
-    }
+    this.propagate([{ x, y }]) // stack of positions to propagate
+    if (delay > 0) await sleep(delay);
 
     // choose lowest entropy tile next
     const nextTile = this.getLowestEntropyTile();
