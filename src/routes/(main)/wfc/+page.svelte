@@ -1,16 +1,13 @@
 <script lang="ts">
-  import { browser } from "$app/environment";
-  import tiles from "./tiles.json";
-  import { Wfc, generateTiles } from "./wfc.svelte";
+  import tiles from "./directed_tiles.json";
+  import { Wfc } from "./wfc.svelte";
 
   const wfc = new Wfc(tiles, 10, 10);
 
   const start = async () => {
-    await wfc.collapse(5, 5);
+    await wfc.collapse(5, 5, 0);
     console.log("done");
   };
-
-  $inspect(wfc.grid);
 
   start();
 </script>
