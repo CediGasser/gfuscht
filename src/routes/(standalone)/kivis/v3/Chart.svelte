@@ -3,11 +3,7 @@
 
   let container: HTMLDivElement | null = null;
 
-  type Node = d3.SimulationNodeDatum & {
-    id: string;
-    group: string;
-    radius?: number;
-  };
+  type Node = d3.SimulationNodeDatum & { id: string; group: string };
   type Props = {
     data: {
       nodes: Node[];
@@ -33,8 +29,9 @@
       "link",
       d3.forceLink(links).id((d: Node) => d.id),
     )
-    .force("charge", d3.forceManyBody().strength(-10))
-    .force("center", d3.forceCenter());
+    .force("charge", d3.forceManyBody())
+    .force("x", d3.forceX())
+    .force("y", d3.forceY());
 
   $effect(() => {
     // Create the SVG container.
@@ -57,10 +54,12 @@
 
     const node = svg
       .append("g")
+      .attr("stroke", "#fff")
+      .attr("stroke-width", 1.5)
       .selectAll("circle")
       .data(nodes)
       .join("circle")
-      .attr("r", (d) => (d.radius ?? 1) * 2)
+      .attr("r", 5)
       .attr("fill", (d) => color(d.group));
 
     node.append("title").text((d) => d.id);

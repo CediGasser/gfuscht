@@ -1,0 +1,32 @@
+[
+  {
+    "name": "blank.png",
+    "sockets": ["0", "0", "0", "0"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "pink_2_straight.png",
+    "sockets": ["p2", "0", "p2", "0"],
+    "rotationVariants": [0, 90]
+  },
+  {
+    "name": "pink_2_end.png",
+    "sockets": ["0", "0", "p2", "0"],
+    "rotationVariants": [0, 90, 180, 270]
+  },
+  {
+    "name": "pink_2_curve.png",
+    "sockets": ["0", "p2", "p2", "0"],
+    "rotationVariants": [0, 90, 180, 270]
+  },
+  {
+    "name": "pink_2_t.png",
+    "sockets": ["p2", "0", "p2", "p2"],
+    "rotationVariants": [0, 90, 180, 270]
+  },
+  {
+    "name": "pink_2_cross.png",
+    "sockets": ["p2", "p2", "p2", "p2"],
+    "rotationVariants": [0]
+  }
+]
