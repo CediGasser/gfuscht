@@ -3,14 +3,16 @@
   import tiles from "./directed_tiles.json";
   import { Wfc } from "./wfc.svelte";
 
-  const HEIGHT = 12;
-  const WIDTH = 12;
-  let wfc = new Wfc(tiles, WIDTH, HEIGHT);
+  const HEIGHT = 10;
+  const WIDTH = 10;
+  let wfc = $state(new Wfc(tiles, WIDTH, HEIGHT));
+  let initialLoaded = $state(false);
 
   const start = async () => {
     const tile = wfc.getLowestEntropyTile();
     if (tile) await wfc.collapse(tile.x, tile.y, 0);
     console.log("done");
+    initialLoaded = true;
   };
 
   if (browser) start();
@@ -81,9 +83,9 @@
   }}
 />
 <main>
-  <div class="canvas">
+  <div class="flex-row">
     {#each wfc.grid as column}
-      <div class="column">
+      <div class="flex-column">
         {#each column as tiles}
           {#if tiles.length === 1}
             {@const tile = tiles[0]}
@@ -102,21 +104,32 @@
       </div>
     {/each}
   </div>
+  {#if initialLoaded}
+    <div class="flex-column wasd">
+      <kbd class="wasdW">W</kbd>
+      <div class="flex-row">
+        <kbd>A</kbd>
+        <kbd>S</kbd>
+        <kbd>D</kbd>
+      </div>
+    </div>
+  {/if}
 </main>
 
 <style>
   main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     height: 100vh;
   }
-  div.canvas {
+  .flex-row {
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
-  div.column {
+  .flex-column {
     display: flex;
     flex-direction: column;
   }
@@ -133,5 +146,17 @@
     width: 64px;
     height: 64px;
     image-rendering: pixelated;
+  }
+  .wasd {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 2rem;
+    font-size: 4rem;
+  }
+  kbd {
+    margin: 0 1rem;
+    width: 100%;
+    text-align: center;
   }
 </style>
