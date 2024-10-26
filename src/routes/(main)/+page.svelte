@@ -1,13 +1,13 @@
 <script lang="ts">
-  import Definition from '$lib/components/Definition.svelte'
-  import { themeStore } from '$lib/classes/theme'
-  import Seo from '$lib/components/Seo.svelte'
+  import Definition from "$lib/components/Definition.svelte";
+  import { themeStore } from "$lib/classes/theme";
+  import Seo from "$lib/components/Seo.svelte";
 
   let themes: Record<string, string> = {
-    'theme-rose-pine': 'Rose Pine',
-    'theme-rose-pine-dawn': 'Rose Pine Dawn',
-    'theme-light': 'Light',
-  }
+    "theme-rose-pine": "Rose Pine",
+    "theme-rose-pine-dawn": "Rose Pine Dawn",
+    "theme-light": "Light",
+  };
 </script>
 
 <Seo
@@ -22,7 +22,7 @@
       word="Gfuscht"
       phonetic="/gfu:ʃt/"
       type="Noun"
-      definition="Things I do, to tell myself that I'm not wasting time."
+      definition="Swiss German. A quick, spontaneous creation or experimental piece, often done with playful carelessness."
     />
   </section>
 
@@ -41,6 +41,7 @@
       <li><a href="/geo">Geo</a></li>
       <li><a href="/unitylight">Unity Light</a></li>
       <li><a href="/sand">Sand</a></li>
+      <li><a href="/wfc">Wave Function Collapse</a></li>
     </ul>
   </section>
 </main>
