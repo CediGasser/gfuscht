@@ -1,30 +1,25 @@
 <script lang="ts">
-  import Seo from '$lib/components/Seo.svelte'
+  import Seo from "$lib/components/Seo.svelte";
+  import { selectOnClick } from "$lib/actions";
 
-  let content = $state('Hello World')
-  let input: HTMLInputElement = $state()
+  let content = $state("Hello World");
 
-  let animate = $state(false)
+  let animate = $state(false);
 
   // copy content to clipboard
   function copyToClipboard(): void {
-    navigator.clipboard.writeText(content)
+    navigator.clipboard.writeText(content);
     if (!animate) {
       setTimeout(() => {
-        animate = false
-      }, 1500)
+        animate = false;
+      }, 1500);
     }
-    animate = true
-  }
-
-  // mark content on click
-  function inputEnter(): void {
-    input.select()
+    animate = true;
   }
 
   function handleKeydown(event: KeyboardEvent): void {
-    if (event.ctrlKey && event.key === 'c') {
-      copyToClipboard()
+    if (event.ctrlKey && event.key === "c") {
+      copyToClipboard();
     }
   }
 </script>
@@ -38,12 +33,7 @@
 <svelte:body onkeydown={handleKeydown} />
 <div class="wrapper">
   <h1>Ctrl + C... V2</h1>
-  <input
-    bind:this={input}
-    type="text"
-    bind:value={content}
-    onclick={inputEnter}
-  />
+  <input type="text" bind:value={content} use:selectOnClick />
   <button onclick={copyToClipboard}
     >Copy
     <div class="svg-container">
@@ -99,7 +89,7 @@
 
 <style>
   * {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
     color: rgb(236, 232, 252);
   }
   div.wrapper {

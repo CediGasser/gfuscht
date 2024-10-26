@@ -1,9 +1,9 @@
 <script lang="ts">
-  import NowPlaying from '$lib/components/NowPlaying.svelte'
-  import Profile from '$lib/components/Profile.svelte'
-  import Seo from '$lib/components/Seo.svelte'
-  import Track from '$lib/components/Track.svelte'
-  import { fly } from 'svelte/transition'
+  import NowPlaying from "$lib/components/NowPlaying.svelte";
+  import Profile from "$lib/components/Profile.svelte";
+  import Seo from "$lib/components/Seo.svelte";
+  import Track from "$lib/components/Track.svelte";
+  import { fly } from "svelte/transition";
 
   interface Props {
     data: any;
@@ -13,7 +13,7 @@
   let { topArtists } = $derived(data.streamed);
   let { profile, nowPlaying, topTracks } = $derived(data);
 
-  let selectedTab = $state('tracks')
+  let selectedTab = $state("tracks");
 </script>
 
 <Seo
@@ -52,13 +52,13 @@
             value="artists"
           />
           <label for="artists">Artists</label>
-          <span class="glider" />
+          <span class="glider"></span>
         </div>
       </div>
 
       <!-- The content of the tabs -->
       <div class="ranking-lists">
-        {#if selectedTab === 'tracks'}
+        {#if selectedTab === "tracks"}
           <ul
             in:fly={{ x: 20, duration: 150, delay: 150 }}
             out:fly={{ x: 20, duration: 150 }}
@@ -69,7 +69,7 @@
               </li>
             {/each}
           </ul>
-        {:else if selectedTab === 'artists'}
+        {:else if selectedTab === "artists"}
           <ul
             in:fly={{ x: -20, duration: 150, delay: 150 }}
             out:fly={{ x: -20, duration: 150 }}
@@ -101,7 +101,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Courier New", Courier, monospace;
   }
 
   .wrapper {
@@ -174,7 +174,7 @@
     overflow: hidden;
   }
 
-  .tab-group input[type='radio'] {
+  .tab-group input[type="radio"] {
     display: none;
   }
 
@@ -198,15 +198,15 @@
     z-index: 2;
   }
 
-  .tab-group input[type='radio']:checked + label {
+  .tab-group input[type="radio"]:checked + label {
     color: var(--theme-primary);
   }
 
-  input[id='tracks']:checked ~ .glider {
+  input[id="tracks"]:checked ~ .glider {
     transform: translateX(0);
   }
 
-  input[id='artists']:checked ~ .glider {
+  input[id="artists"]:checked ~ .glider {
     transform: translateX(100%);
   }
 

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Seo from '$lib/components/Seo.svelte'
+  import Seo from "$lib/components/Seo.svelte";
 
-  const layers = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+  const layers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-  let y: number = $state()
+  let y: number = $state(0);
 </script>
 
 <Seo
@@ -50,7 +50,7 @@
   }
 
   .parallax-container img:last-child::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 100%;

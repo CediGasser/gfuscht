@@ -1,21 +1,26 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
-  import { First, BlackWhite, BlackWhiteBalls, IdkBlob } from '$lib/experiments'
-  import { page } from '$app/stores'
-  import Seo from '$lib/components/Seo.svelte'
+  import {
+    First,
+    BlackWhite,
+    BlackWhiteBalls,
+    IdkBlob,
+  } from "$lib/experiments";
+  import { page } from "$app/stores";
+  import Seo from "$lib/components/Seo.svelte";
 
   const components = [
-    { name: 'First', component: First },
-    { name: 'BlackWhite', component: BlackWhite },
-    { name: 'BlackWhiteBalls', component: BlackWhiteBalls },
-    { name: 'IdkBlob', component: IdkBlob },
-  ]
+    { name: "First", component: First },
+    { name: "BlackWhite", component: BlackWhite },
+    { name: "BlackWhiteBalls", component: BlackWhiteBalls },
+    { name: "IdkBlob", component: IdkBlob },
+  ];
 
-  let current = $state(parseInt($page.url.searchParams.get('id') || '0'))
-  run(() => {
-    $page.url.searchParams.set('id', current.toString())
+  let current = $state(parseInt($page.url.searchParams.get("id") || "0"));
+  $effect(() => {
+    $page.url.searchParams.set("id", current.toString());
   });
+
+  let MetaballsComponent = $derived(components[current].component);
 </script>
 
 <Seo
@@ -25,7 +30,7 @@
 />
 
 <main>
-  <svelte:component this={components[current].component} />
+  <MetaballsComponent />
 
   <select bind:value={current}>
     {#each components as component, i}

@@ -1,35 +1,37 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
-  import { Effect } from '$lib/classes/gravitygrid'
-  import { themeStore } from '$lib/classes/theme'
-  import Seo from '$lib/components/Seo.svelte'
+  import { onMount } from "svelte";
+  import { Effect } from "$lib/classes/gravitygrid";
+  import { themeStore } from "$lib/classes/theme";
+  import Seo from "$lib/components/Seo.svelte";
 
-  let canvas: HTMLCanvasElement = $state()
-  let effect: Effect
+  let canvas: HTMLCanvasElement | undefined = $state();
+  let effect: Effect;
 
   onMount(() => {
-    let accent = themeStore.getPropertyValue('--theme-primary') ?? 'red'
+    let accent = themeStore.getPropertyValue("--theme-primary") ?? "red";
 
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    if (!canvas) return;
 
-    effect = new Effect(canvas, 5, 15, 100, accent)
-    effect.setup()
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    effect.draw()
+    effect = new Effect(canvas, 5, 15, 100, accent);
+    effect.setup();
+
+    effect.draw();
 
     const animate = () => {
-      effect.update()
-      effect.draw()
-      return requestAnimationFrame(animate)
-    }
+      effect.update();
+      effect.draw();
+      return requestAnimationFrame(animate);
+    };
 
-    let frame = animate()
+    let frame = animate();
 
     return () => {
-      cancelAnimationFrame(frame)
-    }
-  })
+      cancelAnimationFrame(frame);
+    };
+  });
 </script>
 
 <Seo
@@ -38,7 +40,7 @@
   keywords="particles, grid, effect, interactive"
 />
 
-<canvas bind:this={canvas} />
+<canvas bind:this={canvas}></canvas>
 
 <style>
   canvas {
