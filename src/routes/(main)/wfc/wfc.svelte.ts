@@ -1,5 +1,4 @@
 import { sleep } from "$lib/utils";
-import { walk } from "svelte/compiler";
 
 const TOP = 0;
 const RIGHT = 1;
@@ -18,7 +17,7 @@ type Tile = {
   rotation: number;
 };
 
-export function generateTiles(tiles: RawTile[]): Tile[] {
+function generateTiles(tiles: RawTile[]): Tile[] {
   const result: Tile[] = [];
   for (const tile of tiles) {
     const sockets = tile.sockets;
@@ -56,8 +55,8 @@ export function generateTiles(tiles: RawTile[]): Tile[] {
 
 export class Wfc {
   private _grid: Tile[][][] = $state([[]]);
-  private width: number;
-  private height: number;
+  protected width: number;
+  protected height: number;
   public tiles: Tile[] = [];
 
   constructor(tileset: RawTile[], width: number, height: number) {
@@ -144,7 +143,12 @@ export class Wfc {
     // choose lowest entropy tile next
     const nextTile = this.getLowestEntropyTile();
     if (nextTile)
-      await this.collapse(nextTile.x, nextTile.y);
+      await this.collapse(nextTile.x, nextTile.y, delay);
+  }
+
+  public collapseLowestEntropy() {
+    const tile = this.getLowestEntropyTile();
+    if (tile) this.collapse(tile.x, tile.y);
   }
 
   get grid() {

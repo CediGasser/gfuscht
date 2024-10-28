@@ -1,109 +1,35 @@
 <script lang="ts">
   import { browser } from "$app/environment";
+  import WfcComponent from "./WfcComponent.svelte";
   import tiles from "./directed_tiles.json";
-  import { Wfc } from "./wfc.svelte";
+  import { ContinuousWfc } from "./ContinuousWfc.svelte";
 
   const HEIGHT = 10;
   const WIDTH = 10;
-  let wfc = $state(new Wfc(tiles, WIDTH, HEIGHT));
+
+  let wfc = $state(new ContinuousWfc(tiles, WIDTH, HEIGHT));
   let initialLoaded = $state(false);
 
   const start = async () => {
     const tile = wfc.getLowestEntropyTile();
-    if (tile) await wfc.collapse(tile.x, tile.y, 0);
+    if (tile) await wfc.collapse(tile.x, tile.y, 10);
     console.log("done");
     initialLoaded = true;
   };
 
   if (browser) start();
-
-  const shiftGridRight = () => {
-    const newWfc = new Wfc(tiles, WIDTH, HEIGHT);
-    for (let x = 1; x < WIDTH; x++) {
-      newWfc.grid[x - 1] = wfc.grid[x];
-    }
-    newWfc.grid[WIDTH - 1] = Array.from({ length: HEIGHT }, () => newWfc.tiles);
-    wfc = newWfc;
-    wfc.propagate(
-      Array.from({ length: HEIGHT }, (_, y) => ({ x: WIDTH - 1, y })),
-    );
-    start();
-  };
-
-  const shiftGridLeft = () => {
-    const newWfc = new Wfc(tiles, WIDTH, HEIGHT);
-    for (let x = 0; x < WIDTH - 1; x++) {
-      newWfc.grid[x + 1] = wfc.grid[x];
-    }
-    newWfc.grid[0] = Array.from({ length: HEIGHT }, () => newWfc.tiles);
-    wfc = newWfc;
-    wfc.propagate(Array.from({ length: HEIGHT }, (_, y) => ({ x: 0, y })));
-    start();
-  };
-
-  const shiftGridDown = () => {
-    const newWfc = new Wfc(tiles, WIDTH, HEIGHT);
-    for (let y = 1; y < HEIGHT; y++) {
-      newWfc.grid.forEach((column, x) => {
-        column[y - 1] = wfc.grid[x][y];
-      });
-    }
-    newWfc.grid.forEach((column) => {
-      column[HEIGHT - 1] = newWfc.tiles;
-    });
-    wfc = newWfc;
-    wfc.propagate(
-      Array.from({ length: WIDTH }, (_, x) => ({ x, y: HEIGHT - 1 })),
-    );
-    start();
-  };
-
-  const shiftGridUp = () => {
-    const newWfc = new Wfc(tiles, WIDTH, HEIGHT);
-    for (let y = 0; y < HEIGHT - 1; y++) {
-      newWfc.grid.forEach((column, x) => {
-        column[y + 1] = wfc.grid[x][y];
-      });
-    }
-    newWfc.grid.forEach((column) => {
-      column[0] = newWfc.tiles;
-    });
-    wfc = newWfc;
-    wfc.propagate(Array.from({ length: WIDTH }, (_, x) => ({ x, y: 0 })));
-    start();
-  };
 </script>
 
 <svelte:window
   onkeydown={(e) => {
-    if (e.key === "d") shiftGridRight();
-    if (e.key === "a") shiftGridLeft();
-    if (e.key === "s") shiftGridDown();
-    if (e.key === "w") shiftGridUp();
+    if (e.key === "d") wfc.shiftGridRight();
+    if (e.key === "a") wfc.shiftGridLeft();
+    if (e.key === "s") wfc.shiftGridDown();
+    if (e.key === "w") wfc.shiftGridUp();
   }}
 />
 <main>
-  <div class="flex-row">
-    {#each wfc.grid as column}
-      <div class="flex-column">
-        {#each column as tiles}
-          {#if tiles.length === 1}
-            {@const tile = tiles[0]}
-            <img
-              style="--rotation: {tile.rotation}deg;"
-              class="tile"
-              src="/wfc-images/{tile.name}"
-              alt={tile.name}
-            />
-          {:else if tiles.length < 1}
-            <span class="tile">X</span>
-          {:else}
-            <span class="tile">{tiles.length}</span>
-          {/if}
-        {/each}
-      </div>
-    {/each}
-  </div>
+  <WfcComponent {wfc} />
   {#if initialLoaded}
     <div class="flex-column wasd">
       <kbd class="wasdW">W</kbd>
@@ -132,20 +58,6 @@
   .flex-column {
     display: flex;
     flex-direction: column;
-  }
-  span.tile {
-    width: 64px;
-    height: 64px;
-    display: inline-block;
-    text-align: center;
-    line-height: 64px;
-    font-size: 24px;
-  }
-  img {
-    transform: rotate(var(--rotation));
-    width: 64px;
-    height: 64px;
-    image-rendering: pixelated;
   }
   .wasd {
     position: fixed;
