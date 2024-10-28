@@ -3,7 +3,7 @@
 
   const layers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-  let y: number = $state(0);
+  let scrollY: number = $state(0);
 </script>
 
 <Seo
@@ -12,12 +12,13 @@
   keywords="parallax, effect, layers, firewatch"
 />
 
-<svelte:window bind:scrollY={y} />
+<svelte:window bind:scrollY />
 
 <a class="parallax-container" href="https://www.firewatchgame.com">
   {#each layers as layer}
     <img
-      style="transform: translate(0,{(-y * layer) / (layers.length - 1)}px)"
+      style="transform: translate(0,{(-scrollY * layer) /
+        (layers.length - 1)}px)"
       src="https://www.firewatchgame.com/images/parallax/parallax{layer}.png"
       alt="parallax layer {layer}"
     />
@@ -25,14 +26,17 @@
 </a>
 
 <div class="text">
-  <span style="opacity: {1 - Math.max(0, y / 40)}"> scroll down </span>
+  <span style="opacity: {1 - Math.max(0, scrollY / 40)}"> scroll down </span>
 
   <div class="foreground">
-    You have scrolled {y} pixels
+    You have scrolled {scrollY} pixels
   </div>
 </div>
 
 <style>
+  :global(html) {
+    background-color: rgb(32, 0, 1);
+  }
   .parallax-container {
     position: fixed;
     width: 2400px;
