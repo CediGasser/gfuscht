@@ -58,6 +58,7 @@ export class Wfc {
   protected width: number;
   protected height: number;
   public tiles: Tile[] = [];
+  public animationDelay = 5;
 
   constructor(tileset: RawTile[], width: number, height: number) {
     this.width = width;
@@ -131,24 +132,24 @@ export class Wfc {
     return minEntropyTile;
   }
 
-  public async collapse(x: number, y: number, delay = 5) {
+  public async collapse(x: number, y: number) {
     const tileOptions = this.grid[x][y];
 
     const tileIndex = Math.floor(Math.random() * tileOptions.length);
     this.grid[x][y] = [tileOptions[tileIndex]];
 
     this.propagate([{ x, y }]) // stack of positions to propagate
-    if (delay > 0) await sleep(delay);
+    if (this.animationDelay > 0) await sleep(this.animationDelay);
 
     // choose lowest entropy tile next
     const nextTile = this.getLowestEntropyTile();
     if (nextTile)
-      await this.collapse(nextTile.x, nextTile.y, delay);
+      await this.collapse(nextTile.x, nextTile.y);
   }
 
-  public collapseLowestEntropy() {
+  public async collapseLowestEntropy() {
     const tile = this.getLowestEntropyTile();
-    if (tile) this.collapse(tile.x, tile.y);
+    if (tile) await this.collapse(tile.x, tile.y);
   }
 
   get grid() {
