@@ -16,7 +16,9 @@
 
   import task_3 from './assets/Typography-Comparison.png'
 
-  import task_5 from './assets/interaction-of-color.png'
+  import task_5_1 from './assets/interaction-of-color-1.png'
+  import task_5_2 from './assets/interaction-of-color-2.png'
+  import task_5_3 from './assets/interaction-of-color-3.png'
 
   import task_6 from './assets/visual-hierarchy.png'
 </script>
@@ -78,7 +80,9 @@
   <section class="task-5">
     <div class="container">
       <h2 class="title">Interaktion von Farben</h2>
-      <img src={task_5} alt="Interaction of Color" class="bg-white p-2" />
+      <img src={task_5_1} alt="Interaction of Color 1" class="bg-white p-2" />
+      <img src={task_5_2} alt="Interaction of Color 2" class="bg-white p-2" />
+      <img src={task_5_3} alt="Interaction of Color 3" class="bg-white p-2" />
     </div>
   </section>
   <section class="task-6">
