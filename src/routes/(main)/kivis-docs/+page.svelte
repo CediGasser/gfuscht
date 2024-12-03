@@ -15,6 +15,10 @@
   import task_2 from './assets/figur-und-grund.png'
 
   import task_3 from './assets/Typography-Comparison.png'
+
+  import task_5 from './assets/interaction-of-color.png'
+
+  import task_6 from './assets/visual-hierarchy.png'
 </script>
 
 <main>
@@ -74,11 +78,13 @@
   <section class="task-5">
     <div class="container">
       <h2 class="title">Interaktion von Farben</h2>
+      <img src={task_5} alt="Interaction of Color" class="bg-white p-2" />
     </div>
   </section>
   <section class="task-6">
     <div class="container">
       <h2 class="title">Hierarchie</h2>
+      <img src={task_6} alt="Visual Hierarchy" class="bg-white" />
     </div>
   </section>
   <section class="task-7">
@@ -149,5 +155,13 @@
 
   .task-1 img {
     width: 30%;
+  }
+
+  .bg-white {
+    background-color: white;
+  }
+
+  .p-2 {
+    padding: 2rem;
   }
 </style>
