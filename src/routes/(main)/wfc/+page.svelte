@@ -23,7 +23,7 @@
 <main>
   <WfcComponent {wfc} />
   <div>
-    <input type="range" bind:value={wfc.animationDelay} min="1" max="100" />
+    <input type="range" bind:value={wfc.animationDelay} min="0" max="1000" />
   </div>
 </main>
 

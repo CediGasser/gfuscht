@@ -17,6 +17,11 @@ type Tile = {
   rotation: number;
 };
 
+type Position = {
+  x: number;
+  y: number;
+};
+
 function generateTiles(tiles: RawTile[]): Tile[] {
   const result: Tile[] = [];
   for (const tile of tiles) {
@@ -55,10 +60,15 @@ function generateTiles(tiles: RawTile[]): Tile[] {
 
 export class Wfc {
   private _grid: Tile[][][] = $state([[]]);
+  private isPropagating = false;
+
+  protected propagationStack: Position[] = [];
   protected width: number;
   protected height: number;
+
   public tiles: Tile[] = [];
-  public animationDelay = 5;
+  public animationDelay = $state(100);
+
 
   constructor(tileset: RawTile[], width: number, height: number) {
     this.width = width;
@@ -71,8 +81,8 @@ export class Wfc {
     )
   }
 
-  private getNeighbors(x: number, y: number) {
-    const neighbors: { [key: string]: { x: number, y: number } } = {}
+  private getNeighbors({ x, y }: Position) {
+    const neighbors: { [key: string]: Position } = {}
     if (x > 0) neighbors.left = { x: x - 1, y };
     if (x < this.width - 1) neighbors.right = { x: x + 1, y };
     if (y > 0) neighbors.top = { x, y: y - 1 };
@@ -80,9 +90,9 @@ export class Wfc {
     return neighbors;
   }
 
-  public reduce(x: number, y: number) {
+  public reduce({ x, y }: Position) {
     const tileOptions = this.grid[x][y];
-    const neighbors = this.getNeighbors(x, y);
+    const neighbors = this.getNeighbors({ x, y });
 
     const topSockets = neighbors.top && this.grid[neighbors.top.x][neighbors.top.y].map((t) => t.sockets[BOTTOM]);
     const rightSockets = neighbors.right && this.grid[neighbors.right.x][neighbors.right.y].map((t) => t.sockets[LEFT]);
@@ -98,23 +108,31 @@ export class Wfc {
     });
   }
 
-  public propagate(stack: { x: number, y: number }[]) {
-    while (stack.length > 0) {
-      const { x, y } = stack.pop() as { x: number; y: number };
-      const neighbors = Object.values(this.getNeighbors(x, y));
-      for (const neighbor of neighbors) {
-        const optionCount = this.grid[neighbor.x][neighbor.y].length;
-        this.reduce(neighbor.x, neighbor.y);
-        const newOptionCount = this.grid[neighbor.x][neighbor.y].length;
-        if (optionCount > newOptionCount)
-          stack.push(neighbor);
+  public async propagate(positions: Position[]) {
+    this.propagationStack.push(...positions);
+
+    if (this.isPropagating) return;
+    this.isPropagating = true;
+
+    while (this.propagationStack.length > 0) {
+      const position = this.propagationStack.pop() as Position;
+      const optionCount = this._grid[position.x][position.y].length;
+      this.reduce(position);
+      const newOptionCount = this._grid[position.x][position.y].length;
+
+      if (optionCount > newOptionCount) {
+        const neighbors = Object.values(this.getNeighbors(position));
+        this.propagationStack.push(...neighbors);
+        if (this.animationDelay > 0) await sleep(this.animationDelay);
       }
     }
+
+    this.isPropagating = false;
   }
 
   public getLowestEntropyTile() {
     let minEntropy = Infinity;
-    let minEntropyTiles: { x: number, y: number }[] = [];
+    let minEntropyTiles: Position[] = [];
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
         const tileOptions = this.grid[x][y];
@@ -132,24 +150,25 @@ export class Wfc {
     return minEntropyTile;
   }
 
-  public async collapse(x: number, y: number) {
+  public async collapse({ x, y }: Position) {
+    if (this.isPropagating) return;
+
     const tileOptions = this.grid[x][y];
 
     const tileIndex = Math.floor(Math.random() * tileOptions.length);
     this.grid[x][y] = [tileOptions[tileIndex]];
 
-    this.propagate([{ x, y }]) // stack of positions to propagate
-    if (this.animationDelay > 0) await sleep(this.animationDelay);
+    await this.propagate(Object.values(this.getNeighbors({ x, y }))) // stack of positions to propagate
 
     // choose lowest entropy tile next
     const nextTile = this.getLowestEntropyTile();
     if (nextTile)
-      await this.collapse(nextTile.x, nextTile.y);
+      await this.collapse(nextTile);
   }
 
   public async collapseLowestEntropy() {
     const tile = this.getLowestEntropyTile();
-    if (tile) await this.collapse(tile.x, tile.y);
+    if (tile) await this.collapse(tile);
   }
 
   get grid() {

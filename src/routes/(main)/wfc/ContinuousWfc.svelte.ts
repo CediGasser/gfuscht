@@ -10,11 +10,16 @@ export class ContinuousWfc extends Wfc {
     // Fill the rightmost column with new tiles
     this.grid[this.width - 1] = Array.from({ length: this.height }, () => this.tiles);
 
+    // Shift the propagation stack
+    this.propagationStack = this.propagationStack.map(({ x, y }) => ({ x: x - 1, y }))
+      .filter(({ x }) => x >= 0);
+
     // Add new tiles to the propagation stack
     this.propagate(
       Array.from({ length: this.height }, (_, y) => ({ x: this.width - 1, y })),
-    );
-    this.collapseLowestEntropy();
+    ).then(() => {
+      this.collapseLowestEntropy();
+    });
   };
 
   shiftGridLeft = () => {
@@ -26,11 +31,17 @@ export class ContinuousWfc extends Wfc {
     // Fill the leftmost column with new tiles
     this.grid[0] = Array.from({ length: this.height }, () => this.tiles);
 
+
+    // Shift the propagation stack
+    this.propagationStack = this.propagationStack.map(({ x, y }) => ({ x: x + 1, y }))
+      .filter(({ x }) => x < this.width);
+
     // Add new tiles to the propagation stack
     this.propagate(
       Array.from({ length: this.height }, (_, y) => ({ x: 0, y })),
-    );
-    this.collapseLowestEntropy();
+    ).then(() => {
+      this.collapseLowestEntropy();
+    });
   }
 
   shiftGridDown = () => {
@@ -46,11 +57,16 @@ export class ContinuousWfc extends Wfc {
       column[this.height - 1] = this.tiles;
     });
 
+    // Shift the propagation stack
+    this.propagationStack = this.propagationStack.map(({ x, y }) => ({ x, y: y - 1 }))
+      .filter(({ y }) => y >= 0);
+
     // Add new tiles to the propagation stack
     this.propagate(
       Array.from({ length: this.width }, (_, x) => ({ x, y: this.height - 1 })),
-    );
-    this.collapseLowestEntropy();
+    ).then(() => {
+      this.collapseLowestEntropy();
+    });
   };
 
   shiftGridUp = () => {
@@ -66,10 +82,15 @@ export class ContinuousWfc extends Wfc {
       column[0] = this.tiles;
     });
 
+    // Shift the propagation stack
+    this.propagationStack = this.propagationStack.map(({ x, y }) => ({ x, y: y + 1 }))
+      .filter(({ y }) => y < this.height);
+
     // Add new tiles to the propagation stack
     this.propagate(
       Array.from({ length: this.width }, (_, x) => ({ x, y: 0 })),
-    );
-    this.collapseLowestEntropy();
+    ).then(() => {
+      this.collapseLowestEntropy();
+    });
   };
 }
