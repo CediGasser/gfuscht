@@ -12,18 +12,26 @@
   if (browser) wfc.collapseLowestEntropy();
 
   const onkeydown = (e: KeyboardEvent) => {
-    if (e.key === "d") wfc.shiftGridRight();
-    if (e.key === "a") wfc.shiftGridLeft();
-    if (e.key === "s") wfc.shiftGridDown();
-    if (e.key === "w") wfc.shiftGridUp();
+    if (e.key === "d" || e.key === "ArrowRight") wfc.shiftGridRight();
+    if (e.key === "a" || e.key === "ArrowLeft") wfc.shiftGridLeft();
+    if (e.key === "s" || e.key === "ArrowDown") wfc.shiftGridDown();
+    if (e.key === "w" || e.key === "ArrowUp") wfc.shiftGridUp();
   };
 </script>
 
 <svelte:window {onkeydown} />
+
 <main>
   <WfcComponent {wfc} />
   <div>
-    <input type="range" bind:value={wfc.animationDelay} min="0" max="1000" />
+    <label for="animationDelay">Animation Delay</label>
+    <input
+      name="animationDelay"
+      type="number"
+      bind:value={wfc.animationDelay}
+      min="0"
+      max="1000"
+    />
   </div>
 </main>
 
