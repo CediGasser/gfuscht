@@ -58,7 +58,7 @@ function generateTiles(tiles: RawTile[]): Tile[] {
   return result;
 }
 
-export class Wfc {
+export default class Wfc {
   private _grid: Tile[][][] = $state([[]]);
   private isPropagating = false;
 

@@ -1,6 +1,6 @@
-import { Wfc } from "./Wfc.svelte";
+import Wfc from "./Wfc.svelte";
 
-export class ContinuousWfc extends Wfc {
+export default class ContinuousWfc extends Wfc {
   shiftGridRight = () => {
     // Shift the grid right
     for (let x = 1; x < this.width; x++) {

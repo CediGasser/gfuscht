@@ -2,7 +2,7 @@
   import { browser } from "$app/environment";
   import WfcComponent from "./WfcComponent.svelte";
   import tiles from "./tilesets/directed_tiles.json";
-  import { ContinuousWfc } from "./ContinuousWfc.svelte";
+  import ContinuousWfc from "./ContinuousWfc.svelte";
 
   const HEIGHT = 10;
   const WIDTH = 10;
