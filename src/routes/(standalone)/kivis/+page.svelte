@@ -28,20 +28,4 @@
     color: #333;
     font-family: sans-serif;
   }
-  .text-container {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    text-wrap: pretty;
-  }
-  blockquote {
-    font-size: 2rem;
-    font-weight: 300;
-  }
-  p {
-    font-size: 1rem;
-    font-weight: 300;
-    text-align: center;
-  }
 </style>
