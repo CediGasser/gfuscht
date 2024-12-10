@@ -49,10 +49,11 @@
   .tile {
     width: 64px;
     height: 64px;
-    display: inline-block;
     text-align: center;
-    line-height: 64px;
-    font-size: 24px;
+    align-content: center;
+  }
+  .tile > span {
+    font-size: 1.5rem;
   }
   .tile > img {
     transform: rotate(var(--rotation));
@@ -61,6 +62,7 @@
     image-rendering: pixelated;
   }
   .is-propagating {
-    outline: 2px solid red;
+    box-sizing: border-box;
+    border: 2px solid red;
   }
 </style>
