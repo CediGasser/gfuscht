@@ -11,7 +11,7 @@ export default class ContinuousWfc extends Wfc {
     this.grid[this.width - 1] = Array.from({ length: this.height }, () => this.tiles);
 
     // Shift the propagation stack
-    this.propagationStack = this.propagationStack.map(({ x, y }) => ({ x: x - 1, y }))
+    this._propagationStack = this._propagationStack.map(({ x, y }) => ({ x: x - 1, y }))
       .filter(({ x }) => x >= 0);
 
     // Add new tiles to the propagation stack
@@ -33,7 +33,7 @@ export default class ContinuousWfc extends Wfc {
 
 
     // Shift the propagation stack
-    this.propagationStack = this.propagationStack.map(({ x, y }) => ({ x: x + 1, y }))
+    this._propagationStack = this._propagationStack.map(({ x, y }) => ({ x: x + 1, y }))
       .filter(({ x }) => x < this.width);
 
     // Add new tiles to the propagation stack
@@ -58,7 +58,7 @@ export default class ContinuousWfc extends Wfc {
     });
 
     // Shift the propagation stack
-    this.propagationStack = this.propagationStack.map(({ x, y }) => ({ x, y: y - 1 }))
+    this._propagationStack = this._propagationStack.map(({ x, y }) => ({ x, y: y - 1 }))
       .filter(({ y }) => y >= 0);
 
     // Add new tiles to the propagation stack
@@ -83,7 +83,7 @@ export default class ContinuousWfc extends Wfc {
     });
 
     // Shift the propagation stack
-    this.propagationStack = this.propagationStack.map(({ x, y }) => ({ x, y: y + 1 }))
+    this._propagationStack = this._propagationStack.map(({ x, y }) => ({ x, y: y + 1 }))
       .filter(({ y }) => y < this.height);
 
     // Add new tiles to the propagation stack

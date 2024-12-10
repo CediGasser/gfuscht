@@ -62,13 +62,22 @@ export default class Wfc {
   private _grid: Tile[][][] = $state([[]]);
   private isPropagating = false;
 
-  protected propagationStack: Position[] = [];
+  protected _propagationStack: Position[] = $state([]);
   protected width: number;
   protected height: number;
 
   public tiles: Tile[] = [];
   public animationDelay = $state(100);
 
+  get propagationStack() {
+    return this._propagationStack;
+  }
+  get grid() {
+    return this._grid;
+  }
+  set grid(value) {
+    this._grid = value;
+  }
 
   constructor(tileset: RawTile[], width: number, height: number) {
     this.width = width;
@@ -109,22 +118,24 @@ export default class Wfc {
   }
 
   public async propagate(positions: Position[]) {
-    this.propagationStack.push(...positions);
+    this._propagationStack.push(...positions);
 
     if (this.isPropagating) return;
     this.isPropagating = true;
 
-    while (this.propagationStack.length > 0) {
-      const position = this.propagationStack.pop() as Position;
+    while (this._propagationStack.length > 0) {
+      const position = this._propagationStack.pop() as Position;
       const optionCount = this._grid[position.x][position.y].length;
       this.reduce(position);
       const newOptionCount = this._grid[position.x][position.y].length;
 
       if (optionCount > newOptionCount) {
-        const neighbors = Object.values(this.getNeighbors(position));
-        this.propagationStack.push(...neighbors);
-        if (this.animationDelay > 0) await sleep(this.animationDelay);
+        const neighbors = Object.values(this.getNeighbors(position)).filter(
+          (neighbor) => this.grid[neighbor.x][neighbor.y].length > 1,
+        );
+        this._propagationStack.push(...neighbors);
       }
+      if (this.animationDelay > 0) await sleep(this.animationDelay);
     }
 
     this.isPropagating = false;
@@ -158,7 +169,11 @@ export default class Wfc {
     const tileIndex = Math.floor(Math.random() * tileOptions.length);
     this.grid[x][y] = [tileOptions[tileIndex]];
 
-    await this.propagate(Object.values(this.getNeighbors({ x, y }))) // stack of positions to propagate
+    const neighbors = Object.values(this.getNeighbors({ x, y })).filter(
+      (neighbor) => this.grid[neighbor.x][neighbor.y].length > 1,
+    );
+
+    await this.propagate(neighbors) // stack of positions to propagate
 
     // choose lowest entropy tile next
     const nextTile = this.getLowestEntropyTile();
@@ -171,10 +186,4 @@ export default class Wfc {
     if (tile) await this.collapse(tile);
   }
 
-  get grid() {
-    return this._grid;
-  }
-  set grid(value) {
-    this._grid = value;
-  }
 }
