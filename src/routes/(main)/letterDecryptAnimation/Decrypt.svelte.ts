@@ -1,5 +1,8 @@
-import { tweened } from "./Tweened.svelte"
-import { expoInOut } from "svelte/easing"
+import { Tween } from 'svelte/motion'
+import { rand } from '$lib/utils'
+import { cubicInOut, cubicOut, linear } from 'svelte/easing'
+
+type TweenedOptions = ConstructorParameters<typeof Tween<number>>[1]
 
 const CODEY_CHARS = [
   '*',
@@ -9,86 +12,128 @@ const CODEY_CHARS = [
   '%',
   'x',
   '/',
-  '{',
-  '}',
+  ' ',
+  ' ',
   ':',
   '$',
-  ',',
-  ':',
+  ' ',
+  ' ',
   ';',
-  '.',
+  ' ',
 ]
 
-function randomElement(array: any[]) {
-  return array[Math.floor(Math.random() * array.length)]
+const RAND_CHARS = Array.from({ length: 100 }, () => rand(CODEY_CHARS))
+
+const getPseudoRandomChar = (index: number) =>
+  RAND_CHARS[index % RAND_CHARS.length]
+
+export class ZeroBouncingTween {
+  #tween: Tween<number> = $state(new Tween(0))
+  #current: number = $derived(Math.abs(this.#tween.current))
+  #target: number = $state(Math.abs(this.#tween.target))
+  #direction: number = $derived(Math.sign(this.#tween.current) * -1)
+  #options: TweenedOptions
+
+  constructor(value: number, options: TweenedOptions) {
+    this.#options = options
+    this.#tween = new Tween(value, options)
+    this.#tween.set(-value, options)
+  }
+
+  public get current(): number {
+    return this.#current
+  }
+
+  public set target(value: number) {
+    this.#target = value
+    this.#tween = new Tween(this.#current, this.#options)
+    this.#tween.set(-value)
+  }
+
+  public get target(): number {
+    return this.#target
+  }
+
+  public get direction(): number {
+    return this.#direction
+  }
 }
 
-type Options = {
-  delay?: number
-  duration?: number
-}
+export class LetterDecrypt {
+  #target: String = $state('')
+  #previous: String = $state('')
+  #tween: ZeroBouncingTween = new ZeroBouncingTween(0, {
+    duration: 500,
+    easing: linear,
+  })
+  #delayedTween: Tween<number> = Tween.of(() => this.#tween.current, {
+    duration: 300,
+    easing: linear,
+  })
 
-export const letterDecryptAnimation = (initial?: string, options?: Options) => {
-  const delay = 0
-  const duration = 1000
-  const easing = expoInOut
+  #currentLetters: String[] = $derived(
+    this.getCurrentLetterArray(
+      this.#target,
+      this.#previous,
+      this.#tween.current,
+      this.#tween.direction,
+      this.#delayedTween.current
+    )
+  )
+  #current: String = $derived(this.#currentLetters.join(''))
 
-  let targetText = $state(initial ?? '')
-  let targetLength = $derived(targetText.length)
-  let animatedTextArray = Array.from(initial ?? '')
-  let animatedText = $derived(animatedTextArray.join(''))
+  public get current(): String {
+    return this.#current
+  }
 
-  let cryptIndex = 0
-  let realIndex = 0
+  public set target(value: String) {
+    this.#tween.target = value.length
+    this.#target = value
+  }
 
-  const startAnimation = () => {
-    cryptIndex = 0
-    realIndex = 0
+  public get target(): String {
+    return this.#target
+  }
 
-    let cryptTweened = tweened(0, { delay, duration, easing })
-    let realTweened = tweened(0, { delay, duration, easing })
+  public get tween(): ZeroBouncingTween {
+    return this.#tween
+  }
 
-    $effect.root(() => {
+  constructor(initialValue: string, options?: Omit<TweenedOptions, 'easing'>) {
+    this.#target = initialValue
+    this.#previous = initialValue
 
-      $effect(() => {
-        let nextCryptIndex = Math.round(cryptTweened.value * targetLength)
-        console.log(nextCryptIndex)
-        for (
-          cryptIndex;
-          cryptIndex++;
-          cryptIndex < nextCryptIndex
-        ) {
-          let newCharacter = ''
-          if (Math.random() > 0.2) {
-            newCharacter = '*'
-          } else {
-            newCharacter = ' '
-          }
-          animatedTextArray[cryptIndex] = newCharacter
-        }
-      })
-
-      $effect(() => {
-        let nextRealIndex = Math.round(realTweened.value * targetLength)
-        console.log(nextRealIndex)
-        for (
-          realIndex;
-          realIndex++;
-          realIndex < nextRealIndex
-        ) {
-          animatedTextArray[realIndex] = targetText[realIndex]
-        }
-      })
+    this.#tween = new ZeroBouncingTween(initialValue.length, {
+      ...options,
+      easing: cubicInOut,
+    })
+    this.#delayedTween = Tween.of(() => this.#tween.current, {
+      duration: 500,
+      easing: cubicOut,
     })
   }
 
-  return {
-    set value(value: string) {
-      targetText = value
-      setTimeout(startAnimation, delay)
-    },
-    get animated(): string {
-      return animatedText
-    }
+  private getCurrentLetterArray(
+    target: String,
+    previous: String,
+    tweenValue: number,
+    tweenDirection: number,
+    delayedTweenValue: number
+  ): String[] {
+    if (tweenDirection >= 0) this.#previous = target
+    const letters = tweenDirection >= 0 ? target.split('') : previous.split('')
+
+    const index = Math.floor(tweenValue)
+    const delayedIndex = Math.floor(delayedTweenValue)
+
+    return letters
+      .map((letter, i) => {
+        if (i <= index && i <= delayedIndex) return letter
+        if ((i > delayedIndex && i < index) || (i > index && i < delayedIndex))
+          return getPseudoRandomChar(i)
+        if (i >= index && i >= delayedIndex) return ''
+        return letter
+      })
+      .filter(Boolean)
   }
 }
