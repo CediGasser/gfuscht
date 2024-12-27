@@ -126,14 +126,12 @@ export class LetterDecrypt {
     const index = Math.floor(tweenValue)
     const delayedIndex = Math.floor(delayedTweenValue)
 
-    return letters
-      .map((letter, i) => {
-        if (i <= index && i <= delayedIndex) return letter
-        if ((i > delayedIndex && i < index) || (i > index && i < delayedIndex))
-          return getPseudoRandomChar(i)
-        if (i >= index && i >= delayedIndex) return ''
-        return letter
-      })
-      .filter(Boolean)
+    return letters.map((letter, i) => {
+      if (i <= index && i <= delayedIndex) return letter
+      if ((i > delayedIndex && i < index) || (i > index && i < delayedIndex))
+        return getPseudoRandomChar(i)
+      if (i > index && i > delayedIndex) return ''
+      return letter
+    })
   }
 }
