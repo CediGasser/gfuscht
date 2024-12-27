@@ -1,8 +1,6 @@
 <script lang="ts">
   import Chart from "./Chart.svelte";
-  import data from "../data.json";
-
-  console.log(data);
+  import data from "./data.json";
 </script>
 
 <main>
