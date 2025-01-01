@@ -11,7 +11,9 @@
   import task_1d1 from './assets/1-d-1.png'
   import task_1d2 from './assets/1-d-2.png'
   import task_1d3 from './assets/1-d-3.png'
+
   import task_2 from './assets/figur-und-grund.png'
+
   import task_3 from './assets/Typography-Comparison.png'
 </script>
 
@@ -67,7 +69,41 @@
   <section class="task-4">
     <div class="container">
       <h2 class="title">Schriftsatz</h2>
-      <p></p>
+    </div>
+  </section>
+  <section class="task-5">
+    <div class="container">
+      <h2 class="title">Interaktion von Farben</h2>
+    </div>
+  </section>
+  <section class="task-6">
+    <div class="container">
+      <h2 class="title">Hierarchie</h2>
+    </div>
+  </section>
+  <section class="task-7">
+    <div class="container">
+      <h2 class="title">Whitespace</h2>
+    </div>
+  </section>
+  <section class="task-8">
+    <div class="container">
+      <h2 class="title">Dramaturgie</h2>
+    </div>
+  </section>
+  <section class="task-9">
+    <div class="container">
+      <h2 class="title">Bildbetrachtung</h2>
+    </div>
+  </section>
+  <section class="task-10">
+    <div class="container">
+      <h2 class="title">Layout</h2>
+    </div>
+  </section>
+  <section class="task-11">
+    <div class="container">
+      <h2 class="title">Zeichnen</h2>
     </div>
   </section>
 </main>
