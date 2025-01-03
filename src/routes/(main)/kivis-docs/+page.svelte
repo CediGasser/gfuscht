@@ -16,11 +16,32 @@
 
   import task_3 from './assets/Typography-Comparison.png'
 
+  // TODO: Add task 4
+
   import task_5_1 from './assets/interaction-of-color-1.png'
   import task_5_2 from './assets/interaction-of-color-2.png'
   import task_5_3 from './assets/interaction-of-color-3.png'
 
   import task_6 from './assets/visual-hierarchy.png'
+
+  import task_7 from './assets/whitespace.png'
+
+  // TODO: Add task 8
+
+  import task_9_1 from './assets/ottojaja.jpg'
+  import task_9_2 from './assets/festival-des-arts.jpg'
+
+  // TODO: Add task 10
+
+  import task_11_1 from './assets/drawings/1-hand.jpeg'
+  import task_11_2 from './assets/drawings/2-perspektive.jpeg'
+  import task_11_3 from './assets/drawings/3-kopf.png'
+  import task_11_4 from './assets/drawings/4-figur.jpeg'
+  import task_11_5_1 from './assets/drawings/5-1.jpeg'
+  import task_11_5_2 from './assets/drawings/5-2.jpeg'
+  import task_11_5_3 from './assets/drawings/5-3.jpeg'
+  import task_11_5_4 from './assets/drawings/5-4.jpeg'
+  import task_11_5_5 from './assets/drawings/5-5.jpeg'
 </script>
 
 <main>
@@ -94,6 +115,7 @@
   <section class="task-7">
     <div class="container">
       <h2 class="title">Whitespace</h2>
+      <img src={task_7} alt="Whitespace" class="bg-white" />
     </div>
   </section>
   <section class="task-8">
@@ -104,6 +126,8 @@
   <section class="task-9">
     <div class="container">
       <h2 class="title">Bildbetrachtung</h2>
+      <img src={task_9_1} alt="Ottojaja" />
+      <img src={task_9_2} alt="Festival des Arts" />
     </div>
   </section>
   <section class="task-10">
@@ -114,6 +138,17 @@
   <section class="task-11">
     <div class="container">
       <h2 class="title">Zeichnen</h2>
+      <img src={task_11_1} alt="Hand" class="bg-white p-2" />
+      <img src={task_11_2} alt="Perspektive" class="bg-white p-2" />
+      <img src={task_11_3} alt="Kopf" class="bg-white p-2" />
+      <img src={task_11_4} alt="Figur" class="bg-white p-2" />
+      <div class="flex-row">
+        <img src={task_11_5_1} alt="5-1" class="bg-white p-2 m-2" />
+        <img src={task_11_5_2} alt="5-2" class="bg-white p-2 m-2" />
+        <img src={task_11_5_3} alt="5-3" class="bg-white p-2 m-2" />
+        <img src={task_11_5_4} alt="5-4" class="bg-white p-2 m-2" />
+        <img src={task_11_5_5} alt="5-5" class="bg-white p-2 m-2" />
+      </div>
     </div>
   </section>
 </main>
@@ -167,5 +202,9 @@
 
   .p-2 {
     padding: 2rem;
+  }
+
+  .m-2 {
+    margin: 2rem;
   }
 </style>
