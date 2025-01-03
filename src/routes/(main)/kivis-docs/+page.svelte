@@ -51,15 +51,54 @@
 </script>
 
 <main>
+  <nav>
+    <h4>Inhalt</h4>
+    <ul>
+      <li>
+        <a href="#task-1">Position der Formen</a>
+      </li>
+      <li>
+        <a href="#task-2">Figur und Grund</a>
+      </li>
+      <li>
+        <a href="#task-3">Schriftvergleich</a>
+      </li>
+      <li>
+        <a href="#task-4">Schriftsatz</a>
+      </li>
+      <li>
+        <a href="#task-5">Interaktion von Farben</a>
+      </li>
+      <li>
+        <a href="#task-6">Hierarchie</a>
+      </li>
+      <li>
+        <a href="#task-7">Whitespace</a>
+      </li>
+      <li>
+        <a href="#task-8">Dramaturgie</a>
+      </li>
+      <li>
+        <a href="#task-9">Bildbetrachtung</a>
+      </li>
+      <li>
+        <a href="#task-10">Layout</a>
+      </li>
+      <li>
+        <a href="#task-11">Zeichnen</a>
+      </li>
+    </ul>
+  </nav>
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <section
     class="hero"
+    id="hero"
     onmouseenter={() => (title.target = 'Kickstart<br> Visual Design')}
     onmouseleave={() => (title.target = 'KiVis')}
   >
     <h1 class="title">{@html title.current}</h1>
   </section>
-  <section class="task-1">
+  <section class="task-1" id="task-1">
     <h2 class="title">Position der Formen</h2>
     <div class="tasks">
       <h3>A</h3>
@@ -96,7 +135,7 @@
       </Lightbox>
     </div>
   </section>
-  <section class="task-2">
+  <section class="task-2" id="task-2">
     <div class="container">
       <h2 class="title">Figur und Grund</h2>
       <Lightbox>
@@ -104,7 +143,7 @@
       </Lightbox>
     </div>
   </section>
-  <section class="task-3">
+  <section class="task-3" id="task-3">
     <div class="container">
       <h2 class="title">Schriftvergleich</h2>
       <Lightbox>
@@ -112,12 +151,12 @@
       </Lightbox>
     </div>
   </section>
-  <section class="task-4">
+  <section class="task-4" id="task-4">
     <div class="container">
       <h2 class="title">Schriftsatz</h2>
     </div>
   </section>
-  <section class="task-5">
+  <section class="task-5" id="task-5">
     <div class="container">
       <h2 class="title">Interaktion von Farben</h2>
       <Lightbox>
@@ -143,7 +182,7 @@
       </Lightbox>
     </div>
   </section>
-  <section class="task-6">
+  <section class="task-6" id="task-6">
     <div class="container">
       <h2 class="title">Hierarchie</h2>
       <Lightbox>
@@ -151,7 +190,7 @@
       </Lightbox>
     </div>
   </section>
-  <section class="task-7">
+  <section class="task-7" id="task-7">
     <div class="container">
       <h2 class="title">Whitespace</h2>
       <Lightbox>
@@ -159,12 +198,12 @@
       </Lightbox>
     </div>
   </section>
-  <section class="task-8">
+  <section class="task-8" id="task-8">
     <div class="container">
       <h2 class="title">Dramaturgie</h2>
     </div>
   </section>
-  <section class="task-9">
+  <section class="task-9" id="task-9">
     <div class="container">
       <h2 class="title">Bildbetrachtung</h2>
       <Lightbox>
@@ -175,12 +214,12 @@
       </Lightbox>
     </div>
   </section>
-  <section class="task-10">
+  <section class="task-10" id="task-10">
     <div class="container">
       <h2 class="title">Layout</h2>
     </div>
   </section>
-  <section class="task-11">
+  <section class="task-11" id="task-11">
     <h2 class="title">Zeichnen</h2>
     <Lightbox>
       <img src={task_11_1} alt="Hand" class="bg-white my-2" />
@@ -220,6 +259,15 @@
     min-height: 100vh;
   }
 
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--theme-base);
+    z-index: 1;
+    padding: 1rem;
+  }
+
   img {
     object-fit: contain;
   }
@@ -243,6 +291,10 @@
   h3 {
     font-size: 3rem;
     font-weight: 700;
+  }
+
+  a {
+    scroll-behavior: smooth;
   }
 
   p {
