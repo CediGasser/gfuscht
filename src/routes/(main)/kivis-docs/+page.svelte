@@ -45,7 +45,6 @@
   import task_11_5_3 from './assets/drawings/5-3.jpeg'
   import task_11_5_4 from './assets/drawings/5-4.jpeg'
   import task_11_5_5 from './assets/drawings/5-5.jpeg'
-  import WfcComponent from '../wfc/WfcComponent.svelte'
 
   let title = new LetterDecrypt('', { duration: 2000 })
   title.target = 'KiVis'
@@ -53,7 +52,7 @@
 
 <main>
   <nav>
-    <h4>Inhalt</h4>
+    <h3>Inhalt</h3>
     <ul>
       <li>
         <a href="#task-1">Position der Formen</a>
@@ -101,34 +100,35 @@
   </section>
   <section class="task-1" id="task-1">
     <h2 class="title">Position der Formen</h2>
-    <div class="tasks">
-      <h3>A</h3>
+    <div class="flex-row task-1-column-labels">
+      <span>Nah</span>
+      <span>---</span>
+      <span>Fern</span>
+    </div>
+    <div class="task-1-rows">
       <Lightbox>
-        <div class="flex-row">
+        <div class="flex-row gap-1">
           <img src={task_1a1} alt="1-a-1" />
           <img src={task_1a2} alt="1-a-2" />
           <img src={task_1a3} alt="1-a-3" />
         </div>
       </Lightbox>
-      <h3>B</h3>
       <Lightbox>
-        <div class="flex-row">
+        <div class="flex-row gap-1">
           <img src={task_1b1} alt="1-b-1" />
           <img src={task_1b2} alt="1-b-2" />
           <img src={task_1b3} alt="1-b-3" />
         </div>
       </Lightbox>
-      <h3>C</h3>
       <Lightbox>
-        <div class="flex-row">
+        <div class="flex-row gap-1">
           <img src={task_1c1} alt="1-c-1" />
           <img src={task_1c2} alt="1-c-2" />
           <img src={task_1c3} alt="1-c-3" />
         </div>
       </Lightbox>
-      <h3>D</h3>
       <Lightbox>
-        <div class="flex-row">
+        <div class="flex-row gap-1">
           <img src={task_1d1} alt="1-d-1" />
           <img src={task_1d2} alt="1-d-2" />
           <img src={task_1d3} alt="1-d-3" />
@@ -298,7 +298,9 @@
     scroll-behavior: smooth;
   }
 
-  p {
+  a,
+  p,
+  span {
     font-size: 2rem;
     font-weight: 400;
   }
@@ -320,6 +322,21 @@
 
   .task-1 img {
     width: 30%;
+  }
+
+  .task-1-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .task-1-column-labels {
+    justify-content: space-between;
+  }
+
+  .task-1-column-labels span {
+    width: 30%;
+    text-align: center;
   }
 
   .bg-white {
