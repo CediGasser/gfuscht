@@ -53,11 +53,7 @@
     width: 100vw;
     height: 100vh;
 
-    background-color: color-mix(
-      in srgb,
-      var(--theme-base),
-      rgba(0, 0, 0, 0.98)
-    );
+    background-color: var(--theme-base);
   }
 
   .overlay__content {
