@@ -1,5 +1,6 @@
 <script lang="ts">
   import Lightbox from './Lightbox.svelte'
+  import { LetterDecrypt } from '../letterDecryptAnimation/Decrypt.svelte'
 
   import task_1a1 from './assets/1-a-1.png'
   import task_1a2 from './assets/1-a-2.png'
@@ -44,17 +45,19 @@
   import task_11_5_3 from './assets/drawings/5-3.jpeg'
   import task_11_5_4 from './assets/drawings/5-4.jpeg'
   import task_11_5_5 from './assets/drawings/5-5.jpeg'
-  import ListColumn from '../clock/ListColumn.svelte'
-  import Layout from '../+layout.svelte'
+
+  let title = new LetterDecrypt('', { duration: 2000 })
+  title.target = 'KiVis'
 </script>
 
 <main>
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">KiVis</h1>
-      </div>
-    </div>
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <section
+    class="hero"
+    onmouseenter={() => (title.target = 'Kickstart<br> Visual Design')}
+    onmouseleave={() => (title.target = 'KiVis')}
+  >
+    <h1 class="title">{@html title.current}</h1>
   </section>
   <section class="task-1">
     <h2 class="title">Position der Formen</h2>
@@ -247,6 +250,14 @@
     font-weight: 400;
   }
 
+  .hero {
+    height: 20rem;
+  }
+
+  .hero h1 {
+    text-wrap: pretty;
+  }
+
   .flex-row {
     display: flex;
     flex-direction: row;
@@ -273,9 +284,6 @@
   .my-2 {
     margin-top: 2rem;
     margin-bottom: 2rem;
-  }
-
-  .drawings img {
   }
 
   .drawings {
