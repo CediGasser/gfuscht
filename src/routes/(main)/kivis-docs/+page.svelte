@@ -19,7 +19,12 @@
 
   import task_3 from './assets/Typography-Comparison.png'
 
-  // TODO: Add task 4
+  import task_4_b1 from './assets/schriftsatz-before-1.jpeg'
+  import task_4_b2 from './assets/schriftsatz-before-2.jpeg'
+  import task_4_b3 from './assets/schriftsatz-before-3.jpeg'
+  import task_4_a1 from './assets/schriftsatz-after-1.jpeg'
+  import task_4_a2 from './assets/schriftsatz-after-2.jpeg'
+  import task_4_a3 from './assets/schriftsatz-after-3.jpeg'
 
   import task_5_1 from './assets/interaction-of-color-1.png'
   import task_5_2 from './assets/interaction-of-color-2.png'
@@ -45,6 +50,7 @@
   import task_11_5_3 from './assets/drawings/5-3.jpeg'
   import task_11_5_4 from './assets/drawings/5-4.jpeg'
   import task_11_5_5 from './assets/drawings/5-5.jpeg'
+  import SwitcherBox from './SwitcherBox.svelte'
 
   let title = new LetterDecrypt('', { duration: 2000 })
   title.target = 'KiVis'
@@ -102,7 +108,7 @@
     <h2 class="title">Position der Formen</h2>
     <div class="flex-row task-1-column-labels">
       <span>Nah</span>
-      <span>---</span>
+      <span>---></span>
       <span>Fern</span>
     </div>
     <div class="task-1-rows">
@@ -155,6 +161,54 @@
   <section class="task-4" id="task-4">
     <div class="container">
       <h2 class="title">Schriftsatz</h2>
+      <SwitcherBox>
+        {#snippet before()}
+          <Lightbox>
+            <img
+              src={task_4_b1}
+              alt="Schriftsatz 1 vorher"
+              class="bg-white p-2"
+            />
+          </Lightbox>
+          <Lightbox>
+            <img
+              src={task_4_b2}
+              alt="Schriftsatz 2 vorher"
+              class="bg-white p-2"
+            />
+          </Lightbox>
+          <Lightbox>
+            <img
+              src={task_4_b3}
+              alt="Schriftsatz 3 vorher"
+              class="bg-white p-2"
+            />
+          </Lightbox>
+        {/snippet}
+        {#snippet after()}
+          <Lightbox>
+            <img
+              src={task_4_a1}
+              alt="Schriftsatz 1 nachher"
+              class="bg-white p-2"
+            />
+          </Lightbox>
+          <Lightbox>
+            <img
+              src={task_4_a2}
+              alt="Schriftsatz 2 nachher"
+              class="bg-white p-2"
+            />
+          </Lightbox>
+          <Lightbox>
+            <img
+              src={task_4_a3}
+              alt="Schriftsatz 3 nachher"
+              class="bg-white p-2"
+            />
+          </Lightbox>
+        {/snippet}
+      </SwitcherBox>
     </div>
   </section>
   <section class="task-5" id="task-5">
