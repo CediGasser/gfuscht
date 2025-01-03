@@ -32,7 +32,8 @@
 
   import task_6 from './assets/visual-hierarchy.png'
 
-  import task_7 from './assets/whitespace.png'
+  import task_7_1 from './assets/whitespace.png'
+  import task_7_2 from './assets/whitespace-2.png'
 
   // TODO: Add task 8
 
@@ -249,7 +250,10 @@
     <div class="container">
       <h2 class="title">Whitespace</h2>
       <Lightbox>
-        <img src={task_7} alt="Whitespace" />
+        <img src={task_7_1} alt="Whitespace" />
+      </Lightbox>
+      <Lightbox>
+        <img src={task_7_2} alt="Whitespace" class="my-2" />
       </Lightbox>
     </div>
   </section>
