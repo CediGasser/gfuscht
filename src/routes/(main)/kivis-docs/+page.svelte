@@ -40,7 +40,14 @@
   import task_9_1 from './assets/ottojaja.jpg'
   import task_9_2 from './assets/festival-des-arts.jpg'
 
-  // TODO: Add task 10
+  import task_10_0 from './assets/bourbaki/bourbaki-0.png'
+  import task_10_1 from './assets/bourbaki/bourbaki-1.jpeg'
+  import task_10_2 from './assets/bourbaki/bourbaki-2.jpeg'
+  import task_10_3 from './assets/bourbaki/bourbaki-3.jpeg'
+  import task_10_4 from './assets/bourbaki/bourbaki-4.jpeg'
+  import task_10_5 from './assets/bourbaki/bourbaki-5.jpeg'
+  import task_10_6 from './assets/bourbaki/bourbaki-6.jpeg'
+  import task_10_7 from './assets/bourbaki/bourbaki-7.jpeg'
 
   import task_11_1 from './assets/drawings/1-hand.jpeg'
   import task_11_2 from './assets/drawings/2-perspektive.jpeg'
@@ -276,6 +283,30 @@
   <section class="task-10" id="task-10">
     <div class="container">
       <h2 class="title">Layout</h2>
+      <div class="layout-grid">
+        <img src={task_10_0} alt="Bourbaki 0" />
+        <Lightbox>
+          <img src={task_10_1} alt="Bourbaki 1" />
+        </Lightbox>
+        <Lightbox>
+          <img src={task_10_2} alt="Bourbaki 2" />
+        </Lightbox>
+        <Lightbox>
+          <img src={task_10_3} alt="Bourbaki 3" />
+        </Lightbox>
+        <Lightbox>
+          <img src={task_10_4} alt="Bourbaki 4" />
+        </Lightbox>
+        <Lightbox>
+          <img src={task_10_5} alt="Bourbaki 5" />
+        </Lightbox>
+        <Lightbox>
+          <img src={task_10_6} alt="Bourbaki 6" />
+        </Lightbox>
+        <Lightbox>
+          <img src={task_10_7} alt="Bourbaki 7" />
+        </Lightbox>
+      </div>
     </div>
   </section>
   <section class="task-11" id="task-11">
@@ -348,7 +379,7 @@
   }
 
   h3 {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 700;
   }
 
@@ -359,7 +390,7 @@
   a,
   p,
   span {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 400;
   }
 
@@ -412,5 +443,14 @@
 
   .gap-1 {
     gap: 1rem;
+  }
+
+  .layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .layout-grid img {
+    margin-top: 1rem;
   }
 </style>
