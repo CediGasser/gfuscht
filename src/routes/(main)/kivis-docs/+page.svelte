@@ -1,5 +1,6 @@
 <script lang="ts">
   import Lightbox from './Lightbox.svelte'
+  import ImageFlipbook from './ImageFlipbook.svelte'
   import { LetterDecrypt } from '../letterDecryptAnimation/Decrypt.svelte'
 
   import task_1a1 from './assets/1-a-1.png'
@@ -35,7 +36,14 @@
   import task_7_1 from './assets/whitespace.png'
   import task_7_2 from './assets/whitespace-2.png'
 
-  // TODO: Add task 8
+  import task_8_0 from './assets/dramaturgie/dramaturgie-0.jpg'
+  import task_8_1 from './assets/dramaturgie/dramaturgie-1.jpg'
+  import task_8_2 from './assets/dramaturgie/dramaturgie-2.jpg'
+  import task_8_3 from './assets/dramaturgie/dramaturgie-3.jpg'
+  import task_8_4 from './assets/dramaturgie/dramaturgie-4.jpg'
+  import task_8_5 from './assets/dramaturgie/dramaturgie-5.jpg'
+  import task_8_6 from './assets/dramaturgie/dramaturgie-6.jpg'
+  import task_8_7 from './assets/dramaturgie/dramaturgie-7.jpg'
 
   import task_9_1 from './assets/ottojaja.jpg'
   import task_9_2 from './assets/festival-des-arts.jpg'
@@ -265,9 +273,19 @@
     </div>
   </section>
   <section class="task-8" id="task-8">
-    <div class="container">
-      <h2 class="title">Dramaturgie</h2>
-    </div>
+    <h2 class="title">Dramaturgie</h2>
+    <ImageFlipbook
+      images={[
+        task_8_0,
+        task_8_1,
+        task_8_2,
+        task_8_3,
+        task_8_4,
+        task_8_5,
+        task_8_6,
+        task_8_7,
+      ]}
+    />
   </section>
   <section class="task-9" id="task-9">
     <h2 class="title">Bildbetrachtung</h2>
