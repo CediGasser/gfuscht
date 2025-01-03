@@ -31,7 +31,10 @@
     .forceSimulation(nodes)
     .force(
       'link',
-      d3.forceLink(links).id((d: Node) => d.id)
+      d3
+        .forceLink(links)
+        .id((d: Node) => d.id)
+        .distance((d: Node) => d.source.radius * 3 + 10) // Increase the distance here
     )
     .force('charge', d3.forceManyBody().strength(-5))
     .force('center', d3.forceCenter())
