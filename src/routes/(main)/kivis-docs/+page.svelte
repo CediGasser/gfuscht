@@ -45,6 +45,7 @@
   import task_11_5_3 from './assets/drawings/5-3.jpeg'
   import task_11_5_4 from './assets/drawings/5-4.jpeg'
   import task_11_5_5 from './assets/drawings/5-5.jpeg'
+  import WfcComponent from '../wfc/WfcComponent.svelte'
 
   let title = new LetterDecrypt('', { duration: 2000 })
   title.target = 'KiVis'
@@ -204,13 +205,13 @@
     </div>
   </section>
   <section class="task-9" id="task-9">
-    <div class="container">
-      <h2 class="title">Bildbetrachtung</h2>
+    <h2 class="title">Bildbetrachtung</h2>
+    <div class="flex-row my-2 gap-1 bildbetrachtung">
       <Lightbox>
-        <img src={task_9_1} alt="Ottojaja" class="my-2" />
+        <img src={task_9_1} alt="Ottojaja" />
       </Lightbox>
       <Lightbox>
-        <img src={task_9_2} alt="Festival des Arts" class="my-2" />
+        <img src={task_9_2} alt="Festival des Arts" />
       </Lightbox>
     </div>
   </section>
@@ -233,7 +234,7 @@
     <Lightbox>
       <img src={task_11_4} alt="Figur" class="bg-white my-2" />
     </Lightbox>
-    <div class="flex-row drawings my-2">
+    <div class="flex-row gap-1 my-2">
       <Lightbox>
         <img src={task_11_5_1} alt="5-1" />
       </Lightbox>
@@ -329,16 +330,12 @@
     padding: 2rem;
   }
 
-  .m-2 {
-    margin: 2rem;
-  }
-
   .my-2 {
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
 
-  .drawings {
+  .gap-1 {
     gap: 1rem;
   }
 </style>
