@@ -120,6 +120,16 @@
   >
     <h1 class="title">{@html title.current}</h1>
   </section>
+  <section class="vorwort" id="vorwort">
+    <h2 class="title">Vorwort</h2>
+    <p>
+      Dies ist meine Dokumentation für das Modul KiVis an der HSLU. Als
+      Webentwickler mit eher technischem Hintergrund gab es für mich einiges zu
+      lernen. Auch mit Hinsicht auf meine übliche Arbeit konnte ich einiges
+      mitnehmen. Einige Learnings habe ich jeweils direkt zum Task dazu
+      geschrieben.
+    </p>
+  </section>
   <section class="task-1" id="task-1">
     <h2 class="title">Position der Formen</h2>
     <div class="flex-row task-1-column-labels">
@@ -157,22 +167,24 @@
         </div>
       </Lightbox>
     </div>
+    <p>
+      Als sehr rationaler Mensch dachte ich zuerst, dass die Nähe der Formen zu
+      einander direkt auch das Gesamtbild als Nah wirken lässt. Das ist jedoch
+      nicht der Fall. Vielmehr haben bekannte Bilder wie z.B. ein Horizont oder
+      die Leserichtung uns geprägt, was als Nah und Fern wahrgenommen wird.
+    </p>
   </section>
   <section class="task-2" id="task-2">
-    <div class="container">
-      <h2 class="title">Figur und Grund</h2>
-      <Lightbox>
-        <img src={task_2} alt="figur und grund" />
-      </Lightbox>
-    </div>
+    <h2 class="title">Figur und Grund</h2>
+    <Lightbox>
+      <img src={task_2} alt="figur und grund" />
+    </Lightbox>
   </section>
   <section class="task-3" id="task-3">
-    <div class="container">
-      <h2 class="title">Schriftvergleich</h2>
-      <Lightbox>
-        <img src={task_3} alt="Typographie Vergleich" />
-      </Lightbox>
-    </div>
+    <h2 class="title">Schriftvergleich</h2>
+    <Lightbox>
+      <img src={task_3} alt="Typographie Vergleich" />
+    </Lightbox>
   </section>
   <section class="task-4" id="task-4">
     <div class="container">
@@ -225,6 +237,12 @@
           </Lightbox>
         {/snippet}
       </SwitcherBox>
+      <p>
+        Nebenbei habe ich vom neuen CSS Property <code>text-wrap: pretty;</code>
+        gelernt. Es sorgt dafür, dass Text automatisch in möglichst gleichmässige
+        Zeilen aufgeteilt wird. Im Web, wo die Breite des Textes nicht immer gleich
+        ist, ist das eine sehr nützliche Eigenschaft.
+      </p>
     </div>
   </section>
   <section class="task-5" id="task-5">
@@ -270,6 +288,11 @@
       <Lightbox>
         <img src={task_7_2} alt="Whitespace" class="my-2" />
       </Lightbox>
+      <p>
+        Viel Weissraum wirkt nobel und edel weil es "teuer" ist so viel Platz
+        für nichts zu verwenden. Dasselbe gilt auch für Schriften, wie zum
+        Beispiel beim Zara Logo. Es wirkt aber auch aufgeräumt und klar.
+      </p>
     </div>
   </section>
   <section class="task-8" id="task-8">
@@ -297,6 +320,13 @@
         <img src={task_9_2} alt="Festival des Arts" />
       </Lightbox>
     </div>
+    <p>
+      Für mich war interessant zu sehen wie die meisten dieser Plakate
+      schwieriger zu lesen sind. Ich denke es handelt sich um eine andere
+      Zielgruppe, aber wenn ich vorher an Plakate dachte, dachte ich an etwas
+      was den Blick fängt und dann aber klar kommuniziert. Diese Plakate sind
+      eher Kunstwerke.
+    </p>
   </section>
   <section class="task-10" id="task-10">
     <div class="container">
@@ -410,6 +440,10 @@
   span {
     font-size: 1.5rem;
     font-weight: 400;
+  }
+
+  p {
+    margin-top: 1rem;
   }
 
   .hero {
