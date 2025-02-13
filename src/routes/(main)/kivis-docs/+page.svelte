@@ -66,6 +66,11 @@
   import task_11_5_3 from './assets/drawings/5-3.jpeg'
   import task_11_5_4 from './assets/drawings/5-4.jpeg'
   import task_11_5_5 from './assets/drawings/5-5.jpeg'
+
+  import adobe_icon_before from './assets/icon_before.png'
+  import adobe_icon_after from './assets/icon.png'
+  import paris_full from './assets/paris_full.jpg'
+
   import SwitcherBox from './SwitcherBox.svelte'
 
   let title = new LetterDecrypt('', { duration: 2000 })
@@ -108,6 +113,9 @@
       </li>
       <li>
         <a href="#task-11">Zeichnen</a>
+      </li>
+      <li>
+        <a href="#task-adobe">Illustrator & Photoshop</a>
       </li>
     </ul>
   </nav>
@@ -386,6 +394,36 @@
       </Lightbox>
       <Lightbox>
         <img src={task_11_5_5} alt="5-5" />
+      </Lightbox>
+    </div>
+  </section>
+  <section class="task-adobe" id="task-adobe">
+    <h2 class="title">Illustrator & Photoshop</h2>
+    <p>
+      Diese Programme haben mir besonders geholfen, um zum einen Icons für ein
+      persönliches Projekt als SVG zu erstellen und zum anderen um das zweite
+      Bild für die Whitespace Aufgabe zu auszuschneiden und zu bearbeiten.
+    </p>
+
+    <div class="flex-row task-1-column-labels">
+      <span>Vorher</span>
+      <span>---></span>
+      <span>Nachher</span>
+    </div>
+    <div class="flex-row">
+      <Lightbox>
+        <img height="400px" src={adobe_icon_before} alt="Before Illustrator" />
+      </Lightbox>
+      <Lightbox>
+        <img height="400px" src={adobe_icon_after} alt="After Illustrator" />
+      </Lightbox>
+    </div>
+    <div class="flex-row">
+      <Lightbox>
+        <img src={paris_full} alt="Before Photoshop" />
+      </Lightbox>
+      <Lightbox>
+        <img src={task_7_2} alt="after Photoshop" />
       </Lightbox>
     </div>
   </section>
