@@ -401,8 +401,9 @@
     <h2 class="title">Illustrator & Photoshop</h2>
     <p>
       Diese Programme haben mir besonders geholfen, um zum einen Icons für ein
-      persönliches Projekt als SVG zu erstellen und zum anderen um das zweite
-      Bild für die Whitespace Aufgabe zu auszuschneiden und zu bearbeiten.
+      persönliches Projekt zu SVG zu konvertieren (Wegen zu schlechter
+      Auflösung) und zum anderen um das zweite Bild für die Whitespace Aufgabe
+      auszuschneiden und zu bearbeiten.
     </p>
 
     <div class="flex-row task-1-column-labels">
