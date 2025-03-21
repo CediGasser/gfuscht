@@ -4,22 +4,27 @@
   import { page } from '$app/state'
 
   let variant: 'clock' | 'countdown' = $derived(
-    page.url.searchParams.get('time') ? 'countdown' : 'clock'
+    page.url.searchParams.get('countdown') ? 'countdown' : 'clock'
   )
   let XIIHoursDay = $state(false)
-  let dateTime = $state(new Date())
+  let dateTime = $state(new Date(new Date().getTimezoneOffset() * 60 * 1000)) // Initialize date with 00:00:00
 
   let targetTime = new Date()
   if (variant === 'countdown') {
-    let pageTime = page.url.searchParams.get('time')?.split(':').map(Number)
+    let pageTime = page.url.searchParams
+      .get('countdown')
+      ?.split(':')
+      .map(Number)
     if (!pageTime) pageTime = [0, 0, 0]
-    let timeOffset = targetTime.getTimezoneOffset()
-    targetTime.setHours(pageTime[0], pageTime[1] + timeOffset, pageTime[2])
+    targetTime.setHours(pageTime[0] ?? 0, pageTime[1] ?? 0, pageTime[2] ?? 0)
   }
 
   setInterval(() => {
     if (variant === 'countdown') {
-      dateTime = new Date(targetTime.getTime() - Date.now())
+      let timeOffset = targetTime.getTimezoneOffset()
+      dateTime = new Date(
+        Math.abs(targetTime.getTime() - Date.now()) + timeOffset * 60 * 1000
+      )
     } else {
       dateTime = new Date()
     }
