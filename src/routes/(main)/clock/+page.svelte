@@ -1,35 +1,28 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition'
-  import Digit from './Digit.svelte'
-  import ListColumn from './ListColumn.svelte'
   import Seo from '$lib/components/Seo.svelte'
+  import Clock from './Clock.svelte'
+  import { page } from '$app/state'
 
-  interface Props {
-    XIIHoursDay?: boolean;
-    time: Date;
-    dateTime?: any;
+  let variant: 'clock' | 'countdown' = $derived(
+    page.url.searchParams.get('time') ? 'countdown' : 'clock'
+  )
+  let XIIHoursDay = $state(false)
+  let dateTime = $state(new Date())
+
+  let targetTime = new Date()
+  if (variant === 'countdown') {
+    let pageTime = page.url.searchParams.get('time')?.split(':').map(Number)
+    if (!pageTime) pageTime = [0, 0, 0]
+    let timeOffset = targetTime.getTimezoneOffset()
+    targetTime.setHours(pageTime[0], pageTime[1] + timeOffset, pageTime[2])
   }
 
-  let { XIIHoursDay = $bindable(false), time, dateTime = $bindable(time ?? new Date()) }: Props = $props();
-
-  let halfDays = ['AM', 'PM']
-  let listIndex = $derived(Math.floor(dateTime.getHours() / 12));
-
-  let hours = $derived(XIIHoursDay
-    ? ((dateTime.getHours() - 1) % 12) + 1
-    : dateTime.getHours());
-
-  let hours1 = $derived(Math.floor(hours / 10));
-  let hours2 = $derived(hours % 10);
-
-  let minutes1 = $derived(Math.floor(dateTime.getMinutes() / 10));
-  let minutes2 = $derived(dateTime.getMinutes() % 10);
-
-  let seconds1 = $derived(Math.floor(dateTime.getSeconds() / 10));
-  let seconds2 = $derived(dateTime.getSeconds() % 10);
-
   setInterval(() => {
-    if (!time) dateTime = new Date()
+    if (variant === 'countdown') {
+      dateTime = new Date(targetTime.getTime() - Date.now())
+    } else {
+      dateTime = new Date()
+    }
   }, 100)
 </script>
 
@@ -47,21 +40,7 @@
     role="button"
     tabindex="0"
   >
-    <div class="clock">
-      <Digit value={hours1} max={XIIHoursDay ? 1 : 2} />
-      <Digit value={hours2} />
-      <span>:</span>
-      <Digit value={minutes1} max={5} />
-      <Digit value={minutes2} />
-      <span>:</span>
-      <Digit value={seconds1} max={5} />
-      <Digit value={seconds2} />
-      {#if XIIHoursDay}
-        <div transition:fade>
-          <ListColumn index={listIndex} values={halfDays} />
-        </div>
-      {/if}
-    </div>
+    <Clock {XIIHoursDay} {dateTime} />
   </div>
 </main>
 
@@ -72,16 +51,6 @@
     justify-content: center;
     align-items: center;
     background: var(--theme-base);
-  }
-
-  span {
-    padding: 1rem;
-    line-height: 2rem;
-    font-size: 2rem;
-    font-weight: 800;
-    text-align: center;
-    height: 4rem;
-    margin: 0.5rem;
   }
 
   .wrapper {
@@ -106,24 +75,6 @@
     box-shadow:
       inset 0 0 16px 64px var(--theme-base),
       inset 0 0 64px 64px var(--theme-base);
-  }
-
-  .clock {
-    display: flex;
-    justify-content: center;
-    position: relative;
-  }
-
-  .clock::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    border-radius: 16px;
-    border: solid 2px var(--theme-primary);
   }
 
   @media (max-width: 850px) {
