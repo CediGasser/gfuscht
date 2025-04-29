@@ -10,9 +10,16 @@
   let p5Instance: p5 | null = $state(null)
 
   $effect(() => {
-    if (!sketchElement || p5Instance) return
+    if (!sketchElement) return
 
     p5Instance = new p5(sketch, sketchElement)
+
+    return () => {
+      if (p5Instance) {
+        p5Instance.remove()
+        p5Instance = null
+      }
+    }
   })
 </script>
 
