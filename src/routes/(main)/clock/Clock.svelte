@@ -6,7 +6,7 @@
 
   interface Props {
     XIIHoursDay?: boolean
-    dateTime?: any
+    dateTime: Date
   }
 
   let { XIIHoursDay = false, dateTime = new Date() }: Props = $props()

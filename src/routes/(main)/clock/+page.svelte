@@ -3,28 +3,41 @@
   import Clock from './Clock.svelte'
   import { page } from '$app/state'
 
-  let variant: 'clock' | 'countdown' = $derived(
-    page.url.searchParams.get('countdown') ? 'countdown' : 'clock'
-  )
-  let XIIHoursDay = $state(false)
-  let dateTime = $state(new Date(new Date().getTimezoneOffset() * 60 * 1000)) // Initialize date with 00:00:00
+  let variant: 'clock' | 'countdown' = page.url.searchParams.has('countdown')
+    ? 'countdown'
+    : 'clock'
 
-  let targetTime = new Date()
+  let XIIHoursDay = $state(false)
+  let dateTime = $state(new Date()) // Initialize date with 00:00:00
+  dateTime.setHours(0, 0, 0, 0) // Set hours, minutes, seconds, and milliseconds to 0
+
+  let targetTime: Date | null = $state(null)
+
   if (variant === 'countdown') {
+    targetTime = new Date()
     let pageTime = page.url.searchParams
       .get('countdown')
       ?.split(':')
       .map(Number)
-    if (!pageTime) pageTime = [0, 0, 0]
-    targetTime.setHours(pageTime[0] ?? 0, pageTime[1] ?? 0, pageTime[2] ?? 0)
+    if (!pageTime) pageTime = [0, 0, 0, 0]
+    targetTime.setHours(
+      pageTime[0] ?? 0,
+      pageTime[1] ?? 0,
+      pageTime[2] ?? 0,
+      pageTime[3] ?? 0
+    )
   }
 
   setInterval(() => {
-    if (variant === 'countdown') {
-      let timeOffset = targetTime.getTimezoneOffset()
-      dateTime = new Date(
-        Math.abs(targetTime.getTime() - Date.now()) + timeOffset * 60 * 1000
-      )
+    if (targetTime) {
+      const midnight = new Date()
+      midnight.setHours(0, 0, 0, 0)
+
+      const now = new Date()
+
+      const diff = targetTime.getTime() - now.getTime()
+
+      dateTime = new Date(midnight.getTime() + Math.abs(diff))
     } else {
       dateTime = new Date()
     }
@@ -45,7 +58,7 @@
     role="button"
     tabindex="0"
   >
-    <Clock {XIIHoursDay} {dateTime} />
+    <Clock XIIHoursDay={!targetTime && XIIHoursDay} {dateTime} />
   </div>
 </main>
 
