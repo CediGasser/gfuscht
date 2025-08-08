@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Seo from '$lib/components/Seo.svelte'
   import { LetterDecrypt } from './Decrypt.svelte'
 
   let textBefore = `Test Text
@@ -25,6 +26,12 @@ Die Internierten wurden auf 190 Ortschaften in allen Kantonen[6] außer dem Tess
       actualText == decryptingText.target ? textBefore : actualText
   }
 </script>
+
+<Seo
+  title="Letter Decrypt Animation"
+  description="A letter decrypt animation that reveals text character by character."
+  keywords="letter, decrypt, animation, text, reveal, character, svelte"
+/>
 
 <main>
   <button onclick={handleClick}>Change Text</button>

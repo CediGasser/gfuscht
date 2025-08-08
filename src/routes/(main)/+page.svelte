@@ -43,7 +43,7 @@
       <li><a href="/sand">Sand</a></li>
       <li><a href="/wfc">Wave Function Collapse</a></li>
       <li><a href="/letterDecryptAnimation">Letter Decrypt Animation</a></li>
-      <li><a href="/matbf/connected-cubes">Beautiful Mathematics</a></li>
+      <li><a href="/cubes">Cubes</a></li>
     </ul>
   </section>
 </main>
