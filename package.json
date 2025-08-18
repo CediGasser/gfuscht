@@ -13,6 +13,8 @@
     "@sveltejs/adapter-node": "^5.2.2",
     "@sveltejs/kit": "^2.5.27",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/vite": "^4.0.0",
     "@types/cookie": "^0.6.0",
     "@types/d3": "^7.4.3",
     "@types/p5": "^1.7.6",
@@ -22,6 +24,7 @@
     "prismjs": "^1.29.0",
     "svelte": "^5.0.0",
     "svelte-check": "^4.0.0",
+    "tailwindcss": "^4.0.0",
     "tslib": "^2.7.0",
     "typescript": "^5.5.4",
     "vite": "^6.3.3"
