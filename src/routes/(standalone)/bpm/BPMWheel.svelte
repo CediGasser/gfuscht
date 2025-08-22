@@ -5,9 +5,9 @@
   let primaryGenre = $derived.by(() => getPrimaryGenre(bpm))
 </script>
 
-<div class="flex items-center justify-center">
+<div class="flex flex-col items-center justify-center gap-6">
   <div
-    class={`bg-white rounded-3xl shadow-lg p-8 mr-6 transition-all duration-300 ${
+    class={`bg-white rounded-3xl shadow-lg p-8 transition-all duration-300 ${
       isDetecting ? 'ring-4 ring-blue-400 ring-opacity-50' : ''
     }`}
   >
