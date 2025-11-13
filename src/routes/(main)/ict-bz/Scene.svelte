@@ -1,101 +1,38 @@
 <script lang="ts">
+  import { page } from '$app/state'
   import { T } from '@threlte/core'
   import { OrbitControls } from '@threlte/extras'
+  import { Pane, RotationEuler, Slider } from 'svelte-tweakpane-ui'
+
   import Cube from './Cube.svelte'
 
-  type CubeType = {
-    position: { x: number; y: number }
-    color: string
-  }
+  import { cubes } from './data'
 
-  const GRAY = '#E6E6E6'
-  const PINK = '#D4006D'
-  const ORANGE = '#E18601'
-  const LIME = '#A2BC0E'
-  const RED = '#D20910'
-  const DARK_RED = '#9E1613'
-  const BLUE = '#1A94CB'
-  const TURQUOISE = '#009F7B'
-
-  let cubes: CubeType[] = [
-    {
-      position: { x: -2, y: 0 },
-      color: GRAY,
-    },
-    {
-      position: { x: -1, y: -1 },
-      color: GRAY,
-    },
-    {
-      position: { x: -2, y: -1 },
-      color: GRAY,
-    },
-    {
-      position: { x: -3, y: -1 },
-      color: GRAY,
-    },
-    {
-      position: { x: -2, y: -2 },
-      color: GRAY,
-    },
-    {
-      position: { x: -1, y: -2 },
-      color: PINK,
-    },
-    {
-      position: { x: 0, y: -2 },
-      color: ORANGE,
-    },
-    {
-      position: { x: 1, y: -2 },
-      color: LIME,
-    },
-    {
-      position: { x: 1, y: -1 },
-      color: RED,
-    },
-    {
-      position: { x: 0, y: -1 },
-      color: DARK_RED,
-    },
-    {
-      position: { x: 1, y: 0 },
-      color: BLUE,
-    },
-    {
-      position: { x: 0, y: 0 },
-      color: TURQUOISE,
-    },
-    {
-      position: { x: -1, y: 0 },
-      color: LIME,
-    },
-    {
-      position: { x: 1, y: 1 },
-      color: ORANGE,
-    },
-    {
-      position: { x: 0, y: 1 },
-      color: PINK,
-    },
-    {
-      position: { x: -1, y: 1 },
-      color: RED,
-    },
-    {
-      position: { x: -2, y: 1 },
-      color: DARK_RED,
-    },
-  ]
+  // Controls shown based on query param 'enableControls' presence
+  let showControls = page.url.searchParams.get('enableControls') !== null
+  let rotation = $state({ x: 0.1, y: 0.28, z: 0.32 })
+  let zoom = $state(60)
 </script>
 
-<T.PerspectiveCamera makeDefault position={[0, 0, 20]}>
-  <OrbitControls />
-</T.PerspectiveCamera>
+{#if showControls}
+  <Pane position="fixed" title="Scene Controls">
+    <RotationEuler label="Group Rotation" bind:value={rotation} />
+    <Slider label="Zoom" min={20} max={100} step={0.1} bind:value={zoom} />
+  </Pane>
+{/if}
 
-<T.DirectionalLight position={[0, 10, 10]} intensity={1} />
+<T.OrthographicCamera makeDefault position={[0, 0, 20]} {zoom}>
+  <OrbitControls />
+</T.OrthographicCamera>
+
+<T.DirectionalLight position={[0, 0, 10]} intensity={1} />
 <T.AmbientLight intensity={0.5} />
 
-{#each cubes as cube}
-  <Cube position={cube.position} color={cube.color} />
-{/each}
+<T.Group
+  rotation.x={rotation.x}
+  rotation.y={rotation.y}
+  rotation.z={rotation.z}>
+  {#each cubes as cube}
+    <Cube position={cube.position} color={cube.color} />
+  {/each}
+</T.Group>
