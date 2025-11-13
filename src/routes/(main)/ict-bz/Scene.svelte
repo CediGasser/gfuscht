@@ -12,6 +12,8 @@
 
   // Controls shown based on query param 'enableControls' presence
   let showControls = page.url.searchParams.get('enableControls') !== null
+  let disableOrbitControls =
+    page.url.searchParams.get('disableOrbitControls') !== null
   let rotationSetting = $state({ x: 0.1, y: 0.28, z: 0.32 })
   let zoomSetting = $state(60)
 
@@ -26,7 +28,7 @@
 
       // Scale to 1
       scaleFactor.target = 1
-      await sleep(200)
+      await sleep(400)
 
       // Rotate once
       rotationAngle.target = rotationAngle.current + Math.PI * 2
@@ -37,6 +39,7 @@
 
       // Go do initial positions
       await cubeSystem.animateToInitialPositions()
+      await sleep(1000)
     }
   }
 
@@ -58,7 +61,7 @@
 {/if}
 
 <T.OrthographicCamera makeDefault position={[0, 0, 20]} zoom={zoomSetting}>
-  <OrbitControls />
+  <OrbitControls enabled={!disableOrbitControls} />
 </T.OrthographicCamera>
 
 <T.DirectionalLight position={[0, 0, 10]} intensity={1} />

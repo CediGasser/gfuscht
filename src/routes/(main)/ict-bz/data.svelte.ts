@@ -28,9 +28,19 @@ function getCubes(): CubeType[] {
       color: GRAY,
     },
     {
+      initialPosition: { x: 2, y: 0 },
+      finalPosition: { x: -1, y: 0 },
+      color: LIME,
+    },
+    {
       initialPosition: { x: -3, y: -1 },
       finalPosition: { x: -1, y: -1 },
       color: GRAY,
+    },
+    {
+      initialPosition: { x: 4, y: 0 },
+      finalPosition: { x: 0, y: 0 },
+      color: TURQUOISE,
     },
     {
       initialPosition: { x: -5, y: -1 },
@@ -53,6 +63,16 @@ function getCubes(): CubeType[] {
       color: PINK,
     },
     {
+      initialPosition: { x: 6, y: 0 },
+      finalPosition: { x: 1, y: 0 },
+      color: BLUE,
+    },
+    {
+      initialPosition: { x: 1, y: -3 },
+      finalPosition: { x: 1, y: -1 },
+      color: RED,
+    },
+    {
       initialPosition: { x: 0, y: -2 },
       finalPosition: { x: 0, y: -2 },
       color: ORANGE,
@@ -63,29 +83,9 @@ function getCubes(): CubeType[] {
       color: LIME,
     },
     {
-      initialPosition: { x: 1, y: -3 },
-      finalPosition: { x: 1, y: -1 },
-      color: RED,
-    },
-    {
       initialPosition: { x: 0, y: -1 },
       finalPosition: { x: 0, y: -1 },
       color: DARK_RED,
-    },
-    {
-      initialPosition: { x: 6, y: 0 },
-      finalPosition: { x: 1, y: 0 },
-      color: BLUE,
-    },
-    {
-      initialPosition: { x: 4, y: 0 },
-      finalPosition: { x: 0, y: 0 },
-      color: TURQUOISE,
-    },
-    {
-      initialPosition: { x: 2, y: 0 },
-      finalPosition: { x: -1, y: 0 },
-      color: LIME,
     },
     {
       initialPosition: { x: 1, y: 2 },
@@ -119,8 +119,6 @@ function getCubes(): CubeType[] {
     }
   })
 
-  console.log(newCubes)
-
   return newCubes
 }
 
@@ -140,7 +138,7 @@ class CubeSystem {
       }, index * this.stagger)
     })
 
-    await sleep(this.cubes.length * this.stagger + 500)
+    await sleep(this.cubes.length * this.stagger)
   }
 
   public animateToInitialPositions = async () => {
@@ -150,7 +148,7 @@ class CubeSystem {
       }, index * this.stagger)
     })
 
-    await sleep(this.cubes.length * this.stagger + 500)
+    await sleep(this.cubes.length * this.stagger)
   }
 }
 
