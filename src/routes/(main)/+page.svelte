@@ -13,8 +13,7 @@
 <Seo
   title="Gfuscht"
   description="Gfuscht"
-  keywords="gfuscht, experiments, svelte, web, development, code"
-/>
+  keywords="gfuscht, experiments, svelte, web, development, code" />
 
 <main>
   <section>
@@ -22,8 +21,7 @@
       word="Gfuscht"
       phonetic="/gfu:ʃt/"
       type="Noun"
-      definition="Swiss German. A quick, spontaneous creation or experimental piece, often done with playful carelessness."
-    />
+      definition="Swiss German. A quick, spontaneous creation or experimental piece, often done with playful carelessness." />
   </section>
 
   <section>
@@ -44,6 +42,7 @@
       <li><a href="/wfc">Wave Function Collapse</a></li>
       <li><a href="/letterDecryptAnimation">Letter Decrypt Animation</a></li>
       <li><a href="/cubes">Cubes</a></li>
+      <li><a href="/ict-bz">ICT-BZ</a></li>
     </ul>
   </section>
 </main>

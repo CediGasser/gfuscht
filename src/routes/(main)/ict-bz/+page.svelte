@@ -14,5 +14,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+
+    background: radial-gradient(circle at center, #1e1e1e, #000000);
   }
 </style>
