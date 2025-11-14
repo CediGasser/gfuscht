@@ -31,8 +31,7 @@
 <Seo
   title="Clock"
   description="Digital clock with a fancy design. Click to toggle between 12 and 24 hours format."
-  keywords="clock, digital, fancy, design, 12 hours, 24 hours"
-/>
+  keywords="clock, digital, fancy, design, 12 hours, 24 hours" />
 
 <div class="clock">
   <Digit value={hours1} max={XIIHoursDay ? 1 : 2} />

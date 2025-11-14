@@ -8,24 +8,27 @@
     : 'clock'
 
   let XIIHoursDay = $state(false)
-  let dateTime = $state(new Date()) // Initialize date with 00:00:00
-  dateTime.setHours(0, 0, 0, 0) // Set hours, minutes, seconds, and milliseconds to 0
+  let initialDate = new Date()
+  initialDate.setHours(0, 0, 0, 0) // Set hours, minutes, seconds, and milliseconds to 0
+  let dateTime = $state(initialDate) // Initialize date with 00:00:00
 
   let targetTime: Date | null = $state(null)
 
   if (variant === 'countdown') {
-    targetTime = new Date()
+    const newTargetTime = new Date()
     let pageTime = page.url.searchParams
       .get('countdown')
       ?.split(':')
       .map(Number)
     if (!pageTime) pageTime = [0, 0, 0, 0]
-    targetTime.setHours(
+    newTargetTime.setHours(
       pageTime[0] ?? 0,
       pageTime[1] ?? 0,
       pageTime[2] ?? 0,
       pageTime[3] ?? 0
     )
+
+    targetTime = newTargetTime
   }
 
   setInterval(() => {
@@ -47,8 +50,7 @@
 <Seo
   title="Clock"
   description="Digital clock with a fancy design. Click to toggle between 12 and 24 hours format."
-  keywords="clock, digital, fancy, design, 12 hours, 24 hours"
-/>
+  keywords="clock, digital, fancy, design, 12 hours, 24 hours" />
 
 <main>
   <div
@@ -56,8 +58,7 @@
     onclick={() => (XIIHoursDay = !XIIHoursDay)}
     onkeypress={() => (XIIHoursDay = !XIIHoursDay)}
     role="button"
-    tabindex="0"
-  >
+    tabindex="0">
     <Clock XIIHoursDay={!targetTime && XIIHoursDay} {dateTime} />
   </div>
 </main>

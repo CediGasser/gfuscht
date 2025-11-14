@@ -63,6 +63,14 @@ export const getAccessToken = async ({
   authorizationCode,
   refreshToken,
 }: getAccessTokenParam) => {
+  if (
+    !publicEnv.PUBLIC_SPOTIFY_CLIENT_ID ||
+    !env.SPOTIFY_CLIENT_SECRET ||
+    !publicEnv.PUBLIC_SPOTIFY_REDIRECT_URI
+  ) {
+    throw new Error('Spotify API credentials are not set.')
+  }
+
   let body: TokenRequestData = {
     grant_type: 'refresh_token',
     redirect_uri: publicEnv.PUBLIC_SPOTIFY_REDIRECT_URI,
@@ -80,7 +88,7 @@ export const getAccessToken = async ({
     throw Error('No authorization code or refresh token provided.')
   }
 
-  // Otherwise, fetch a new token
+  // fetch a new token
   const accessToken = await fetch(token_endpoint, {
     method: 'POST',
     headers: {
