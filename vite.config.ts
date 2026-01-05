@@ -1,9 +1,15 @@
-import tailwindcss from '@tailwindcss/vite'
-import { sveltekit } from '@sveltejs/kit/vite'
-import type { UserConfig } from 'vite'
+import tailwindcss from "@tailwindcss/vite";
+import { sveltekit } from "@sveltejs/kit/vite";
+import { defineConfig } from "vitest/config";
 
-const config: UserConfig = {
+export default defineConfig({
   plugins: [tailwindcss(), sveltekit()],
-}
-
-export default config
+  test: {
+    include: ["src/**/*.{test,spec}.{js,ts}"],
+    environment: "jsdom",
+    globals: true,
+    alias: {
+      $lib: "/src/lib",
+    },
+  },
+});
