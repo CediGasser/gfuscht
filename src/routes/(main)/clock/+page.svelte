@@ -31,6 +31,8 @@
     targetTime = newTargetTime
   }
 
+  let title = $derived(page.url.searchParams.get('title'))
+
   setInterval(() => {
     if (targetTime) {
       const midnight = new Date()
@@ -53,6 +55,9 @@
   keywords="clock, digital, fancy, design, 12 hours, 24 hours" />
 
 <main>
+  {#if title}
+    <h1>{title}</h1>
+  {/if}
   <div
     class="wrapper"
     onclick={() => (XIIHoursDay = !XIIHoursDay)}
@@ -70,6 +75,12 @@
     justify-content: center;
     align-items: center;
     background: var(--theme-base);
+  }
+
+  h1 {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
   }
 
   .wrapper {
