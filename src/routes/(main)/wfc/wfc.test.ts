@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import Wfc, { generateTiles, type RawTile } from "./wfc";
+import Wfc, { generateTiles, reverseSocket, type RawTile } from "./wfc";
 import fullTiles from "./tilesets/tiles.json";
 import pinkTiles from "./tilesets/less_tiles.json";
 
@@ -16,6 +16,47 @@ describe("generateTiles", () => {
     ]);
     expect(tiles.map((t) => t.sockets.join(""))).toEqual(["TRBL", "LTRB", "BLTR", "RBLT"]);
     expect(tiles.map((t) => t.rotation)).toEqual([0, 90, 180, 270]);
+  });
+});
+
+describe("split sockets", () => {
+  // Corners top-left, top-right, bottom-right, bottom-left to clockwise edges
+  const fromCorners = ([tl, tr, br, bl]: string[]) => [`${tl}|${tr}`, `${tr}|${br}`, `${br}|${bl}`, `${bl}|${tl}`];
+  // Rotating the image 90° clockwise moves the bottom-left corner to the top-left
+  const rotateCorners = (corners: string[], rotation: number) => {
+    let result = corners;
+    for (let r = 0; r < rotation; r += 90) result = [result[3], result[0], result[1], result[2]];
+    return result;
+  };
+
+  it("reverses split sockets", () => {
+    expect(reverseSocket("G|S")).toBe("S|G");
+    expect(reverseSocket("G|r|S")).toBe("S|r|G");
+    expect(reverseSocket("p2")).toBe("p2");
+  });
+
+  it("matches rotated corner tiles exactly when their shared corners agree", () => {
+    const shapes = [
+      ["G", "G", "S", "S"],
+      ["G", "G", "G", "S"],
+      ["G", "S", "S", "S"],
+    ];
+    const raw: RawTile[] = shapes.map((corners, i) => ({
+      name: `shape${i}`,
+      sockets: fromCorners(corners),
+      rotationVariants: [0, 90, 180, 270],
+    }));
+    const corners = raw.flatMap((tile, i) => tile.rotationVariants.map((r) => rotateCorners(shapes[i], r)));
+
+    const wfc = new Wfc(raw, 2, 1, 1);
+    for (let a = 0; a < wfc.tiles.length; a++) {
+      wfc.cells = [[a], wfc.tiles.map((_, i) => i)];
+      wfc.reduce({ x: 1, y: 0 });
+      const expected = corners
+        .map((c, b) => (c[0] === corners[a][1] && c[3] === corners[a][2] ? b : -1))
+        .filter((b) => b >= 0);
+      expect(wfc.cells[1]).toEqual(expected);
+    }
   });
 });
 

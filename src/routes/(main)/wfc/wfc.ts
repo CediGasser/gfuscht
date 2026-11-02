@@ -8,6 +8,11 @@ export type Side = (typeof SIDES)[number];
 
 export type RawTile = {
   name: string;
+  /**
+   * Edges in the order top, right, bottom, left. An edge can be split into parts
+   * with "|", read clockwise around the tile (e.g. "G|S": grass then sand). Two
+   * edges fit when one is the other reversed, so unsplit sockets simply have to be equal.
+   */
   sockets: string[];
   rotationVariants: number[];
 };
@@ -80,6 +85,9 @@ const SIDE_OFFSETS: Position[] = [
 ];
 
 const opposite = (side: number) => (side + 2) % 4;
+
+// Neighboring edges are read in opposite directions, see RawTile.sockets
+export const reverseSocket = (socket: string) => socket.split("|").reverse().join("|");
 
 export function generateTiles(tiles: RawTile[]): Tile[] {
   const result: Tile[] = [];
@@ -194,7 +202,7 @@ export default class Wfc {
     const neighbor = this.neighbor(pos, side);
     if (!neighbor) return null;
     const facing = opposite(side);
-    return new Set(this.cellAt(neighbor, cells).map((t) => this.tiles[t].sockets[facing]));
+    return new Set(this.cellAt(neighbor, cells).map((t) => reverseSocket(this.tiles[t].sockets[facing])));
   }
 
   private pushToStack(positions: Position[]) {

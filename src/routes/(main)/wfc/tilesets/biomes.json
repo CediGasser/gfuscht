@@ -1,0 +1,87 @@
+[
+  {
+    "name": "water.png",
+    "sockets": ["W|W", "W|W", "W|W", "W|W"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "sand.png",
+    "sockets": ["S|S", "S|S", "S|S", "S|S"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "grass.png",
+    "sockets": ["G|G", "G|G", "G|G", "G|G"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "forest.png",
+    "sockets": ["F|F", "F|F", "F|F", "F|F"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "sand_water_edge.png",
+    "sockets": ["S|S", "S|W", "W|W", "W|S"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "sand_water_corner.png",
+    "sockets": ["S|S", "S|S", "S|W", "W|S"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "sand_water_inner.png",
+    "sockets": ["S|W", "W|W", "W|W", "W|S"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "grass_sand_edge.png",
+    "sockets": ["G|G", "G|S", "S|S", "S|G"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "grass_sand_corner.png",
+    "sockets": ["G|G", "G|G", "G|S", "S|G"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "grass_sand_inner.png",
+    "sockets": ["G|S", "S|S", "S|S", "S|G"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "forest_grass_edge.png",
+    "sockets": ["F|F", "F|G", "G|G", "G|F"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "forest_grass_corner.png",
+    "sockets": ["F|F", "F|F", "F|G", "G|F"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "forest_grass_inner.png",
+    "sockets": ["F|G", "G|G", "G|G", "G|F"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "river_spring.png",
+    "sockets": ["G|G", "G|G", "G|r|G", "G|G"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "river_grass.png",
+    "sockets": ["G|r|G", "G|G", "G|r|G", "G|G"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "river_coast.png",
+    "sockets": ["G|r|G", "G|S", "S|r|S", "S|G"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "river_mouth.png",
+    "sockets": ["S|r|S", "S|W", "W|W", "W|S"],
+    "rotationVariants": [0]
+  }
+]
