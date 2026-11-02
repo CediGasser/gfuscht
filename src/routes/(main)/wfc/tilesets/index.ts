@@ -3,6 +3,7 @@ import directedTiles from "./directed_tiles.json";
 import allTiles from "./tiles.json";
 import pinkTiles from "./less_tiles.json";
 import biomeTiles from "./biomes.json";
+import overworldTiles from "./overworld.json";
 
 export type Tileset = {
   id: string;
@@ -17,6 +18,7 @@ export const tilesets: Tileset[] = [
   { id: "all", label: "All rotations", tiles: allTiles, imageBase: "/wfc-images/" },
   { id: "pink", label: "Pink only", tiles: pinkTiles, imageBase: "/wfc-images/" },
   { id: "biomes", label: "Biomes", tiles: biomeTiles, imageBase: "/wfc-images/biomes/" },
+  { id: "overworld", label: "Overworld (deweb)", tiles: overworldTiles, imageBase: "/wfc-images/overworld/" },
 ];
 
 export const getTileset = (id: string | null) => tilesets.find((t) => t.id === id) ?? tilesets[0];

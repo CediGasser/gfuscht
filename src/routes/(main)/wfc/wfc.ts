@@ -15,12 +15,15 @@ export type RawTile = {
    */
   sockets: string[];
   rotationVariants: number[];
+  /** Relative frequency when a cell is collapsed, defaults to 1 */
+  weight?: number;
 };
 
 export type Tile = {
   name: string;
   sockets: string[];
   rotation: number;
+  weight: number;
 };
 
 export type Position = {
@@ -93,16 +96,18 @@ export function generateTiles(tiles: RawTile[]): Tile[] {
   const result: Tile[] = [];
   for (const tile of tiles) {
     const sockets = tile.sockets;
+    const weight = tile.weight ?? 1;
     for (const rotation of tile.rotationVariants) {
       switch (rotation) {
         case 0:
-          result.push({ name: tile.name, sockets: tile.sockets, rotation: 0 });
+          result.push({ name: tile.name, sockets: tile.sockets, rotation: 0, weight });
           break;
         case 90:
           result.push({
             name: tile.name,
             sockets: [sockets[LEFT], sockets[TOP], sockets[RIGHT], sockets[BOTTOM]],
             rotation: 90,
+            weight,
           });
           break;
         case 180:
@@ -110,6 +115,7 @@ export function generateTiles(tiles: RawTile[]): Tile[] {
             name: tile.name,
             sockets: [sockets[BOTTOM], sockets[LEFT], sockets[TOP], sockets[RIGHT]],
             rotation: 180,
+            weight,
           });
           break;
         case 270:
@@ -117,6 +123,7 @@ export function generateTiles(tiles: RawTile[]): Tile[] {
             name: tile.name,
             sockets: [sockets[RIGHT], sockets[BOTTOM], sockets[LEFT], sockets[TOP]],
             rotation: 270,
+            weight,
           });
           break;
       }
@@ -142,6 +149,15 @@ export class Rng {
 
   pick<T>(items: readonly T[]): T {
     return items[Math.floor(this.next() * items.length)];
+  }
+
+  pickWeighted<T>(items: readonly T[], weight: (item: T) => number): T {
+    let rest = this.next() * items.reduce((sum, item) => sum + weight(item), 0);
+    for (const item of items) {
+      rest -= weight(item);
+      if (rest < 0) return item;
+    }
+    return items[items.length - 1];
   }
 }
 
@@ -270,7 +286,7 @@ export default class Wfc {
       const next = this.getLowestEntropyTile();
       if (!next) return "done";
 
-      const tile = this.rng.pick(this.cellAt(next));
+      const tile = this.rng.pickWeighted(this.cellAt(next), (t) => this.tiles[t].weight);
       this.cells[this.index(next)] = [tile];
       this.pushOpenNeighbors(next);
       yield { type: "collapse", pos: next, tile };

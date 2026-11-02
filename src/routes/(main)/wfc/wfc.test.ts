@@ -129,3 +129,16 @@ describe("Wfc", () => {
     expect(wfc.cells).toEqual([all, all, all, [1], [2], all]);
   });
 });
+
+describe("weights", () => {
+  it("prefers heavier tiles when collapsing", () => {
+    const tiles: RawTile[] = [
+      { name: "rare", sockets: ["a", "a", "a", "a"], rotationVariants: [0] },
+      { name: "common", sockets: ["a", "a", "a", "a"], rotationVariants: [0], weight: 9 },
+    ];
+    const wfc = new Wfc(tiles, 20, 20, 3);
+    wfc.run();
+    const common = wfc.cells.filter((cell) => cell[0] === 1).length;
+    expect(common / wfc.cells.length).toBeGreaterThan(0.8);
+  });
+});

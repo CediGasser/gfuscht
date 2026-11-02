@@ -1,0 +1,129 @@
+[
+  {
+    "name": "tile01.png",
+    "sockets": ["g", "g", "g", "g"],
+    "rotationVariants": [0],
+    "weight": 100
+  },
+  {
+    "name": "tile02.png",
+    "sockets": ["r", "r|r|g", "g", "g|r|r"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile03.png",
+    "sockets": ["r|r|g", "g", "g", "g|r|r"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile04.png",
+    "sockets": ["r", "r|r|g", "g|r|r", "r"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile05.png",
+    "sockets": ["g|r|r", "r|r|g", "g", "g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile06.png",
+    "sockets": ["r", "r", "r|r|g", "g|r|r"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile07.png",
+    "sockets": ["r|r|g", "g", "g|r|r", "r"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile08.png",
+    "sockets": ["g", "g", "g|r|r", "r|r|g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile09.png",
+    "sockets": ["r|r|g", "g|r|r", "r", "r"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile10.png",
+    "sockets": ["g|r|r", "r", "r|r|g", "g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile11.png",
+    "sockets": ["g", "g|r|r", "r|r|g", "g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile12.png",
+    "sockets": ["g|r|r", "r", "r", "r|r|g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile13.png",
+    "sockets": ["g", "g|r|r", "r", "r|r|g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile14.png",
+    "sockets": ["r", "r", "r", "r"],
+    "rotationVariants": [0],
+    "weight": 1
+  },
+  {
+    "name": "tile15.png",
+    "sockets": ["g", "g|w|g", "g|w|g", "g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile16.png",
+    "sockets": ["g", "g|w|g", "g", "g|w|g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile17.png",
+    "sockets": ["g|w|g", "g", "g|w|g", "g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile20.png",
+    "sockets": ["g", "g", "g|w|g", "g|w|g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile21.png",
+    "sockets": ["g|w|g", "g|w|g", "g", "g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile22.png",
+    "sockets": ["g|w|g", "g", "g", "g|w|g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile23.png",
+    "sockets": ["g|w|g", "g", "g|w|g", "g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile24.png",
+    "sockets": ["g", "g|w|g", "g", "g|w|g"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile25.png",
+    "sockets": ["r", "r", "r|w|r", "r"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile26.png",
+    "sockets": ["r|w|r", "r|r|g", "g|w|g", "g|r|r"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "tile27.png",
+    "sockets": ["g|w|g", "g", "g", "g"],
+    "rotationVariants": [0]
+  }
+]
