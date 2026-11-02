@@ -17,47 +17,47 @@
   {
     "name": "sand_water_edge.png",
     "sockets": ["S|S", "S|W", "W|W", "W|S"],
-    "rotationVariants": [0]
+    "rotationVariants": [0, 90, 180, 270]
   },
   {
     "name": "sand_water_corner.png",
     "sockets": ["S|S", "S|S", "S|W", "W|S"],
-    "rotationVariants": [0]
+    "rotationVariants": [0, 90, 180, 270]
   },
   {
     "name": "sand_water_inner.png",
     "sockets": ["S|W", "W|W", "W|W", "W|S"],
-    "rotationVariants": [0]
+    "rotationVariants": [0, 90, 180, 270]
   },
   {
     "name": "grass_sand_edge.png",
     "sockets": ["G|G", "G|S", "S|S", "S|G"],
-    "rotationVariants": [0]
+    "rotationVariants": [0, 90, 180, 270]
   },
   {
     "name": "grass_sand_corner.png",
     "sockets": ["G|G", "G|G", "G|S", "S|G"],
-    "rotationVariants": [0]
+    "rotationVariants": [0, 90, 180, 270]
   },
   {
     "name": "grass_sand_inner.png",
     "sockets": ["G|S", "S|S", "S|S", "S|G"],
-    "rotationVariants": [0]
+    "rotationVariants": [0, 90, 180, 270]
   },
   {
     "name": "forest_grass_edge.png",
     "sockets": ["F|F", "F|G", "G|G", "G|F"],
-    "rotationVariants": [0]
+    "rotationVariants": [0, 90, 180, 270]
   },
   {
     "name": "forest_grass_corner.png",
     "sockets": ["F|F", "F|F", "F|G", "G|F"],
-    "rotationVariants": [0]
+    "rotationVariants": [0, 90, 180, 270]
   },
   {
     "name": "forest_grass_inner.png",
     "sockets": ["F|G", "G|G", "G|G", "G|F"],
-    "rotationVariants": [0]
+    "rotationVariants": [0, 90, 180, 270]
   },
   {
     "name": "river_spring.png",
