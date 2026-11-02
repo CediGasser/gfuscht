@@ -52,10 +52,11 @@
 
 <style>
   .grid {
-    --cell: min(
-      64px,
-      calc((100vw - 2rem) / var(--columns)),
-      calc((100dvh - 2rem) / var(--rows))
+    /* Whole pixels only, fractional cell sizes leave thin gaps between tiles */
+    --cell: round(
+      down,
+      min(64px, calc((100vw - 2rem) / var(--columns)), calc((100dvh - 2rem) / var(--rows))),
+      1px
     );
     display: grid;
     grid-template-columns: repeat(var(--columns), var(--cell));
