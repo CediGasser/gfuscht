@@ -190,8 +190,12 @@ export default class Wfc {
     return cells[this.index(pos)];
   }
 
+  get rngState() {
+    return this.rng.state;
+  }
+
   getState(): WfcState {
-    return { cells: this.cells.slice(), stack: this.stack.slice(), rngState: this.rng.state };
+    return { cells: this.cells.slice(), stack: this.stack.slice(), rngState: this.rngState };
   }
 
   setState(state: WfcState) {

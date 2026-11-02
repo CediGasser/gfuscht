@@ -9,21 +9,28 @@
   import { tilesets, getTileset } from './tilesets'
   import { randomSeed, type Direction, type Position, type WfcStep } from './wfc'
 
-  const HEIGHT = 10
-  const WIDTH = 10
+  const DEFAULT_SIZE = 10
+  const MIN_SIZE = 2
+  const MAX_SIZE = 100
+
+  const clampSize = (value: number) =>
+    Number.isInteger(value) ? Math.min(MAX_SIZE, Math.max(MIN_SIZE, value)) : DEFAULT_SIZE
 
   const seedParam = Number(page.url.searchParams.get('seed'))
+  const sizeParam = page.url.searchParams.get('size')
+  const initialSize = sizeParam ? clampSize(Number(sizeParam)) : DEFAULT_SIZE
 
   const initialTileset = getTileset(page.url.searchParams.get('tileset'))
 
   let tileset = $state(initialTileset)
   const player = new WfcPlayer(
     initialTileset.tiles,
-    WIDTH,
-    HEIGHT,
+    initialSize,
+    initialSize,
     Number.isSafeInteger(seedParam) && seedParam > 0 ? seedParam : randomSeed()
   )
   let seedInput = $state(player.seed)
+  let sizeInput = $state(initialSize)
   let selected: Position | null = $state(null)
 
   const inspection = $derived(selected && player.inspect(selected))
@@ -32,12 +39,15 @@
   const toSlider = (speed: number) => Math.log10(speed) * 25
   const fromSlider = (value: number) => Math.round(10 ** (value / 25))
 
-  const restart = (seed: number) => {
-    player.reset(tileset.tiles, seed)
+  const restart = (seed: number, size = player.width) => {
+    if (size !== player.width) selected = null
+    player.reset(tileset.tiles, seed, size, size)
     seedInput = seed
+    sizeInput = size
     const url = new URL(page.url)
     url.searchParams.set('tileset', tileset.id)
     url.searchParams.set('seed', String(seed))
+    url.searchParams.set('size', String(size))
     replaceState(url, page.state)
     player.play()
   }
@@ -103,8 +113,8 @@
 <main>
   <WfcGrid
     cells={player.current.cells}
-    width={WIDTH}
-    height={HEIGHT}
+    width={player.width}
+    height={player.height}
     tiles={player.tiles}
     imageBase={tileset.imageBase}
     stack={player.current.stack}
@@ -190,6 +200,21 @@
               <option value={t.id}>{t.label}</option>
             {/each}
           </select>
+        </label>
+      </div>
+
+      <div class="row">
+        <label>
+          <span class="label">Grid size</span>
+          <input
+            class="size"
+            type="number"
+            min={MIN_SIZE}
+            max={MAX_SIZE}
+            bind:value={sizeInput}
+            onchange={() => restart(player.seed, clampSize(sizeInput))}
+          />
+          <span class="value">{player.width} × {player.height}</span>
         </label>
       </div>
 
@@ -326,6 +351,9 @@
   }
   .seed {
     width: 9rem;
+  }
+  .size {
+    width: 5rem;
   }
   .status {
     min-height: 2.75rem;
