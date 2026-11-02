@@ -5,11 +5,6 @@
     "rotationVariants": [0]
   },
   {
-    "name": "sand.png",
-    "sockets": ["S|S", "S|S", "S|S", "S|S"],
-    "rotationVariants": [0]
-  },
-  {
     "name": "grass.png",
     "sockets": ["G|G", "G|G", "G|G", "G|G"],
     "rotationVariants": [0]
@@ -66,22 +61,47 @@
   },
   {
     "name": "river_spring.png",
-    "sockets": ["G|G", "G|G", "G|r|G", "G|G"],
+    "sockets": ["G|G", "G|G", "G|~|G", "G|G"],
     "rotationVariants": [0]
   },
   {
     "name": "river_grass.png",
-    "sockets": ["G|r|G", "G|G", "G|r|G", "G|G"],
+    "sockets": ["G|~|G", "G|G", "G|~|G", "G|G"],
     "rotationVariants": [0]
   },
   {
     "name": "river_coast.png",
-    "sockets": ["G|r|G", "G|S", "S|r|S", "S|G"],
+    "sockets": ["G|~|G", "G|S", "S|~|S", "S|G"],
     "rotationVariants": [0]
   },
   {
     "name": "river_mouth.png",
-    "sockets": ["S|r|S", "S|W", "W|W", "W|S"],
+    "sockets": ["S|~|S", "S|W", "W|W", "W|S"],
+    "rotationVariants": [0]
+  },
+  {
+    "name": "road_straight.png",
+    "sockets": ["G|=|G", "G|G", "G|=|G", "G|G"],
+    "rotationVariants": [0, 90]
+  },
+  {
+    "name": "road_curve.png",
+    "sockets": ["G|G", "G|=|G", "G|=|G", "G|G"],
+    "rotationVariants": [0, 90, 180, 270]
+  },
+  {
+    "name": "road_t.png",
+    "sockets": ["G|G", "G|=|G", "G|=|G", "G|=|G"],
+    "rotationVariants": [0, 90, 180, 270]
+  },
+  {
+    "name": "road_house.png",
+    "sockets": ["G|G", "G|G", "G|=|G", "G|G"],
+    "rotationVariants": [0, 90, 180, 270]
+  },
+  {
+    "name": "road_bridge.png",
+    "sockets": ["G|~|G", "G|=|G", "G|~|G", "G|=|G"],
     "rotationVariants": [0]
   }
 ]
